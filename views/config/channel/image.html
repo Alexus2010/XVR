@@ -1,0 +1,289 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [{name: lang.imgColor, attr: "class='current'"}]) }}
+    <div class="tag-block ">
+        <div class="form-item">
+            <span class="width200">{{=lang.channel}}
+            </span>
+            <span>
+                <select class="medium-select J-img-channel"></select>
+            </span>
+        </div>
+        <div id="videoBlock" class="video-block"></div>
+        <div class="hide control-setting J-control-setting">
+            <div class="img-tab J-img-tab">
+                <!-- 图像调节 -->
+                <h3 class="J-img-adjust">{{=lang.imgAdjust}}</h3>
+                <div class="img-container">
+                    <div class="row-height">
+                        <span class="slide-title">{{=lang.brightness}}</span>
+                        <div slider="gipcclrbrightness"></div>
+                        <input class="mini-input" maxlength="3" matchval="imageParam.base.brightness." type="text" min="0" max="255" def="128"
+                            value="0" />
+                    </div>
+                    <div class="row-height">
+                        <span class="slide-title">{{=lang.contrast}}</span>
+                        <div slider="gipcclrcontrast"></div>
+                        <input class="mini-input" maxlength="3" matchval="imageParam.base.contrast." type="text" min="0" max="255" def="128"
+                            value="0" />
+                    </div>
+                    <div class="row-height">
+                        <span class="slide-title">{{=lang.saturation}}</span>
+                        <div slider="gipcclrsaturation"></div>
+                        <input class="mini-input" maxlength="3" matchval="imageParam.base.saturation." type="text" min="0" max="255" def="128"
+                            value="0" />
+                    </div>
+                    <div class="row-height">
+                        <span class="slide-title">{{=lang.sharpness}}</span>
+                        <div slider="gipcclrsharpness"></div>
+                        <input class="mini-input" maxlength="3" matchval="imageParam.base.sharpness." type="text" min="0" max="255" def="128"
+                            value="0" />
+                    </div>
+                    <div class="row-height J-xvr-eq">
+                        <span class="slide-title">eq</span>
+                        <div slider="gipcclreq"></div>
+                        <input class="mini-input" maxlength="3" matchval="imageParam.eq." type="text" min="0" max="6" def="0"
+                            value="0" />
+                    </div>
+                </div>
+
+                <!-- 补光 日夜模式 -->
+                <h3 class="hide J-light-balance">{{=lang.imgLightBalance}}</h3>
+                <div class="no-padding hide">
+                    <div class="row-height">
+                        <span class="slide-title">{{=lang.imgLBMode}}</span>
+                        <!-- 补光模式 -->
+                        {{= dotRender("formSelectModel", {
+                        "list": [lang.autoImage, lang.lbModeDay, lang.lbModeNight,lang.lbModeTime],
+                        "attr": {"id": "selLBModeHi", class: "small-select", matchval: "imageParam.fillLight.mode."}
+                        }) }}
+                        <!-- 灵敏度 -->
+                        <div class="row-height J-notime">
+                            <span class="slide-title">{{=lang.sensitivity}}</span>
+                            {{= dotRender("formSelectModel", {
+                            "list": [0,1,2,3,4,5,6,7],
+                            "attr": { class: "small-select J-fillLight-sensitivity", matchval: "imageParam.fillLight.sensitivity."}
+                            }) }}
+                        </div>
+                        <!-- 过滤时间 -->
+                        <div class="row-height J-notime">
+                            <span class="slide-title">{{=lang.lbFilterTime}}</span>
+                            {{= dotRender("formSelectModel", {
+                            "list": [3,4,5,6,7,8,9,10],
+                            "attr": { class: "small-select J-fillLight-filtrationTime", matchval: "imageParam.fillLight.filtrationTime."}
+                            }) }}
+                        </div>
+                        <!-- 天亮时间 -->
+                        <div class="row-height J-timing">
+                            <span class="slide-title">{{=lang.daytime}}</span>
+                            <select id="selDaytimeHour" class="small-select"></select>&nbsp;:&nbsp;
+                            <select id="selDaytimeMin" class="small-select"></select>
+                        </div>
+                        <!-- 天黑时间 -->
+                        <div class="row-height J-timing">
+                            <span class="slide-title">{{=lang.nighttime}}</span>
+                            <select id="selNighttimeHour" class="small-select"></select>&nbsp;:&nbsp;
+                            <select id="selNighttimeMin" class="small-select"></select>
+                        </div>
+                        <!-- 灯光亮度 -->
+                        <div class="row-height">
+                            <span class="slide-title">{{=lang.lbLighting}}</span>
+                            <div slider="ghssmartiruclightval"></div>
+                            <input type="text" id="iptHisiLighting" matchval="imageParam.fillLight.lightBrightness." class="mini-input" maxlength="3"
+                                min="0" max="255" def="0" value="0">
+                        </div>
+                    </div>
+                </div>
+                <!-- 曝光 -->
+                <h3 class="hide J-img-exposure">{{=lang.imgExposure}}</h3>
+                <div class="hide">
+                    <div class="img-container">
+                        <!-- 曝光模式 -->
+                        <div class="row-height">
+                            <span class="slide-title ">{{=lang.imgExpMode}}</span>
+                            <input type="radio" name="iptExpMode" matchval="imageParam.exposure.mode." value="0">{{=lang.autoImage}}
+                            <input type="radio" name="iptExpMode" matchval="imageParam.exposure.mode." value="1">{{=lang.manual}}
+                        </div>
+                        <!-- 电子快门 -->
+                        <div class="row-height">
+                            <span class="slide-title ">{{=lang.ElcShutter}}</span>
+                            {{= dotRender("formSelectModel", {
+                            "list": ['1/25', '1/30',
+                            '1/75','1/100','1/120','1/150','1/250','1/300','1/425','1/600','1/1000','1/1250','1/1750','1/2500','1/3500','1/6000','1/10000'],
+                            "attr": {"id": "selElcShutter", class: "small-select", matchval: "imageParam.exposure.electronicShutte."}
+                            }) }}
+                        </div>
+                        <!-- 增益调节 -->
+                        <div class="row-height">
+                            <span class="slide-title J-epGainAdjust">{{=lang.epGainAdjust}}</span>
+                            <div slider="gipcclrngainctrl"></div>
+                            &nbsp;
+                            <input type="text" id="iptGainAdjust" matchval="imageParam.exposure.gainCtrl." class="mini-input" maxlength="3" min="0"
+                                max="255" def="0" value="0">
+                        </div>
+                    </div>
+                </div>
+                <!-- 背光 -->
+                <h3 class="hide J-backlight">{{=lang.imgBkLight}}</h3>
+                <div class="img-container hide">
+                    <!-- 背光补偿 -->
+                    <div class="row-height">
+                        <span class="slide-title">{{=lang.imgBkCps}}</span>
+                        <input type="radio" name="iptBkCps" matchval="imageParam.backlight.enable." str="1" value="false">{{=lang.dnrModel0}}
+                        <input type="radio" name="iptBkCps" matchval="imageParam.backlight.enable." str="1" value="true">{{=lang.setOn}}
+                    </div>
+                    <!-- 背光量 -->
+                    <div class="row-height">
+                        <span class="slide-title ">{{=lang.imgBkQua}}</span>
+                        {{= dotRender("formSelectModel", {
+                        "list": [lang.imgBkLess, lang.imgBkMid,lang.imgBkMost],
+                        "attr": {"id": "selBkQua", class: "small-select", matchval: "imageParam.backlight.strength."}
+                        }) }}
+                    </div>
+                </div>
+                <!-- 白平衡 -->
+                <h3 class="hide J-white-balance">{{=lang.imgWB}}</h3>
+                <div class="img-container hide">
+                    <!-- 白平衡模式 -->
+                    <div class="row-height">
+                        <span class="slide-title ">{{=lang.imgWB}}</span>
+                        {{= dotRender("formSelectModel", {
+                        "list": [lang.autoImage, lang.manual],
+                        "attr": {"id": "selWB", class: "small-select", matchval: "imageParam.whiteBalance.mode."}
+                        }) }}
+                    </div>
+                    <!-- 红增 -->
+                    <div class="row-height">
+                        <span class="slide-title ">{{=lang.imgRedGain}}</span>
+                        <div slider="gipcclrngainrctrl"></div>
+                        <input type="text" id="iptRedGain" class="mini-input" value="0" maxlength="3" matchval="imageParam.whiteBalance.gainRCtrl."
+                            min="0" max="255" def="0">
+                    </div>
+                    <!-- 绿增 -->
+                    <div class="row-height" id="imgGreenGain">
+                        <span class="slide-title ">{{=lang.imgGreenGain}}</span>
+                        <div slider="gipcclrngaingctrl"></div>
+                        <input type="text" id="iptGreenGain" class="mini-input" value="0" maxlength="3" matchval="imageParam.whiteBalance.gainGCtrl."
+                            min="0" max="255" def="0">
+                    </div>
+                    <!-- 蓝增 -->
+                    <div class="row-height" id="imgBlueGain">
+                        <span class="slide-title ">{{=lang.imgBlueGain}}</span>
+                        <div slider="gipcclrngainbctrl"></div>
+                        <input type="text" id="iptBlueGain" class="mini-input" value="0" maxlength="3" matchval="imageParam.whiteBalance.gainBCtrl."
+                            min="0" max="255" def="0">
+                    </div>
+                </div>
+                <!-- 视频调节 -->
+                <h3 class="hide hisi J-video-adjust">{{=lang.videoAdjust}}</h3>
+                <div class="hide no-padding">
+                    <!-- 数字降噪 -->
+                    <div class="row-height">
+                        <span class="slide-title width90">{{=lang.digitDenoise}}</span>
+                        {{= dotRender("formSelectModel", {
+                        "list": [lang.dnrModel0, lang.digitDenoise2, lang.digitDenoise3, lang.allEnb],
+                        "attr": {"id": "selDigitDenoise", class: "small-select", matchval: "imageParam.digitalDenoise.mode."}
+                        }) }}
+                    </div>
+                    <!-- 数字降噪（2D) -->
+                    <div class="row-height" id="digitDenoise2">
+                        <span class="slide-title width90">{{=lang.digitDenoise2}}</span>
+                        <div slider="gipcclrucdnr2dstrength"></div>
+                        <input type="text" matchval="imageParam.digitalDenoise.2DStrength." id="iptDigitDenoise2" class="mini-input" value="0" min="0"
+                            max="255" def="0" maxlength="3">
+                    </div>
+                    <!-- 数字降噪（3D） -->
+                    <div class="row-height">
+                        <span class="slide-title width90">{{=lang.digitDenoise3}}</span>
+                        <div slider="gipcclrucdnr3dstrength"></div>
+                        <input type="text" matchval="imageParam.digitalDenoise.3DStrength." id="iptDigitDenoise3" class="mini-input" value="0" min="0"
+                            max="255" def="0" maxlength="3">
+                    </div>
+                </div>
+
+                <!-- 图像增强 -->
+                <h3 class="hide J-img-enhance">{{=lang.imgEnhance}}</h3>
+                <div class="hide img-container ">
+                    <!-- 闪烁控制 -->
+                    <div class="row-height">
+                        <span class="slide-title width90">{{=lang.imgEhFlickerCtl}}</span>
+                        {{= dotRender("formSelectModel", {
+                        "list": [ lang.roomNtsc, lang.roomPal],
+                        "attr": {"id": "selFlickerCtl", class: "small-select", matchval: "imageParam.imageEnhance.scintillaCtrl."}
+                        }) }}
+                    </div>
+                    <!-- 宽动态开关 -->
+                    <div class="row-height">
+                        <span class="slide-title width90">{{=lang.imgEhWDCtl}}</span>
+                        {{= dotRender("formSelectModel", {
+                        "list": [lang.imageOff, lang.autowifi, lang.week, lang.normal, lang.strong, lang.most],
+                        "attr": {"id": "selWDCtl", class: "small-select", matchval: "imageParam.imageEnhance.wdrMode."}
+                        }) }}
+                    </div>
+                </div>
+                <!-- 去雾 -->
+                <h3 class="hide hisi J-img-defog">{{=lang.imgDefog}}</h3>
+                <div class="img-container hisi">
+                    <!-- 去雾模式 -->
+                    <div class="row-height">
+                        <span class="slide-title">{{=lang.defogMode}}</span>
+                        {{= dotRender("formSelectModel", {
+                        "list": [lang.dnrModel0, lang.deladdedeable, lang.autoImage],
+                        "attr": {"id": "selDefogMode", class: "small-select", matchval: "imageParam.defog.mode."}
+                        }) }}
+                    </div>
+                    <!-- 去雾强度 -->
+                    <div class="row-height">
+                        <span class="slide-title">{{=lang.defogStrength}}</span>
+                        <div slider="gipcclrucdefogstrength"></div>
+                        <input type="text" matchval="imageParam.defog.strength." id="iptDefogStrength" class="mini-input" value="0" min="0" max="255"
+                            def="0" maxlength="3">
+                    </div>
+                </div>
+
+                <!-- ircut -->
+                <h3 class="hide J-ircut">{{=lang.ircut}}</h3>
+                <div class="hide">
+                    <div class="row-height">
+                        <span class="slide-title width90">{{=lang.ircutmode}}</span>
+                        {{= dotRender("formSelectModel", {
+                        "list": [lang.imgLBsrAuto, lang.imgLBVideoAuto, lang.imgLBClrMode,lang.imgLBBawMode],
+                        "attr": {"id": "selLBModeFh", class: "small-select", matchval: "imageParam.ircut.mode."}
+                        }) }}
+                    </div>
+                    <div class="row-height">
+                        <span class="slide-title width90">{{=lang.imgLBSwitchTime}}</span>
+                        {{= dotRender("formSelectModel", {
+                        "list": [2,3,4,5,6,7,8,9,10],
+                        "attr": {"id": "selLBst", class: "small-select", matchval: "imageParam.ircut.switchTime."}
+                        }) }}
+                    </div>
+                </div>
+
+                <!-- 灯板控制 -->
+                <h3 class="hide J-lightBoard">{{=lang.lightBoard}}</h3>
+                <div class="hide">
+                    <div class="row-height">
+                        <span class="slide-title width90">{{=lang.lightBoardMode}}</span>
+                        {{= dotRender("formSelectModel", {
+                        "list": [lang.lightBoardMode1, lang.lightBoardMode2, lang.lightBoardMode3,lang.lightBoardMode4],
+                        "attr": {"id": "selLBMode", class: "small-select", matchval: "imageParam.lightBoard.mode."}
+                        }) }}
+                    </div>
+                    <div class="row-height">
+                        <span class="slide-title width90">{{=lang.levelControl}}</span>
+                        {{= dotRender("formSelectModel", {
+                        "list": [lang.levelControlMode1, lang.levelControlMode2, lang.levelControlMode3],
+                        "attr": {"id": "selLCMode", class: "small-select", matchval: "imageParam.lightBoard.level."}
+                        }) }}
+                    </div>
+                </div>
+            </div>
+            <div class="tag-block ">
+                <div class="form-item">
+                    <input type="button" class="btn web-btn J-btn-save" value="{{=lang.save}}" />
+                    <input type="button" class="btn web-btn J-btn-default" value="{{=lang.default}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="dot-template J-dot-template">
+    <div class="options-block">
+        {{= dotRender("tagHeadModel", [{name: lang.channelconfig, attr: "class='current'"}]) }}
+        <div class="tag-block">
+            <div class="form-item form-title">
+                <span class="width200"><label>{{=lang.chAbbr}}</label></span>
+                <span class="width200"><label>HD</label></span>
+                <span class="width200"><label>IP</label></span>
+            </div>
+            <div class="J-channel-name"></div>
+            <div class="form-item blkLite hide">
+                <span class="width200">
+                    <label>{{=lang.liteMode}}</label>
+                </span>
+                <span>
+                    <select id="selLiteMote" class="medium-select" matchval="getlitemode">
+                        <option value="0">{{=lang.comDisable}}</option>
+                        <option value="1">{{=lang.remoteenable}}</option>
+                    </select>
+                </span>
+            </div>
+            <div class="form-item blkTip1 hide">
+                <span class="ltr">{{=lang.note}}:</span>&nbsp;&nbsp;<span class="txtRtl">{{=lang.tipChCfg1}}</span><span
+                    class="rtl">{{=lang.note}}:</span>
+            </div>
+            <div class="form-item">
+                <span class="margin-top24">
+                    <input id="channelconfigsave" class="btn web-btn" type="button" value="{{=lang.save}}" onclick="saveChannelConf();" />
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- 复制用模板 -->
+    <div class="hide">
+        <div class='form-item' id="tempChItemAll">
+            <span class='width200'></span>
+            <span class='width200'><input type='checkbox'></span>
+            <span><input type='checkbox'></span>
+        </div>
+        <div class='form-item' id="tempChItemIP">
+            <span class='width200'></span>
+            <span class='width200'></span>
+            <span><input type='checkbox'></span>
+        </div>
+    </div>
+</div>

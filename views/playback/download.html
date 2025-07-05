@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11, chrome=1" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+    <meta http-equiv="expires" content="Sat Jan 30 2021 11:25:46 GMT" />
+    <script>
+        document.write('<link rel="stylesheet" type="text/css" href="/statics/lib/jquery-ui/jquery-ui.min.css?v=' + new Date().getTime() + '">');
+        document.write('<link rel="stylesheet" type="text/css" href="/statics/css/common.css?v=' + new Date().getTime() + '">');
+        document.write('<script src="/statics/lib/jquery-1.11.1.min.js?v=' + new Date().getTime() + '"><\/script>');
+        document.write('<script src="/statics/lib/LAB.min.js?v=' + new Date().getTime() + '"><\/script>');
+    </script>
+</head>
+
+<body id="bdDown">
+    <div class="dot-template J-dot-template">
+        <!-- 视频区域 -->
+        <div id="videoBlock"></div>
+        <div id="dlgTime" class="hide">
+            <div class="blkTime">
+                <span>{{=lang.beginTime}}</span>&nbsp;
+                <input type="text" id="iptBh" min="0" max="23" padZero="2" maxlength="2">
+                <span>:</span>
+                <input type="text" id="iptBm" min="0" max="59" padZero="2" maxlength="2">
+                <span>:</span>
+                <input type="text" id="iptBs" min="0" max="59" padZero="2" maxlength="2">
+            </div>
+            <div class="blkTime">
+                <span>{{=lang.endTime}}</span>&nbsp;
+                <input type="text" id="iptEh" min="0" max="23" padZero="2" maxlength="2">
+                <span>:</span>
+                <input type="text" id="iptEm" min="0" max="59" padZero="2" maxlength="2">
+                <span>:</span>
+                <input type="text" id="iptEs" min="0" max="59" padZero="2" maxlength="2">
+            </div>
+            <div id="sliderTime"></div>
+        </div>
+        <div class="dlMain">
+            <div class="dlDepart left">
+                <table class="dltable" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
+                    <tr>
+                        <td width="1" height="1" id='main_plugin'>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="19" valign="top">
+                            <table class="dlsubtable" cellspacing="0" cellpadding="0" id="FileTable">
+                                <tr class="dlsubsubtable">
+                                    <td width="40" height="10" align="center">
+                                        <input id="checkall" name="all" type="checkbox" onclick="SelectAllFile()">
+                                    </td>
+                                    <td width="40" height="10" align="center"><label>{{=lang.sdindex}}</label></td>
+                                    <td width="140" align="center"><label id="laFileName">{{=lang.dl1}}</label></td>
+                                    <td width="140" align="center"><label></label>{{=lang.pb2}}</td>
+                                    <td width="140" align="center"><label></label>{{=lang.pb3}}</td>
+                                    <td width="90" align="center"><label id="laFileSize">{{=lang.dl2}}</label></td>
+                                    <td width="130" align="center"><label>{{=lang.handCheck}}</label> </td>
+                                    <td width="90" align="center"><label id="laDownloadProcess">{{=lang.dl3}}</label></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr valign="bottom">
+                        <td>
+                            <table class="bttable" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="right" valign="bottom">
+                                        <input id="openFile" type="button" class="width100 btn" value="{{=lang.openFloder}}" />
+                                    </td>
+                                    <td align="right" valign="bottom" class="width109">
+                                        <input id="downloadBtn" type="button" class="width100 btn" value="{{=lang.dl4}}" />
+                                    </td>
+                                    <td width="20"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr height="10"> </tr>
+                </table>
+                <div id="ChangePage" class="changepage" align="right"></div>
+            </div>
+            <div class="dlPlaceholder"></div>
+            <div class="dlDepart dlCalContainer">
+                <div id="div1" class="widthpercent100"></div>
+                <div>
+                    <div class="clear-height10"></div>
+                    <div>
+                        <span class="width100"><label id="SearchFType">{{=lang.pb4}}</label></span>
+                        <span>
+                            <select id="SearchFTypeSlt" class="downselect">
+                                <option value="0" num="5">{{=lang.recordTime}}</option>
+                                <option class="optNvrSmt" value="1" num="2">{{=lang.recordAlarm}}</option>
+                                <option class="optSmt" value="2" num="46">{{=lang.recordAlarm}}</option>
+                                <option class="optSmt" value="3" num="51">{{=lang.backPalyMA}}</option>
+                                <option class="optSmt" value="4" num="47">{{=lang.faceDetect}}</option>
+                                <option class="optSmt" value="5" num="48">{{=lang.backPalyCorss}}</option>
+                                <option class="optSmt" value="6" num="49">{{=lang.crossDetect}}</option>
+                                <option class="optSmt" value="7" num="58">{{=lang.hoverDetect}}</option>
+                                <option class="optSmt" value="8" num="59">{{=lang.gatherDetect}}</option>
+                                <option class="optSmt" value="9" num="5">{{=lang.smtFaceCmp}}</option>
+                                <option class="optSmt" value="10" num="5">{{=lang.smtHumDet}}</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="clear-height10"></div>
+                    <div>
+                        <span class="width100"><label id="SearchChannel">{{=lang.channel}}</label></span>
+                        <span>
+                            <select id="SearchChannelSlt" class="downselect">
+                            </select>
+                        </span>
+                    </div>
+                    <div class="clear-height10"></div>
+                </div>
+                <div class="searchtime" onclick="onSearchRecClk()">
+                    <span class="pbsearchico">&nbsp;</span>
+                    <label class="pointer"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var rand = new Date().getTime();
+        $LAB.script([
+            '/statics/js/public.js?v=' + rand,
+            '/statics/js/api.js?v=' + rand,
+            '/statics/js/variable.js?v=' + rand,
+            '/statics/js/common.js?v=' + rand
+        ]).wait(function () {
+            $LAB.script('./download.js?v=' + rand);
+        });
+    </script>
+</body>
+
+</html>

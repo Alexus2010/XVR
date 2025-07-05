@@ -1,0 +1,186 @@
+<div class="dot-template J-dot-template">
+    <div class="pic-head">
+        <label>{{=lang.image}}</label>
+    </div>
+    <div class="pic-body">
+        <!-- 图片搜索块 -->
+        <div class="pic-search-block">
+            <div class="pic-search-item">
+                <label>{{=lang.channel}}</label>
+                <input type="text" class="pointer J-aisle-list" readonly="readonly">
+                <!-- 通道弹出选择框 -->
+                <div class="hide channel-sel-block J-aisle-sel-popup">
+                    <div class="head">
+                        <label class="pointer">
+                            <input type="checkbox" class="J-check-all" />
+                            {{=lang.stselectall}}
+                        </label>
+                    </div>
+                    <div class="content J-aisle-content">
+                    </div>
+                    <div class="aisle-list-btn">
+                        <button class="J-aisle-confirm web-btn">{{=lang.confirm}}</button>
+                        <button class="J-aisle-cancel">{{=lang.cancel}}</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 事件类型 -->
+            <div class="pic-search-item margin-bottom20">
+                <label class="pointer">
+                    {{=lang.stexceptiontype}}
+                    <input type="radio" name="picSearchType" value="smtEvtCmp">
+                </label>
+                {{= dotRender("formSelectModel", {"list": picVariables.eventList, "attr": { "class": "J-event-sel"} }) }}
+            </div>
+
+            <!-- 人脸比对 -->
+            <div class="pic-search-item J-smt-face">
+                <label class="pointer">{{=lang.smtFaceCmp}}
+                    <input type="radio" name="picSearchType" value="smtFaceCmp">
+                </label>
+
+                <!-- 选择框 -->
+                <label class="J-face-type face-type"></label>
+                {{= dotRender("formSelectModel", {"list": picVariables.faceList, "attr": { "class": "J-face-sel"} }) }}
+
+                <div class="group-local-img J-group-img J-pick-img">
+                    <input type="text" readonly="readonly" class="J-local-img">
+                </div>
+                <div class="group-local-img J-group-img img-container J-img-con J-pick-img">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" class="J-local-img-sel">
+                </div>
+                <div class="group-local-img J-group-img">
+                    <button class="J-pick-img">{{=lang.localUpload}}</button>
+                </div>
+                <div class="group-face img-container J-img-con J-group-face J-sel-face-clk">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" class="J-face-img-sel">
+                </div>
+                <div class="group-face J-group-face">
+                    <button class="J-sel-face-clk">{{=lang.getFaceModel}}</button>
+                </div>
+                <div class="group-face group-local-img J-group-img J-group-face">
+                    <span class="width100">{{=lang.similarity}}(0-100)</span>
+                    <input type="text" min="0" max="100" def="80" maxlength="3" class="num2 J-similar">
+                </div>
+            </div>
+
+            <!-- 时间选择 -->
+            <div class="pic-search-item">
+                <label>{{=lang.beginTime}}</label>
+                <input type="text" class="J-begin-time" readonly="readonly">
+            </div>
+            <div class="pic-search-item">
+                <label>{{=lang.endTime}}</label>
+                <input type="text" class="J-end-time" readonly="readonly">
+            </div>
+            <div class="pic-search-item">
+                <button class="btn web-btn btn-search J-search-btn">
+                    <span class="ui-icon ui-icon-search"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="div-tab mode-event J-div-tab">
+            <!-- 工具条 -->
+            <div class="div-toolbar">
+                <div class="btn-icon icon-list select J-pic-view"></div>
+                <div class="btn-icon icon-grid J-pic-view"></div>
+                <button class="ui-button ui-widget ui-corner-all btn-download J-download-btn" disabled="disabled">{{=lang.dl4}}</button>
+            </div>
+            <!-- 表格 -->
+            <div class="img-table J-table-block">
+                <table width="90%" class="row-border J-img-list">
+                    <thead>
+                        <tr>
+                            <td>
+                                <label class="pointer">
+                                    {{=lang.Selectall}}
+                                    <input type="checkbox" class="J-table-check-all">
+                                </label>
+                            </td>
+                            <td><label>{{=lang.channel}}</label></td>
+                            <td><label>{{=lang.dl1}}</label></td>
+                            <td><label>{{=lang.yyPatrolTime}}</label></td>
+                            <td>
+                                <label class="file-size">{{=lang.dl2}}</label>
+                                <label class="face-similar">{{=lang.similarity}}</label>
+                            </td>
+                            <td><label>{{=lang.picPreview}}</label></td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+
+            <div class="black-grid-list hide J-grid-block">
+                <div class="grid-head J-grid-head">
+                    <label class="pointer">{{=lang.stselectall}}
+                        <input type="checkbox" class="J-grid-check-all"></label>
+                </div>
+                <div class="grid-list J-grid-list">
+                    <div class="img-node loaded J-img-node">
+                        <div class="img-container J-img-con">
+                            <span class="img-no"><input type="checkbox"></span>
+                            <img src="">
+                            <img src="">
+                        </div>
+                        <div>
+                            <label>{{=lang.chAbbr}}1</label>&nbsp;
+                            <span>{{=lang.similarity}}87</span>
+                        </div>
+                        <div>
+                            <label>{{=lang.logTime}}</label>
+                            <span>2019年3月27日10:10:22</span>
+                        </div>
+                        <div>
+                            <label></label>
+                            <input type="text" value="2019年3月27日10:10:33.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="div-img-preview hide J-div-img-preview">
+                <img src="" class="img-preview J-img-preview">
+                <img src="" class="img-preview2 J-img-preview2">
+            </div>
+        </div>
+        <div class="zoom-pic hide J-zoom-pic">
+            <span class="J-zoom-closs">
+                <label class="J-zoom-closs">&#10006</label>
+            </span>
+            <img src="">
+        </div>
+    </div>
+    <div id="dlgFace" class="hide pop-face">
+        <div class="black-content">
+            <ul id="listFaceLib" class="list-face-lib">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+            </ul>
+            <div id="blackFaceImg" class="clear-fix black-face-img">
+                <div class="img-face J-img-face"><img src=""></div>
+                <div class="img-face J-img-face"><img src=""></div>
+                <div class="img-face J-img-face"><img src=""></div>
+                <div class="img-face J-img-face"><img src=""></div>
+                <div class="img-face J-img-face"><img src=""></div>
+                <div class="img-face J-img-face"><img src=""></div>
+                <div class="img-face J-img-face"><img src=""></div>
+                <div class="img-face J-img-face"><img src=""></div>
+                <div class="img-face J-img-face"><img src=""></div>
+                <div class="img-face J-img-face"><img src=""></div>
+                <div class="img-face J-img-face"><img src=""></div>
+                <div class="img-face J-img-face"><img src=""></div>
+            </div>
+        </div>
+        <div class="black-info">{{=lang.nums}}:0</div>
+    </div>
+</div>

@@ -1,0 +1,175 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [
+    {name: lang.alarminput, hide: false, id: "alarmInput"},
+    {name: lang.alarmput, hide: false, id: "alarmOutput"}
+    ])}}
+    <!-- 报警输入 -->
+    <div class="tag-block hide" id="alarmInput">
+        <!-- nvr布防时间 -->
+        <div>
+            <!-- nvr布防时间通道 -->
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.alarminput}}</label>
+                </span>
+                <span>
+                    <select matchval="alarmIn.nowChannel." class="medium-select J-in-channel">
+                    </select>
+                </span>
+            </div>
+            <div class="J-time-alarm-in">
+                <div class="form-item">
+                    <span class="width200">
+                        <label>{{=lang.stschduletime}}</label>
+                    </span>
+                </div>
+                <div class=" ">
+                    <div class="form-item J-time-sel"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 报警输入开启 -->
+        <div class="form-item">
+            <span>
+                <input id="getalarminenable" matchval="alarmIn.base.enable." str="1" type="checkbox" class="checkbox " />
+                <label>{{=lang.exceptionenable}}</label>
+            </span>
+        </div>
+
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.alarmname}}</label>
+            </span>
+            <span>
+                <input class="medium-input J-alarm-in-name" matchval="alarmIn.base.name." str='1' maxlength="31" type="text" />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.types}}</label>
+            </span>
+            <span>
+                {{= dotRender("formSelectModel", { "list": [ {'val': 'NC', 'name': lang.alwayclose}, {val: 'NO', 'name': lang.alwayopen} ],
+                "attr": {class: "small-select", matchval: "alarmIn.base.alarmType.", str: "1"}
+                }) }}
+            </span>
+        </div>
+        <!-- 报警输出 -->
+        <div class="form-item getalarminout hide">
+            <span class="width200">
+                <label>{{=lang.enAlarmOutput}}</label>
+            </span>
+            <span class="width500"></span>
+        </div>
+        <!-- 通道录像 -->
+        <div class="form-item J-in-record-block">
+            <span class="width200">
+                <input id="alarmInRecord" class="J-all-record-in" type="checkbox" />
+                <label>{{=lang.recchannel}}</label>
+            </span>
+            <span class="width500"></span>
+        </div>
+
+        <!-- nvr报警全屏 -->
+        <div class="form-item J-in-full-screenen">
+            <span class="width200">
+                <input class="J-all-fullscreen-in" type="checkbox" matchval="alarmIn.trigger.enableFullScreenChannel." str="1" />
+                <label>{{=lang.fullScreenMonitoring}}</label>
+            </span>
+            <span class="width500"></span>
+        </div>
+        <!-- 屏幕显示 -->
+        <div class="form-item">
+            <span class="width50">
+                <label>
+                    <input matchval="alarmIn.trigger.enableDisplay." str="1" type="checkbox" />
+                    <label>{{=lang.screendisplay}}</label>
+                </label>
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width50">
+                <label>
+                    <input matchval="alarmIn.trigger.enableEmail." str="1" type="checkbox" />
+                    <label>{{=lang.sendemail1}}</label>
+                </label>
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width50">
+                <label>
+                    <input matchval="alarmIn.trigger.enableBuzzer." str="1" type="checkbox" />
+                    <label>{{=lang.buzzeralarm}}</label>
+                </label>
+            </span>
+        </div>
+        <div class="form-item hide J-xvr-fullScreen">
+            <!-- <span class="width200" lang="linkage"></span> -->
+            <span class="width200">
+                <input matchval="getalarminlinkageenable" type="checkbox" class="checkbox " />
+                <label>{{=lang.fullScreenMonitoring}}</label>
+            </span>
+            <select class="medium-select" matchval="getalarminlinkage">
+            </select>
+        </div>
+        <div class="form-item">
+            <ul class="margin-top24">
+                <input class="btn web-btn J-in-save" type="button" value="{{=lang.save}}" />
+            </ul>
+        </div>
+    </div>
+
+    <!-- 报警输出 -->
+    <div class="tag-block hide" id="alarmOutput">
+        <!-- 通道 -->
+        <div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.alarmput}}</label>
+                </span>
+                <span>
+                    <select class="medium-select J-out-channel" matchval="alarmOut.nowChannel.">
+                    </select>
+                </span>
+            </div>
+        </div>
+        <!-- nvr布防时间 -->
+        <div class="J-time-alarm-out">
+            <div class=" ">
+                <div class="form-item">
+                    <span class="width200">
+                        <label>{{=lang.stschduletime}}</label>
+                    </span>
+                </div>
+            </div>
+            <div class="">
+                <div class="form-item J-time-sel"></div>
+            </div>
+        </div>
+
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.alarmname}}</label>
+            </span>
+            <span>
+                <input class="medium-input J-alarm-out-name" matchval="alarmOut.base.name." str="1" maxlength="31" type="text" />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.delaytime}}</label>
+            </span>
+            <span>
+                {{= dotRender("formSelectModel", { "list": initDelayTime(),
+                "attr": {class: "medium-select J-out-delay-time", matchval: "alarmOut.base.delayTime."}
+                }) }}
+            </span>
+        </div>
+        <div class="form-item">
+            <ul class="margin-top24">
+                <input class="btn web-btn J-out-save" value="{{=lang.save}}" type="button" />
+            </ul>
+        </div>
+    </div>
+</div>

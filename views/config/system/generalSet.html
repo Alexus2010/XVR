@@ -1,0 +1,392 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [
+    {name: lang.baseOptions, hide: false, id: "deviceSet"},
+    {name: lang.timeOption, hide: false, id: "dateTime"},
+    {name: lang.dst1, hide: false, id: "dst"}
+    ])}}
+    <!-- 设备设置 -->
+    <div class="tag-block hide" id="deviceSet">
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.language}}</label>
+            </span>
+            <span>
+                <select class="medium-select J-device-language" matchval="general.language.">
+                </select>
+            </span>
+        </div>
+        <!-- 录像模式 -->
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.recmode}}</label>
+            </span>
+            <span>
+                <select class="medium-select" matchval="general.recordMode.">
+                    <option value="0">{{=lang.recoverwrite}}</option>
+                </select>
+            </span>
+        </div>
+        <!-- 录像天数 -->
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.recdays}}</label>
+            </span>
+            <span>
+                <select class="medium-select J-record-days" matchval="general.recordDays.">
+                    <option value="0">{{=lang.recnolimit}}</option>
+                </select>
+            </span>
+        </div>
+        <!-- 视频标准 -->
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.videostandard}}</label>
+            </span>
+            <span>
+                {{= dotRender("formSelectModel", {
+                "list": ['PAL', 'NTSC'],
+                "attr": { class: "medium-select J-video-mode", matchval: "general.videoStandard."} }) }}
+            </span>
+        </div>
+        <!-- 分辨率 -->
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.resultion}}</label>
+            </span>
+            <span>
+                <select class="medium-select J-resolution" matchval="getresolution"></select>
+            </span>
+        </div>
+        <!-- 自动登录 -->
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.autoLogin}}</label>
+            </span>
+            <span>
+                <input type="checkbox" name="autoName" id="getLoginEnable" matchval="general.enableAutoLogin." str="1">
+            </span>
+        </div>
+        <!-- 自动注销 -->
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.standytime}}</label>
+            </span>
+            <span class="isNvrAndAl">
+                <input type="checkbox" name="autoName" id="getLogoutEnable" matchval="general.enableAutoLogout." str="1">
+            </span>
+            <span class="get-standby-time">
+                {{= dotRender("formSelectModel", {"list": [
+                { 'val': 1, 'name': 1+lang.dst4 },
+                { 'val': 2, 'name': 2+lang.dst4 },
+                { 'val': 5, 'name': 5+lang.dst4 },
+                { 'val': 10, 'name': 10+lang.dst4 },
+                { 'val': 20, 'name': 20+lang.dst4 },
+                { 'val': 30, 'name': 30+lang.dst4 },
+                { 'val': 60, 'name': 60+lang.dst4 },
+                { 'val': 0, 'name': lang.notSet }
+                ], "attr": { class: "medium-select J-auto-logout-time", matchval: "general.autoLogoutTime."} }) }}
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.deviceName}}</label>
+            </span>
+            <span>
+                <input type="text" id="getDevName" class="medium-input" matchval="general.devName." str="1" maxlength="31" />
+            </span>
+        </div>
+        <!-- NVR全屏显示延迟时间 -->
+        <div class="form-item  isNvrAndAl">
+            <span class="width200">
+                <label>{{=lang.fullScreenTime}}</label>
+            </span>
+            <span class="getfullscreentime">
+                {{= dotRender("formSelectModel", {"list": [
+                { 'val': 5, 'name': 5 },
+                { 'val': 10, 'name': 10 },
+                { 'val': 15, 'name': 15 },
+                { 'val': 20, 'name': 20 },
+                ], "attr": { class: "medium-select J-full-screen-time", matchval: "general.fullScreenTime."} }) }}
+            </span>
+        </div>
+        <div class="form-item">
+            <ul class="margin-top24">
+                <input id="deviceSave" class="btn web-btn J-device-save" type="button" value="{{=lang.save}}" />
+            </ul>
+        </div>
+    </div>
+
+    <!-- 日期设置 -->
+    <div class="tag-block hide" id="dateTime">
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.timeZone}}</label>
+            </span>
+            <span>
+                {{= dotRender("formSelectModel", {
+                "attr": {"id": "getNvrNtpTimeZone", class: "big-select", matchval: "" }
+                }) }}
+            </span>
+        </div>
+        <div class="form-item">
+            <span>
+                <input name="ucModel" type="checkbox" value="0" matchval="manualsettime" />
+            </span>
+            <span class="width200">
+                <label>{{=lang.handCheck}}</label>
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">{{=lang.datetime}}</span>
+            <span class="inline">
+                <input class="small-input" type="text" id="setDate" name="setDate" readonly="readonly" />
+                {{= dotRender("formSelectModel", {
+                "attr": {"id": "getSystemTimeHour", class: "mini-select", matchval: "dateSet.hour."}
+                }) }}
+                {{= dotRender("formSelectModel", {
+                "attr": {"id": "getSystemTimeMinutes", class: "mini-select", matchval:
+                "dateSet.minute.", name: "minute"}
+                }) }}
+                {{= dotRender("formSelectModel", {
+                "attr": {"id": "getSystemTimeSeconds", class: "mini-select", matchval:
+                "dateSet.second.", name: "second"}
+                }) }}
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <input name="ucModel" type="checkbox" value="1" matchval="pcsettime" />
+                <label>{{=lang.sameOfPC}}</label>
+            </span>
+            <span>
+                <input class="path-input" id="pcTime" type="text" readonly />
+            </span>
+        </div>
+        <div class="form-item">
+            <span>
+                <input name="ucModel" type="checkbox" value="2" matchval="ntpsettime" />
+            </span>
+            <span>
+                <label>{{=lang.NTPCheckTime}}</label>
+            </span>
+        </div>
+        <div id="wifiNtpServer">
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.SNTPServer}}</label>
+                </span>
+                {{= dotRender("formSelectModel", {"list": [
+                { 'val': "time.windows.com", 'name': "time.windows.com" },
+                { 'val': "time.nist.gov", 'name': "time.nist.gov" },
+                { 'val': "time-nw.nist.gov", 'name': "time-nw.nist.gov" },
+                { 'val': "time-a.nist.gov", 'name': "time-a.nist.gov" },
+                { 'val': "time-b.nist.gov", 'name': "time-b.nist.gov" },
+                { 'val': "pool.ntp.org", 'name': "pool.ntp.org" },
+                { 'val': "custom", 'name': lang.custom },
+                ], "attr": { class: "big-select", id: "wifiGetNtpServer"} }) }}
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.custom}}</label>
+                </span>
+                <span>
+                    <input class="path-input" id="customNtpServer" maxlength="199" type="text" />
+                </span>
+            </div>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.ntppoty}}</label>
+            </span>
+            <span>
+                <input type="text" id="getNtpPort" class="path-input" matchval="getntpport" min="0" max="65535" def="123" />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.ntpgengxin}}</label>
+            </span>
+            <span>
+                <input type="text" id="getNtInterval" class="path-input" matchval="getntinterval" min="30" max="1440" def="30" />
+            </span>
+            <span>　(30-1440)</span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.ntpdateformart}}</label>
+            </span>
+            <span>
+                {{= dotRender("formSelectModel", {
+                "list": [lang.ntpdate0, lang.ntpdate1, lang.ntpdate2],
+                "attr": {"id": "getNtpDateFormat", class: "big-select", matchval: "timeFormat.dateFormat."}
+                }) }}
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.ntpsplit}}</label>
+            </span>
+            <span>
+                {{= dotRender("formSelectModel", {
+                "list": ['.', '-', '/'],
+                "attr": {"id": "getNtpDateSeparator", class: "big-select", matchval:
+                "timeFormat.dateSeparator."}
+                }) }}
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.ntptimeformat}}</label>
+            </span>
+            <span>
+                {{= dotRender("formSelectModel", {
+                "list": [lang.ntphour24, lang.ntphour12],
+                "attr": {"id": "getNtpTimeFormat", class: "big-select", matchval:
+                "timeFormat.timeFormat."}
+                }) }}
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.channelchecktime}}</label>
+            </span>
+        </div>
+        <div id="checkTimeEnable" class="form-item" >
+            <div class="form-item J-check-all">
+                <span>
+                    <input id="checkTimeselectall" type="checkbox" value="" />
+                </span>
+                <span>
+                    <label>{{=lang.selAll}}</label>
+                </span>
+            </div>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.interval}}</label>
+            </span>
+            <span>
+                <input type="text" id="getChnTimeInterval" class="path-input" matchval="getchntimeinterval" min="0" max="255" def="0" />
+            </span>
+            <span class="hide J-xvr-tip">　(0-255)</span>
+        </div>
+        <div class="form-item">
+            <span class="margin-top24">
+                <input id="datetimeSave" class="btn web-btn" type="button" value="{{=lang.save}}" />
+            </span>
+        </div>
+    </div>
+    <!-- 夏令时 -->
+    <div class="tag-block hide" id="dst">
+        <div class="form-item">
+            <span>
+                <input type="checkbox" name="checkNST" id="getSummerTimetDst" matchval="getsummertimetmisdst" />&nbsp;
+                <label class="margin-top10">{{=lang.dst2}}</label>
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.types}}</label>
+            </span>
+            <span class="width200">
+                {{= dotRender("formSelectModel", {
+                "list": [lang.summerWeek, lang.dst5],
+                "attr": {"id": "getsummertimetmtype", class: "mini-select J-summertime-type", matchval:
+                "summerTime.timeType."}
+                }) }}
+            </span>
+        </div>
+        <div id="startdst" class="form-item">
+            <span class="width200">
+                <label>{{=lang.beginTime}}</label>
+            </span>
+            <span class="inline">
+                <input class="small-input hide" type="text" id="startDate" readonly="readonly" />
+            </span>
+            <span class="inline">
+                {{= dotRender("formSelectModel", {
+                "list": [lang.dstm1, lang.dstm2, lang.dstm3, lang.dstm4, lang.dstm5, lang.dstm6,
+                lang.dstm7, lang.dstm8, lang.dstm9, lang.dstm10, lang.dstm11, lang.dstm12],
+                "attr": {"id": "getSummerTimeStartMon", class: "mini-select hide", matchval:
+                "summerTime.startMon."}
+                }) }}
+                {{= dotRender("formSelectModel", {
+                "list": [lang.dstw1, lang.dstw2, lang.dstw3, lang.dstw4, lang.dstw5],
+                "attr": {"id": "getSummerTimeStartWeekType", class: "mini-select", matchval:
+                "summerTime.startWeekType."}
+                }) }}
+                {{= dotRender("formSelectModel", {
+                "list": [lang.stweek7, lang.stweek1, lang.stweek2, lang.stweek3, lang.stweek4, lang.stweek5,
+                lang.stweek6 ],
+                "attr": {"id": "getSummerTimeStartWeekday", class: "mini-select hide", matchval:
+                "summerTime.startWeekDay."}
+                }) }}
+            </span>
+            <span class="margin-left3">
+                {{= dotRender("formSelectModel", {
+                "attr": {"id": "getSummerTimeStartHour", class: "mini-select", matchval:
+                "summerTime.startHour."}
+                }) }}
+                {{= dotRender("formSelectModel", {
+                "attr": {"id": "getSummerTimeStartMin", class: "mini-select", matchval:
+                "summerTime.startMin."}
+                }) }}
+            </span>
+        </div>
+        <div id="stopdst" class="form-item">
+            <span class="width200">
+                <label>{{=lang.endTime}}</label>
+            </span>
+            <span class="inline">
+                <input class="small-input hide" type="text" id="stopDate" readonly="readonly" />
+            </span>
+            <span id="stopweek_set" class="inline">
+                {{= dotRender("formSelectModel", {
+                "list": [lang.dstm1, lang.dstm2, lang.dstm3, lang.dstm4, lang.dstm5, lang.dstm6, lang.dstm7,
+                lang.dstm8, lang.dstm9, lang.dstm10, lang.dstm11, lang.dstm12],
+                "attr": {"id": "getSummerTimeEndMon", class: "mini-select hide", matchval:
+                "summerTime.endMon."}
+                }) }}
+                {{= dotRender("formSelectModel", {
+                "list": [lang.dstw1, lang.dstw2, lang.dstw3, lang.dstw4, lang.dstw5],
+                "attr": {"id": "getSummerTimeEndWeekType", class: "mini-select hide", matchval:
+                "summerTime.endWeekType."}
+                }) }}
+                {{= dotRender("formSelectModel", {
+                "list": [lang.stweek7, lang.stweek1, lang.stweek2, lang.stweek3, lang.stweek4, lang.stweek5,
+                lang.stweek6],
+                "attr": {"id": "getSummerTimeEndWeekday", class: "mini-select hide", matchval:
+                "summerTime.endWeekDay.", "name": "minute"}
+                }) }}
+            </span>
+            <span class="margin-left3">
+                {{= dotRender("formSelectModel", {
+                "attr": {"id": "getSummerTimeEndHour", class: "mini-select", matchval:
+                "summerTime.endHour."}
+                }) }}
+                {{= dotRender("formSelectModel", {
+                "attr": {"id": "getSummerTimeEndMin", class: "mini-select", matchval:
+                "summerTime.endMin."}
+                }) }}
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.dst3}}</label>
+            </span>
+            <span class="width200">
+                {{= dotRender("formSelectModel", {"list": [
+                { 'val': 0, 'name': 30 },
+                { 'val': 1, 'name': 60 },
+                { 'val': 2, 'name': 90 },
+                { 'val': 3, 'name': 120 },
+                ], "attr": { id: "getSummerTimeTmoffset", class: "mini-select", matchval: "summerTime.timeOffset.", str: "1" } }) }}
+            </span>
+        </div>
+        <div class="form-item">
+            <ul class="margin-top24">
+                <input class="btn web-btn J-dst-save" type="button" value="{{=lang.save}}"/>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11, chrome=1" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+    <meta http-equiv="expires" content="Sat Jan 30 2021 11:25:46 GMT" />
+    <script>
+        document.write('<link rel="stylesheet" type="text/css" href="/statics/css/common.css?v=' + new Date().getTime() + '">');
+        document.write('<link rel="stylesheet" type="text/css" href="./pwdReset.css?v=' + new Date().getTime() + '">');
+        document.write('<script src="/statics/lib/jquery-1.11.1.min.js?v=' + new Date().getTime() + '"><\/script>');
+        document.write('<script src="/statics/lib/LAB.min.js?v=' + new Date().getTime() + '"><\/script>');
+    </script>
+</head>
+
+<body class="dot-template J-dot-template">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="user-info">
+            <a class="icon-logout pointer J-back">{{=lang.back}}</a>
+        </div>
+    </div>
+    <div class="flow-path J-flow-path">
+        <div class="circle color-white">1</div>
+        <div class="rectangle "></div>
+        <div class="circle gray color-white">2</div>
+        <div class="rectangle gray"></div>
+        <div class="circle gray color-white">3</div>
+        <div class="steps">
+            <div class="step-tip">{{=lang.verifyIdentidy}}</div>
+            <div class="step-tip">{{=lang.setNewPwd}}</div>
+            <div class="step-tip">{{=lang.complute}}</div>
+        </div>
+    </div>
+    <div class="div-page-body">
+        <!-- step1 -->
+        <div class="J-first-page tab-quest J-next">
+            <span class="form-title">{{=lang.identifyWay}}</span>
+            {{= dotRender("formSelectModel", {
+            "list": [lang.questionIdentidy, lang.importKey],
+            "attr": {class: "question-select J-identify-way"}
+            }) }}
+            <div class="J-question">
+                <span class="form-title">{{=lang.safeQuestion}}1</span>
+                {{= dotRender("formSelectModel", {
+                "list": ['',lang.sq0, lang.sq1, lang.sq2, lang.sq3],
+                "attr": {"id": "question1", class: "question-select J-question-select J-require"}
+                }) }}
+            </div>
+            <div class="J-question">
+                <span class="form-title">{{=lang.safeAnswer}}1</span>
+                <input class="answer-input J-require" id="answer1" type="text" maxlength="31" />
+            </div>
+            <div class="J-question">
+                <span class="form-title">{{=lang.safeQuestion}}2</span>
+                {{= dotRender("formSelectModel", {
+                "list": ['',lang.sq4, lang.sq5,lang.sq6, lang.sq7],
+                "attr": {"id": "question2", class: "question-select J-question-select J-require"}
+                }) }}
+            </div>
+            <div class="J-question">
+                <span class="form-title">{{=lang.safeAnswer}}2</span>
+                <input class="answer-input J-require" id="answer2" type="text" maxlength="31" />
+            </div>
+            <div class="J-question">
+                <span class="form-title">{{=lang.safeQuestion}}3</span>
+                {{= dotRender("formSelectModel", {
+                "list": ['',lang.sq8, lang.sq9,lang.sq10, lang.sq11],
+                "attr": {"id": "question3", class: "question-select J-question-select J-require"}
+                }) }}
+            </div>
+            <div class="J-question">
+                <span class="form-title">{{=lang.safeAnswer}}3</span>
+                <input class="answer-input J-require" id="answer3" type="text" maxlength="31" />
+            </div>
+            {{? isIE()}}
+            {{= dotRender("pluginModel", { "mode": PLAY_MODE_PLUGIN, "isWin": isWinOS()}) }}
+            {{?}}
+            <div class="J-import-key hide import">
+                <!-- <form id="filePage" class="hide" method="post" enctype="multipart/form-data"> -->
+                <!-- <input type="file" name="file" id="iptUpgradFile" accept=".img"> -->
+                <input type="file" name="upload" id="upload" class="hide" accept=".hs" />
+                <!-- </form> -->
+                <input type="text" id="uploadFileName" class="file-name" readonly="true" />
+                <input type="button" id="uploadFileButton" class="btn browser-btn J-import-btn" value="{{=lang.importFile}}" />
+            </div>
+        </div>
+        <!-- step2 -->
+        <div class="J-second-page hide tab-quest J-next">
+            <div>
+                <span class="pasword-title">{{=lang.newPsw}}</span>
+                <input class="medium-input J-new-pwd" type="password" />
+            </div>
+            <div>
+                <span class="pasword-title">{{=lang.confirmPwd}}</span>
+                <input class="medium-input J-confirm-pwd" type="password" />
+            </div>
+        </div>
+        <!-- step3 -->
+        <div class="hide J-third-page J-next">{{=lang.modifyPwdComplete}}</div>
+        <div class="page-foot J-page-foot">
+            <input class="btn web-btn J-btn-pre hide" type="button" value="{{=lang.previous}}" />
+            <input class="btn web-btn J-btn-next" type="button" value="{{=lang.pswNext}}" />
+            <input class="btn browser-btn J-btn-cancel" type="button" value="{{=lang.pswClear}}" />
+            <input class="web-btn btn-relogin J-re-login hide" type="button" value="{{=lang.resetLogin}}" />
+        </div>
+        <span class="hide web-color J-tip-error">&nbsp;&nbsp;{{=lang.require}}</span>
+    </div>
+    <script>
+        var rand = new Date().getTime();
+        $LAB.script([
+            '/statics/js/public.js?v=' + rand,
+            '/views/config/config.js?v=' + rand,
+            '/statics/js/api.js?v=' + rand,
+            '/statics/js/variable.js?v=' + rand
+        ]).wait(function () {
+            $LAB.script('./pwdReset.js?v=' + rand);
+        });
+    </script>
+</body>
+
+</html>

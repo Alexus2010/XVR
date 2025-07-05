@@ -1,0 +1,205 @@
+<div class="dot-template J-dot-template inner-container J-inner-container">
+    <div class="content-left left-float">
+        <div class="left-top-icon"><label id="deviceType"></label></div>
+        <div class="channel-block J-channel-block">
+            {{? supportPreviewOsdNameEdit()}}
+                <ul class="channel-list J-channel-list">
+                    {{= dotRender("previewChannelMenuModel", [getRealtimeChannelList()]) }}
+                </ul>
+                {{??}}
+                <ul class="channel-list J-channel-list">
+                    {{= dotRender("channelMenuModel", [getRealtimeChannelList()]) }}
+                </ul>
+            {{?}}
+        </div>
+    </div>
+    <div id="realTime" class="middle left-float">
+        <div class="top-tip">
+            <span>
+                <label>{{=lang.channel}}</label>
+                <label id="playChannel"></label>&nbsp&nbsp&nbsp
+                <label>{{=lang.lvBitRate}}</label>
+                <label id="nowStatues"></label>
+                <label>K/s</label>
+            </span>
+        </div>
+        <!-- 视频区域 -->
+        <div id="videoBlock"></div>
+        <!--按键选择区域-->
+        <div class="middle-btn-block">
+            <ul class="operate-block-left left-float">
+                <li>
+                    <div class="window-select J-window-select">
+                        <a id="splitScreen" class="tool-icons window-icon-btn" title="{{=lang.lvwndlayout}}"></a>
+                        <a class="tool-icons window-icon" title="{{=lang.lvwndlayout}}"></a>
+                        <div class="select-block hide">
+                            <p>
+                                <a class="tool-icons c1" title="{{=lang.lvSplitScreen1}}" data-num="1"></a>
+                                <a class="tool-icons c2" title="{{=lang.lvSplitScreen4}}" data-num="4"></a>
+                                <a class="tool-icons c3" title="{{=lang.lvSplitScreen9}}" data-num="9"></a>
+                                <a class="tool-icons c4" title="{{=lang.lvSplitScreen16}}" data-num="16"></a>
+                                <a class="tool-icons c5" title="{{=lang.lvSplitScreen25}}" data-num="25"></a>
+                                <a class="tool-icons c6" title="{{=lang.lvSplitScreen36}}" data-num="36"></a>
+                                <a class="tool-icons c7" title="{{=lang.lvSplitScreen64}}" data-num="64"></a>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="stream-select J-stream-select">
+                        <a id="changeStream" class="tool-icons stream-icon-btn2"></a>
+                        <a class="tool-icons stream-icon" title="{{=lang.streamType}}"></a>
+                        <div class="select-block hide">
+                            <p>
+                                <a class="tool-icons l1" title="{{=lang.mainStream}}" data-num="0"></a>
+                                <a class="tool-icons l2" title="{{=lang.childStream}}" data-num="1"></a>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                {{? talkAble() }}
+                <li>
+                    <button id="talk" class="talk-btn J-talk"></button>
+                </li>
+                {{?}}
+            </ul>
+            <div class="operate-block-right J-operate-block-right">
+                <span>
+                    <button id="playAll" class="operate-btn play-btn" title="{{=lang.allplay}}" data-func="playAll"></button>
+                </span>
+                <span>
+                    <button id="capture" class="operate-btn capture-btn" title="{{=lang.setPic}}" data-func="capture"></button>
+                </span>
+                {{? !isMacOS() }}
+                <span>
+                    <button id="records" class="operate-btn records-btn-disable" title="{{=lang.allrecord}}" data-func="recordAll"></button>
+                </span>
+                {{?}}
+                <span>
+                    <button id="zoom" class="operate-btn zoom-btn-disable" title="{{=lang.startzoom}}" data-func="zoom"></button>
+                </span>
+                <span>
+                    <button id="prev" class="operate-btn prev-btn" title="{{=lang.dl10}}" data-func="pageTurning(true)"></button>
+                </span>
+                <span>
+                    <button id="next" class="operate-btn next-btn" title="{{=lang.dl11}}" data-func="pageTurning"></button>
+                </span>
+                {{? !isSafari()}}
+                <span>
+                    <button id="sound" class="operate-btn sound-btn-disable" title="{{=lang.closesound}}" data-func="sound"></button>
+                </span>
+                {{?}}
+                <span>
+                    <button id="fullscreen" class="operate-btn fullscreen-btn" title="{{=lang.fullscreen}}" data-func="fullscreen"></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--PTZ设置-->
+    <div class="right-content J-right-content left-float">
+        <div class="right-top">{{=lang.optionptzset}}</div>
+        <div class="btn-block-ptz J-btn-block-ptz clear-fix">
+            <a class="J-stretch-btn stretch-btn"></a>
+            <span class="btn-block-left">
+                <ul>
+                    <li>
+                        <a class="ptz-icon rightbt" title="{{=lang.ptzleftup}}" data-id="9"></a>
+                        <a class="ptz-icon rightbt1" title="{{=lang.ptzup}}" data-id="1"></a>
+                        <a class="ptz-icon rightbt2" title="{{=lang.ptzrightup}}" data-id="11"></a>
+                    </li>
+                    <li>
+                        <a class="ptz-icon rightbt3" title="{{=lang.ptzleft}}" data-id="5"></a>
+                        <a class="ptz-icon rightbt4" data-id="51"></a>
+                        <a class="ptz-icon rightbt5" title="{{=lang.ptzright}}" data-id="7"></a>
+                    </li>
+                    <li>
+                        <a class="ptz-icon rightbt6" title="{{=lang.ptzleftdown}}" data-id="13"></a>
+                        <a class="ptz-icon rightbt7" title="{{=lang.ptzdown}}" data-id="3"></a>
+                        <a class="ptz-icon rightbt8" title="{{=lang.ptzrightdown}}" data-id="15"></a>
+                    </li>
+                </ul>
+            </span>
+            <span class="btn-block-right">
+                <ul>
+                    <li>
+                        <a class="ptz-icon rights" title="{{=lang.yyzoomsub}}" data-id="22"></a>
+                        <a class="ptz-icon rights1" title="{{=lang.yyzoomadd}}" data-id="20"></a>
+                    </li>
+                    <li>
+                        <a class="ptz-icon rights2" title="{{=lang.ptz4}}" data-id="26"></a>
+                        <a class="ptz-icon rights3" title="{{=lang.ptz3}}" data-id="24"></a>
+                    </li>
+                    <li>
+                        <a class="ptz-icon rights4" title="{{=lang.ptz7}}" data-id="30"></a>
+                        <a class="ptz-icon rights5" title="{{=lang.ptz8}}" data-id="28"></a>
+                    </li>
+                </ul>
+            </span>
+        </div>
+        <div>
+            <div class="form-item">
+                <span>
+                    <div class="J-slide ptz-slide"></div>
+                    <input class="mini-input J-input-speed" maxlength="1" type="text" value="4" disabled />
+                </span>
+            </div>
+        </div>
+        <div class="right-tab J-right-tab">
+            <div id="tabContainer" class="tab-container clear-fix">
+                <ul>
+                    <li data-tab="0" title="{{=lang.ptzpresetdot}}"><a class="ptz-icon tabons"></a></li>
+                    <li data-tab="1" title="{{=lang.ptzcuriseset}}"><a class="ptz-icon"></a></li>
+                    <li><a></a></li>
+                </ul>
+                <div id="con1" class="tab-content J-tab-content curise-action hide">
+                    {{~ getListArray():value:index}}
+                    <div>
+                        <span class="first-child"><label>{{=lang.yypreset}}</label>{{=index+1}}</span>
+                        <span class="ptz-icon ptz-control goto-preset" data-func="setPreset(18)" title="{{=lang.yygotoPreset}}"></span>
+                        <span class="ptz-icon ptz-control set-preset" data-func="setPreset(17)" title="{{=lang.yysetPreset}}"></span>
+                    </div>
+                    {{~}}
+                </div>
+                <div id="con2" class="tab-content J-tab-content curise-action hide">
+                    {{~ getListArray(3):value:index}}
+                    <div>
+                        <span class="first-child"><label>{{=lang.Cruiseline}}</label>{{=index+1}}</span>
+                        <span data-func="startCruise" title="{{=lang.yystart}}" class="ptz-icon start-cruise cruise-control"></span>
+                        <span data-func="endCruise" title="{{=lang.yystop}}" class="ptz-icon end-cruise cruise-control J-end-cruise"></span>
+                        <span data-func="setCruise" title="{{=lang.yysetPreset}}" class="ptz-icon set-cruise cruise-control"></span>
+                        <span data-func="delCruise" title="{{=lang.yydelPreset}}" class="ptz-icon del-cruise cruise-control"></span>
+                    </div>
+                    {{~}}
+                </div>
+                <div id="con3" class="tab-content J-tab-content3 hide">
+                    <div class="patrol-top">
+                        <span id="patrolRoute">{{=lang.yyAddPatrol}} </span>
+                        <span class="cruise-btn patrol-up" data-func="upPatrolPreset"></span>
+                        <span class="cruise-btn patrol-down" data-func="downPatrolPreset"></span>
+                        <span class="cruise-btn patrol-del" data-func="deletePatrolPreset"></span>
+                        <span class="cruise-btn patrol-add" data-func="addPatrolPreset"></span>
+                    </div>
+                    <div class="patrol-title">
+                        <span>{{=lang.yypreset}}</span>
+                        <span>{{=lang.yyyyPatrolSpeed}}</span>
+                        <span>{{=lang.ptzstay}}</span>
+                    </div>
+                    <div class="patrol-list J-patrol-list"></div>
+                    <div id="tempPatrolNode" class="line-normal hide">
+                        <select class="patrol-select" lsdata-def="1">
+                            {{~ getListArray():value:index}}
+                            <option value="{{=index+1}}">{{=index+1}}</option>
+                            {{~}}
+                        </select>
+                        <input class="patrol-text" maxlength="2" lsdata-min="1" lsdata-max="7" lsdata-def="7" name="yyPatrolSpeed" type="text" />
+                        <input class="patrol-text" maxlength="3" lsdata-min="2" lsdata-max="30" lsdata-def="2" name="yyPatrolTime" type="text" />
+                    </div>
+                    <div class="patrol-bottom">
+                        <button class="web-btn J-confirm-patrol">{{=lang.confirm}}</button>
+                        <button class="cancel-btn J-cancel-patrol">{{=lang.cancel}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

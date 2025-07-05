@@ -1,0 +1,454 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [
+        {name: lang.optionrecset, hide: false, id: "record"},
+        {name: lang.optionencodeparam, hide: false, id: "encode"}
+    ])}}
+    <!-- 录像设置 -->
+    <div class="tag-block hide" id="record">
+        <!-- 通道 -->
+        <div class="form-item">
+            <span class="width200"><label>{{=lang.channel}}</label></span>
+            <span>
+                <select class="medium-select J-channal-sel" matchval="record.curChannel."> </select>
+            </span>
+        </div>
+        <!-- 使能 -->
+        <div class="hide J-record-time">
+            <div class="form-item">
+                <span class="width200"><label>{{=lang.remoteenable}}</label></span>
+                <span><input type="checkbox" class="J-record-enable" matchval="record.enableSchedTime." str='1'></span>
+            </div>
+        </div>
+        <div>
+            <!-- 时间段 -->
+            <div class="form-item time-sel-block J-time-seltor" id="divTimeSel"></div>
+            <!-- 更多设置和保存按钮 -->
+            <div class="form-item">
+                <input id="btnMoreSetting" class="btn web-btn hide J-more-setting-btn" type="button" value="{{=lang.more}}" />
+                &nbsp;
+                <input class="btn web-btn J-record-save" type="button" value="{{=lang.save}}" />
+            </div>
+        </div>
+        <!-- 时间段弹出选择 -->
+        <div class="time-popup-block J-time-edit-block hide">
+            <div class="time-popup">
+                <div class="popup-header">
+                    <span class="ui-icon ui-icon-close pointer J-time-edit-close"></span>
+                </div>
+                <div class="popup-top-content J-record-type">
+                    <label><input type="checkbox" class="J-check-all-type" name="chkAll">{{=lang.allchannel}}</label>
+                </div>
+                <div class="popup-bottom-content J-time-edit">
+                    <input type="text" min="0" max="23" def="0" maxlength="3" class="ipt-hour">&nbsp;:&nbsp;
+                    <input type="text" min="0" max="59" def="0" maxlength="3" class="ipt-min">&nbsp;&nbsp;-&nbsp;&nbsp;
+                    <input type="text" min="0" max="24" def="0" maxlength="3" class="ipt-hour">&nbsp;:&nbsp;
+                    <input type="text" min="0" max="59" def="0" maxlength="3" class="ipt-min">
+                </div>
+                <div class="popup-foot">
+                    <label class="first pointer J-seg-del-btn">{{=lang.del}}</label>
+                    <label class="pointer J-seg-save-btn">{{=lang.save}}</label>
+                </div>
+            </div>
+        </div>
+        <!-- 更多设置弹出框 -->
+        <div class="more-setting-block J-more-setting">
+            <div class="more-setting J-pre-time">
+                <label>{{=lang.prerecordtimes}}</label>
+                {{= dotRender("formSelectModel", {"list": [0,5,10,15,20,25,30],
+                    "attr": { "class": "small-select J-expected-time", "matchval": "record.expectedTime.", "def": "5"} }) }}
+            </div>
+            <div class="more-setting hide">
+                <label>{{=lang.recorddelay}}</label>
+                {{= dotRender("formSelectModel", {"list": [5,10,30,60,120,300,600],
+                    "attr": { "class": "small-select J-delay-time", "matchval": "record.delayTime.", "def": "5"} }) }}
+            </div>
+        </div>
+    </div>
+    <!-- 编码参数 -->
+    <div class="tag-block hide" id="encode">
+        <!-- NVR encode -->
+        <div class="J-nvr-encode hide">
+            <!-- 通道 -->
+            <div class="form-item">
+                <span class="width200"><label>{{=lang.channel}}</label></span>
+                <span>
+                    <select class="medium-select J-nvr-encode-chn" matchval="encode.curChannel."></select>
+                </span>
+            </div>
+            <!-- 码流类型 -->
+            <div id="streamhide" class="form-item hide">
+                <span class="width200"><label>{{=lang.streamtype}}</label></span>
+                <span>
+                    {{= dotRender("formSelectModel", {
+                        "list": [lang.mainStream,lang.childStream],
+                        "attr": {"class": "medium-select J-stream-type", matchval: "encode.streamNo."}
+                    }) }}
+                </span>
+            </div>
+            <!-- 编码类型 -->
+            <div class="form-item J-code-type">
+                <span class="width200"><label>{{=lang.codeType}}</label></span>
+                <span>
+                    <select class="medium-select J-nvr-code-type" matchval="encode.encodeType." str="1"></select>
+                </span>
+            </div>
+            <!-- 编码类型 -->
+            <!-- <div class="form-item hide J-sub-code-type">
+                <span class="width200">
+                    <label>{{=lang.codeType}}</label>
+                </span>
+                <span>
+                    <select class="medium-select J-nvr-code-type2" matchval="encodeSub.encodeType." str="1"></select>
+                </span>
+            </div> -->
+            <!-- 主码流 -->
+            <div id="mainhide">
+                <div class="form-item form-title"><label>{{=lang.mainStream}}</label></div>
+                <!-- 分辨率 -->
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.resultion}}</label></span>
+                    <span>
+                        <select class="medium-select J-resolution" matchval="encode.encodeResolution."></select>
+                    </span>
+                </div>
+                <!-- 编码模式 -->
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.streamType}}</label></span>
+                    <span>
+                        <select id="getahdencodemainencodemode1" class="medium-select" matchval="encode.resultion.">
+                            <option value="0">{{=lang.veido}}&{{=lang.audio}}</option>
+                        </select>
+                    </span>
+                </div>
+                <!-- 码流模式 -->
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.bitrateCtl}}</label></span>
+                    <span>
+                        {{= dotRender("formSelectModel", {
+                            "list": [lang.bitrateCtl0,lang.bitrateCtl1],
+                            "attr": {"id": "getahdencodemainencodebitratetype", "class": "J-encode-bitrate-type medium-select","matchval":"encode.encodeBitrateType."}
+                        }) }}
+                    </span>
+                </div>
+                <!-- 码率 -->
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.bitrateType}}</label></span>
+                    <span>
+                        <input type="text" class="medium-input J-bite-rate" matchval="encode.encodeBiterate." min="0" max="12000" def="64" />
+                    </span>
+                </div>
+                <!-- 码率建议 -->
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.rateRange}}(Kbps)</label></span>
+                    <span><label class="J-bite-rate-range"></label></span>
+                </div>
+                <!-- 帧率 -->
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.frame}}</label></span>
+                    <span>
+                        <select class="medium-select J-frame-rate-range" matchval="encode.encodeFrameRate."></select>
+                    </span>
+                </div>
+            </div>
+            <!-- 子码流 -->
+            <div id="subhide" class="hide">
+                <div class="form-item form-title"><label>{{=lang.childStream}}</label></div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.resultion}}</label></span>
+                    <span>
+                        <select class="medium-select J-sub-resultion" matchval="encodeSub.encodeResolution."></select>
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.streamType}}</label></span>
+                    <span>
+                        {{= dotRender("formSelectModel", {
+                            "list": [lang.veido + '&' + lang.audio],
+                            "attr": {"class": "medium-select J-encode-mode","matchval":"encodeSub.streamType."}
+                        }) }}
+                    </span>
+                </div>
+                <!-- 子码流模式 -->
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.bitrateCtl}}</label></span>
+                    <span>
+                        {{= dotRender("formSelectModel", {
+                            "list": [lang.bitrateCtl0, lang.bitrateCtl1],
+                            "attr": {"id": "getahdencodemainencodebitratetype", "class": "medium-select J-sub-bitrate-type","matchval":"encodeSub.encodeBitrateType."}
+                        }) }}
+                    </span>
+                </div>
+                <!-- 码率(Kb/S) -->
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.bitrateType}}</label></span>
+                    <span>
+                        <input type="text" class="medium-input J-sub-bitrate" matchval="encodeSub.encodeBiterate." />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.rateRange}}(Kbps)</label></span>
+                    <span><label id="subbitrateVal"></label></span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.frame}}</label></span>
+                    <span>
+                        <select class="medium-select J-sub-frame-rate-range" matchval="encodeSub.encodeFrameRate."></select>
+                    </span>
+                </div>
+            </div>
+            <!-- H264H265 -->
+            <div class="J-H264-H265 hide">
+                <div class="form-item form-title">H264+/H265+</div>
+                <div id="H264">
+                    <div class="form-item">
+                        <span class="width200"><label>H264+</label></span>
+                        <span>
+                            {{= dotRender("formSelectModel", {
+                            "list": [lang.encodeOff,lang.remoteenable],
+                            "attr": {"id": "", "class": "medium-select J-264-enable","matchval": "codeType.enableSmartH264.", "str": "1" }
+                            }) }}
+                        </span>
+                    </div>
+                </div>
+                <div id="H265">
+                    <div class="form-item">
+                        <span class="width200"><label>H265+</label></span>
+                        <span>
+                            {{= dotRender("formSelectModel", {
+                            "list": [lang.encodeOff,lang.remoteenable],
+                            "attr": {"id": "", "class": "medium-select J-265-enable","matchval": "codeType.enableSmartH265.", "str": "1"}
+                            }) }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- 保存 -->
+            <div class="form-item">
+                <span class="margin-top24">
+                    <input class="btn web-btn J-save-code-nvr" type="button" value="{{=lang.save}}" onclick="encodeSaveNvr()" />
+                </span>
+            </div>
+        </div>
+
+        <!-- XVR encode -->
+        <div class="J-xvr-encode hide">
+            <div class="form-item">
+                <span class="width200"><label>{{=lang.channel}}</label></span>
+                <span>
+                    <select class="medium-select J-xvr-encode-channel" matchval="getahdencodechannelno"></select>
+                </span>
+            </div>
+            <!-- 预览信息 -->
+            <div class="form-item" id="camera">
+                <span class="width200"><label>{{=lang.cameraresolution}}</label></span>
+                <span>
+                    <input type="text" id="cameraresolution" matchVal="xvrEncode.previewInfo." str="1" class="medium-input" disabled />
+                </span>
+            </div>
+            <!-- 编码等级 -->
+            <div class="form-item">
+                <span class="width200"><label>{{=lang.encodelevel}}</label></span>
+                <span class="J-xvr-video-encode-level">
+                    {{= dotRender("formSelectModel", {
+                        "list": [lang.encodelow,lang.encodemiddle,lang.encodehigh],
+                        "attr": {"id": "getahdencodeencodetype", "class": "medium-select","matchval": "xvrEncode.videoEncodeLevel."}
+                    }) }}
+                </span>
+            </div>
+            <!-- 编码类型, 统一放到一处设置 -->
+            <div class="form-item">
+                <span class="width200"><label>{{=lang.encodetype}}</label></span>
+                <span class="J-xvr-encode-type-main"></span>
+            </div>
+            <!-- h264 -->
+            <div class="form-item J-xvr-h264-4 hide">
+                <span class="width200"><label>H264+</label></span>
+                <span>
+                    {{= dotRender("formSelectModel", {
+                        "list": [lang.encodeOff,lang.remoteenable],
+                        "attr": {"id": "getahencode264enable", "class": "medium-select","matchval": "xvrEncode.enableSmartH264." }
+                    }) }}
+                </span>
+            </div>
+            <!-- h265 -->
+            <div class="form-item J-xvr-h265-4 hide">
+                <span class="width200"><label>H265+</label></span>
+                <span>
+                    {{= dotRender("formSelectModel", {
+                        "list": [lang.encodeOff,lang.remoteenable],
+                        "attr": {"id": "getahencode265enable", "class": "medium-select", "matchval": "xvrEncode.enableSmartH265."}
+                    }) }}
+                </span>
+            </div>
+            <!-- 编码格式 -->
+            <div class="form-item">
+                <span class="width200"><label>{{=lang.encodeformat}}</label></span>
+                <span>
+                    {{= dotRender("formSelectModel", {
+                        "list": [lang.mainStream,lang.childStream],
+                        "attr": {"id": "xvrStreamtype", "class": "medium-select"},"matchval": "streamtype" }
+                    ) }}
+                </span>
+            </div>
+
+            <!-- 水印open -->
+            <div class="form-item" id="divWatermark">
+                <span class="width200"><label>{{=lang.watermark}}</label></span>
+                <span>
+                    <input type="checkbox" id="iptWatermarkEn" class="J-is-ipc-disabled" matchval="xvrEncode.enableWatermarking." str="1">
+                </span>
+            </div>
+            <!-- 水印名称 -->
+            <div class="form-item" id="divWatermarkStr">
+                <span class="width200"><label>{{=lang.wmStr}}</label></span>
+                <span>
+                    <input type="text" id="iptWatermark" class="medium-input J-is-ipc-disabled" matchval="xvrEncode.watermarkingText." str="1"
+                        maxlength="31">
+                </span>
+            </div>
+            <!-- 主码流 -->
+            <div id="mainStream">
+                <div class="form-item form-title"><label>{{=lang.mainStream}}</label></div>
+                <!-- 编码模式 -->
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.encodemode}}</label></span>
+                    <span>
+                        {{= dotRender("formSelectModel", {
+                            "list": [lang.veido,"A/V"],
+                            "attr": {"id": "getahdencodemainencodemode", "class": "medium-select J-is-ipc-disabled","matchval": "xvrStreamEncodeMain.streamType."}
+                        }) }}
+                    </span>
+                </div>
+                <!-- 编码类型 -->
+                <!-- <div class="form-item">
+                    <span class="width200"><label>{{=lang.encodetype}}</label></span>
+                    <span class="J-xvr-encode-type-main"></span>
+                </div> -->
+                <!-- 分辨率 -->
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.resultion}}</label></span>
+                    <span class="J-xvr-resolution-select"> </span>
+                </div>
+                <!-- 码流控制 -->
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.encodectl}}</label></span>
+                    <span class="J-xvr-main-stream-control">
+                        {{= dotRender("formSelectModel", {
+                            "list": [lang.ecd1,lang.ecd2],
+                            "attr": {"id": "getahdencodemainstreamcontrol", "class": "medium-select","matchval": "xvrStreamEncodeMain.streamMode."}
+                        }) }}
+                    </span>
+                </div>
+                <!-- i帧控制 -->
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.iframectl}}</label></span>
+                    <div name="iframeintervalslide" class="slide encode-slide inline-block"></div>
+                    <span class="padding-left20">
+                        <input class="mini-input" maxlength="1" name="iframeinterval" matchval="xvrStreamEncodeMain.iframeInterval."
+                            id="getahdencodemainiframeinterval" type="text" value="5" readonly />
+                    </span>
+                </div>
+                <!-- 画质 -->
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.imagequality}}</label></span>
+                    <span>
+                        {{= dotRender("formSelectModel", {
+                            "list": [lang.lowest,lang.low,lang.ecd5,lang.ecd6,lang.ecd7,lang.ecd8],
+                            "attr": {"id": "mainQuality2", "class": "medium-select J-is-ipc-disabled","matchval": "xvrStreamEncodeMain.videoQuaity."}
+                        }) }}
+                    </span>
+                </div>
+                <!-- 帧率 -->
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.framerate}}</label></span>
+                    <div name="framerateslide" class="slide encode-slide inline-block"></div>
+                    <span class="padding-left20">
+                        <input class="mini-input" maxlength="1" name="framerate" matchval="xvrStreamEncodeMain.encodeFrameRate."
+                            id="getahdencodemainframerate" type="text" value="5" readonly />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.bitrateType}}</label></span>
+                    <span>
+                        <input type="text" id="mainBitrate" class="medium-input" matchval="xvrStreamEncodeMain.encodeBiterate." min="0" max="8192"
+                            def="512" />
+                    </span>
+                </div>
+                <div class="form-item hide" id="cankaobitrate1">
+                    <span class="width200"><label>{{=lang.cankaobitrate}}</label></span>
+                    <span class="width200"><label>64-8192</label></span>
+                </div>
+            </div>
+            <!-- 子码流 -->
+            <div id="childStream" class="hide">
+                <div class="form-item form-title"><label>{{=lang.childStream}}</label></div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.encodemode}}</label></span>
+                    <span>
+                        {{= dotRender("formSelectModel", {
+                            "list": [lang.veido,"A/V"],
+                            "attr": {"id": "getahdencodesubencodemode", "class": "medium-select","matchval": "xvrStreamEncodeSub.streamType." }
+                        }) }}
+                    </span>
+                </div>
+                <!-- 子码流编码类型隐藏，统一使用主码流编码类型 -->
+                <div class="form-item hide">
+                    <span class="width200"><label>{{=lang.encodetype}}</label></span>
+                    <span class="J-xvr-encode-type-sub"></span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.resultion}}</label></span>
+                    <span class="J-xvr-resolution-select-sub"></span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.encodectl}}</label></span>
+                    <span class="J-xvr-sub-stream-control">
+                        {{= dotRender("formSelectModel", {
+                            "list": [lang.ecd1,lang.ecd2],
+                            "attr": {"id": "getahdencodesubstreamcontrol", "class": "medium-select","matchval": "xvrStreamEncodeSub.streamMode."}
+                        }) }}
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.iframectl}}</label></span>
+                    <div name="subiframeintervalslide" class="slide encode-slide inline-block"></div>
+                    <span class="padding-left20">
+                        <input class="mini-input" maxlength="1" name="subiframeinterval" matchval="xvrStreamEncodeSub.iframeInterval."
+                            id="getahdencodesubiframeinterval" type="text" value="5" readonly />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.imagequality}}</label></span>
+                    <span>
+                        {{= dotRender("formSelectModel", { "list": [lang.ecd3,lang.ecd4,lang.ecd5,lang.ecd6,lang.ecd7,lang.ecd8],
+                            "attr": {"id": "subQuality2", "class": "medium-select J-is-ipc-disabled","matchval": "xvrStreamEncodeSub.videoQuaity."} }) }}
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.framerate}}</label></span>
+                    <div name="subframerateslide" class="slide encode-slide inline-block"></div>
+                    <span class="padding-left20">
+                        <input class="mini-input" maxlength="1" name="subframerate" matchval="xvrStreamEncodeSub.encodeFrameRate."
+                            id="getahdencodesubframerate" type="text" value="5" readonly />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.bitrateType}}</label></span>
+                    <span>
+                        <input type="text" id="subBitrate" class="medium-input" matchval="xvrStreamEncodeSub.encodeBiterate." min="0" max="2048"
+                            def="128" />
+                    </span>
+                </div>
+                <div class="form-item hide" id="cankaobitrate2">
+                    <span class="width200"><label>{{=lang.cankaobitrate}}</label></span>
+                    <span class="width200"><label>128-2048</label></span>
+                </div>
+            </div>
+            <div class="form-item">
+                <span class="margin-top24">
+                    <input class="btn web-btn" type="button" value="{{=lang.save}}" onclick="encodeSaveXvr()" />
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

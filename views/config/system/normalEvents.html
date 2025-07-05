@@ -1,0 +1,319 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [
+    {name: lang.motionDetecting, hide: false, id: "motion"},
+    {name: lang.optionexception, hide: false, id: "exception"},
+    {name: lang.videoloss, hide: false, id: "videoLoss"},
+    {name: lang.eventBuzzer, hide: isHideBuzzer(), id: "buzzer"}
+    ])}}
+    <!-- 移动侦测 -->
+    <div class="tag-block hide" id="motion">
+        <!-- 通道 -->
+        <div class="form-item channel">
+            <span class="width200">
+                <label>{{=lang.channel}}</label>
+            </span>
+            <span>
+                <select class="medium-select J-motion-channel" matchval="motion.nowChannel.">
+                </select>
+            </span>
+        </div>
+
+        <!-- tab栏 -->
+        <div class="J-motion-tabs motion-tabs">
+            <ul>
+                <li><a href="#areaSet">{{=lang.strectset}}</a></li>
+                <li class="J-stschdule-time"><a href="#schduleTime">{{=lang.stschduletime}}</a></li>
+            </ul>
+            <!-- 区域设置 -->
+            <div id="areaSet">
+                <div id="videoBlock" class="video-block"></div>
+                <div class="form-item">
+                    <button type="button" class="J-draw-btn btn">
+                        <span>
+                            <label>{{=lang.drawrect}}</label>
+                        </span>
+                    </button>
+                    <button type="button" class="btn J-clear-btn">
+                        <span>
+                            <label>{{=lang.setEmpty}}</label>
+                        </span>
+                    </button>
+                </div>
+
+                <div class="form-item">
+                    <span class="width200">
+                        <input type="checkbox" matchval="motion.base.enable." str="1" />
+                        <label>{{=lang.exceptionenable}}</label>
+                    </span>
+                    <!-- 灵敏度 -->
+                    <div>
+                        <span class="span-title">{{=lang.sensitivity}}</span>
+                        <div name="slideOut" class="slide span-slide inline-block"></div>
+                        <div class="padding-left20 inline-block">
+                            <input class="motioninput mini-input J-sensitivity" maxlength="2" matchval="motion.base.sensitivity." readonly="readonly"
+                                type="text" value="0" />
+                        </div>
+                    </div>
+                </div>
+                <!-- 蜂鸣报警 -->
+                <div class="form-item height25">
+                    <span class="width200">
+                        <input type="checkbox" class="J-beep-enable" matchval="motion.trigger.enableBuzzer." str="1" />
+                        <label>{{=lang.buzzeron}}</label>
+                    </span>
+                    <span class="width200 hide">
+                        <label>{{=lang.buzzertime}}</label>
+                    </span>
+                    <!-- 蜂鸣持续时间 -->
+                    <span class="hide">
+                        <input type="text" class="small-input J-beep-time" matchval="getmotiondetbeeptime" maxlength="3" min="1" max="120" def="1" />
+                    </span>
+                </div>
+                <!-- 录像通道 -->
+                <div class="form-item height25">
+                    <span class="width200">
+                        <input type="checkbox" matchval="motion.trigger.enableRecord." str="1" />
+                        <label>{{=lang.recchannel}}</label>
+                    </span>
+                    <span class="width200 hide">
+                        <label>{{=lang.rectime}}</label>
+                    </span>
+                    <span class="hide">
+                        <input type="text" class="small-input J-record-time" matchval="getmotiondetrecordtime" maxlength="3" min="30" max="255"
+                            def="60" />
+                    </span>
+                </div>
+                <!-- nvr全屏显示  -->
+                <div class="form-item height25 J-full-screen">
+                    <span class="width200">
+                        <input type="checkbox" matchval="motion.trigger.enableFullScreen." str="1" />
+                        <label>{{=lang.fullScreenMonitoring}}</label>
+                    </span>
+                </div>
+
+                <!-- 发送邮件 -->
+                <div class="hide J-sched-date">
+                    <div class="form-item height25 notice-title hide J-notice-title">
+                        <span class="width200">
+                            <label>{{=lang.notice}}</label>
+                        </span>
+                    </div>
+
+                    <div class="form-item  J-nvr-email-enable">
+                        <span class="width200">
+                            <input type="checkbox" matchval="motion.trigger.enableEmail." str="1" />
+                            <label>{{=lang.sendemail1}}</label>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 报警输出 -->
+                <div class="form-item hide J-motion-alarm-out">
+                    <span class="width200">
+                        <label>{{=lang.enAlarmOutput}}</label>
+                    </span>
+                    <span class="width500"></span>
+                </div>
+
+                <!-- 保存 -->
+                <div class="form-item height25">
+                    <span class="margin-top24">
+                        <input class="btn web-btn J-motion-save" type="button" value="{{=lang.save}}" />
+                    </span>
+                </div>
+            </div>
+            <!-- nvr布防时间 -->
+            <div id="schduleTime">
+                <div class="motion-time-block">
+                    <div>
+                        <div class="form-item" id="divTimeSel"></div>
+                        <div class="form-item">
+                            <input id="btnRecSave" class="btn web-btn J-motion-save" type="button" value="{{=lang.save}}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 异常 -->
+    <div class="tag-block hide" id="exception">
+        <div class="margin-top5">
+            <div id="eventException">
+                <div class="form-item">
+                    <span class="width200">{{=lang.stexceptiontype}}</span>
+                    <span>
+                        {{= dotRender("formSelectModel", { "list": [lang.nodisk, lang.diskerror, lang.netnolick, lang.iperror],
+                        "attr": {class: "small-select J-event-type", matchval: ""}
+                        }) }}
+                    </span>
+                </div>
+                <div class="menu-view">
+                    <div>
+                        <div class="links ">
+                            <div id="Link1" class="link">
+                                <div class="title">
+                                    <input type="checkbox" class="checkbox J-ex-check-all" onclick="exceptionNormalLinkAll()" />
+                                    <label>{{=lang.Selectall}}</label>
+                                </div>
+                                <div class="content">
+                                    <div id="normalLink1" class="form-item bg">
+                                        <input id="geteventenalbe" matchval="exception.base.enable." str="1" type="checkbox" class="checkbox" />
+                                        <label>{{=lang.exceptionenable}}</label>
+                                    </div>
+                                    <div id="normalLink2" class="form-item">
+                                        <input id="geteventemail" matchval="exception.trigger.enableEmail." str="1" type="checkbox"
+                                            class="checkbox" />
+                                        <label>{{=lang.sendemail1}}</label>
+                                    </div>
+                                    <div id="normalLink3" class="form-item J-buzzer-alarm">
+                                        <input id="geteventbuzzer" matchval="exception.trigger.enableBuzzer." str="1" type="checkbox"
+                                            class="checkbox" />
+                                        <label>{{=lang.buzzeralarm}}</label>
+                                    </div>
+                                    <div id="normalLink4" class="form-item hide">
+                                        <input id="geteventdisplay" matchval="exception.trigger.enableDisplay." str="1" type="checkbox"
+                                            class="checkbox" />
+                                        <label>{{=lang.screendisplay}}</label>
+                                    </div>
+                                    <!-- 异常页面的报警全屏 -->
+                                    <!-- <div class="form-item getalarminrecord">
+                                               <input id="getalarminrecord" type="checkbox" onclick="recordAll()"  class="checkbox" />
+                                               <label lang="fullScreenMonitoring"></label>
+                                           <span class="width500"></span>
+                                       </div> -->
+                                </div>
+                            </div>
+                            <div id="alarmLink" class="link hide">
+                                <div class="title">
+                                    <input id="geteventalarmouten" type="checkbox" class="checkbox" onclick="alarmNormalLinkAll()" />
+                                    <label>{{=lang.alarmput}}</label>
+                                </div>
+                                <div class="content J-exception-alarm-out">
+                                    <div class="width200">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <ul>
+                        <input class="btn web-btn J-exception-save" type="button" value="{{=lang.save}}" onclick="setExceptionData()" />
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 视频丢失 -->
+    <div class="tag-block hide" id="videoLoss">
+        <div class="margin-top5">
+            <div id="eventException">
+                <div class=" ">
+                    <div class="form-item">
+                        <span class="width200" lang="channel">{{=lang.channel}}</span>
+                        <span>
+                            <select id="getvediolosschannel" class="mini-select J-video-loss-channel" matchval="getvediolosschannel">
+                                <!--<option value="250" id="ch_250" lang="allchannel"></option>-->
+                            </select>
+                        </span>
+                    </div>
+                    <div class="menu-view">
+                        <div>
+                            <div class="links">
+                                <div id="Link1" class="link">
+                                    <div class="title">
+                                        <input id="LinkAllCheck" type="checkbox" class="checkbox" onclick="normalLinkAll()" />
+                                        <label>{{=lang.Selectall}}</label>
+                                    </div>
+                                    <div class="content">
+                                        <div id="normalLink1" class="form-item bg">
+                                            <input id="getvediolossenalbe" matchval="videoLoss.base.enable." str="1" type="checkbox"
+                                                class="checkbox" />
+                                            <label>{{=lang.exceptionenable}}</label>
+                                        </div>
+                                        <div id="normalLink4" class="form-item">
+                                            <input id="getvediolossdisplay" matchval="videoLoss.trigger.enableDisplay." str="1" type="checkbox"
+                                                class="checkbox" />
+                                            <label>{{=lang.screendisplay}}</label>
+                                        </div>
+                                        <div id="normalLink2" class="form-item">
+                                            <input id="getvediolossemail" matchval="videoLoss.trigger.enableEmail." str="1" type="checkbox"
+                                                class="checkbox" />
+                                            <label>{{=lang.sendemail1}}</label>
+                                        </div>
+                                        <div id="normalLink3" class="form-item J-buzzer-alarm-Loss">
+                                            <input id="getvediolossbuzzer" matchval="videoLoss.trigger.enableBuzzer." str="1" type="checkbox"
+                                                class="checkbox J-buzzer-alarm-Loss" />
+                                            <label>{{=lang.buzzeralarm}}</label>
+                                        </div>
+                                        <div id="normalLink5" class="hide">
+                                            <span class="menu-view">
+                                                <label>{{=lang.alarmput}}</label>
+                                            </span>
+                                            <div class="menu-view">
+                                                <span>
+                                                    <label>
+                                                        <input id="getvediolossalarmout0" matchval="getvediolossalarmout0" type="checkbox" />1
+                                                    </label>
+                                                </span>
+                                                <span class="hide" id="vediolossalarmout1">
+                                                    <label>
+                                                        <input id="getvediolossalarmout1" matchval="getvediolossalarmout1" type="checkbox" />2
+                                                    </label>
+                                                </span>
+                                                <span class="hide" id="vediolossalarmout2">
+                                                    <label>
+                                                        <input id="getvediolossalarmout2" matchval="getvediolossalarmout2" type="checkbox" />3
+                                                    </label>
+                                                </span>
+                                                <span class="hide" id="vediolossalarmout3">
+                                                    <label>
+                                                        <input id="getvediolossalarmout3" matchval="getvediolossalarmout3" type="checkbox" />4
+                                                    </label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="videoAlarmLink" class="link hide">
+                                    <div class="title">
+                                        <input id="getvediolossalarmout" type="checkbox" class="checkbox" onclick="vedioLossAlarmNormalLinkAll()" />
+                                        <label>{{=lang.alarmput}}</label>
+                                    </div>
+                                    <div class="content J-video-lose-alarm-out">
+                                        <div class="width200">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <ul>
+                        <input id="videolosssave" class="btn web-btn" type="button" value="{{=lang.save}}" onclick="videoLossSave()" />
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 蜂鸣器 -->
+    <div class="tag-block hide" id="buzzer">
+        <div class="tags">
+            <div class="form-item">
+                <span class="width200">
+                    <label lang="buzzerDelay">{{=lang.buzzerDelay}}</label>
+                </span>
+                <span>
+                    <input class="J-buzzer-dalay-time" matchval="buzzer.delayTime." maxlength="3" min="1" max="120" def="1" type="text">
+                </span>
+                <span class="tip">(1-120)</span>
+            </div>
+            <div class="form-item">
+                <div class="sub">
+                    <input class="btn web-btn J-buzzer-save" type="button" value="{{=lang.save}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

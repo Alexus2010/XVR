@@ -1,0 +1,90 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [{name: lang.localOptions, attr: "class='current'"}]) }}
+    <div class="tag-block">
+        <!-- 视频区域 -->
+        <div id="videoBlock" class="hide"></div>
+        <div class="form-title hide">{{=lang.playParam}}</div>
+        <div class="form-item hide">
+            <span class="form-label">{{=lang.protocolType}}</span>
+            <span class="form-content">
+                {{= dotRender("formRadioModel", {name: 'TCP', attr: 'value="0" name="agreementType"'}) }}
+                {{= dotRender("formRadioModel", {name: 'UDP', attr: 'value="1" name="agreementType"'}) }}
+                {{= dotRender("formRadioModel", {name: 'MULTICAST', attr: 'value="2" name="agreementType"'}) }}
+                {{= dotRender("formRadioModel", {name: 'HTTP', attr: 'value="3" name="agreementType"'}) }}
+            </span>
+        </div>
+        <div class="form-item hide">
+            <span class="form-label">{{=lang.playProperty}}</span>
+            <span class="form-content">
+                {{= dotRender("formRadioModel", {name: lang.propertyFirst, attr: 'value="0" name="pf"'}) }}
+                {{= dotRender("formRadioModel", {name: lang.realFirst, attr: 'value="1" name="pf"'}) }}
+                {{= dotRender("formRadioModel", {name: lang.blance, attr: 'value="2" name="pf"'}) }}
+                {{= dotRender("formRadioModel", {name: lang.speedFirst, attr: 'value="3" name="pf"'}) }}
+            </span>
+        </div>
+        <div class="form-item hide">
+            <span class="form-label">{{=lang.imageType}}</span>
+            <span class="form-content">
+                {{= dotRender("formRadioModel", {name: 'JPEG', attr: 'value="0" name="cpType"'}) }}
+                {{= dotRender("formRadioModel", {name: 'BMP', attr: 'value="1" name="cpType"'}) }}
+            </span>
+        </div>
+        <div class="form-item hide">
+            <span class="form-label">{{=lang.vedioFileBag}}</span>
+            <span class="form-content">
+                {{= dotRender("formRadioModel", {name: '256M', attr: 'value="0" name="zipType"'}) }}
+                {{= dotRender("formRadioModel", {name: '512M', attr: 'value="1" name="zipType"'}) }}
+                {{= dotRender("formRadioModel", {name: '1G', attr: 'value="2" name="zipType"'}) }}
+            </span>
+        </div>
+        <div class="form-title">{{=lang.vedioFiles}}</div>
+        <div class="form-item">
+            <span class="form-label">{{=lang.vedioPath}}</span>
+            <span class="form-content">
+                <input class="path-input J-down-path" type="text" readonly="readonly" />
+                <input type="button" class="btn browser-btn J-browse" value="{{=lang.browse}}" data-type="down-path" />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="form-label">{{=lang.playbackPath}}</span>
+            <span class="form-content">
+                <input class="path-input J-replay-path" type="text" readonly="readonly" />
+                <input type="button" class="btn browser-btn J-browse" value="{{=lang.browse}}" data-type="replay-path" />
+            </span>
+        </div>
+        <div class="form-title">{{=lang.imgAndClip}}</div>
+        <div class="form-item">
+            <span class="form-label">{{=lang.previewImgPath}}</span>
+            <span class="form-content">
+                <input class="path-input J-preview-path" type="text" readonly="readonly" />
+                <input type="button" class="btn browser-btn J-browse" value="{{=lang.browse}}" data-type="preview-path" />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="form-label">{{=lang.playbackImgPath}}</span>
+            <span class="form-content">
+                <input class="path-input J-playback-path" type="text" readonly="readonly" />
+                <input type="button" class="btn browser-btn J-browse" value="{{=lang.browse}}" data-type="playback-path" />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="form-label">{{=lang.playbackClipPath}}</span>
+            <span class="form-content">
+                <input class="path-input J-clip-path" type="text" readonly="readonly" />
+                <input type="button" class="btn browser-btn J-browse" value="{{=lang.browse}}" data-type="clip-path" />
+            </span>
+        </div>
+        <div class="form-title hide">{{=lang.tipsLog}}</div>
+        <div class="form-item hide">
+            <span class="form-label">{{=lang.logPaht}}</span>
+            <span class="form-content">
+                <input class="path-input J-log-path" type="text" readonly="readonly" />
+                <input type="button" class="btn browser-btn J-browse" value="{{=lang.browse}}" data-type="log-path" />
+            </span>
+        </div>
+        <div class="form-item form-btn">
+            <input class="btn web-btn J-local-options-save" type="button" value="{{=lang.save}}" /><br>
+            {{= dotRender("downPluginModel") }}
+        </div>
+    </div>
+</div>

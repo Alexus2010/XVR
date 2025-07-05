@@ -1,0 +1,25 @@
+<div class="dot-template J-dot-template options-container" id="optionsContainer">
+    <div class="options-menu J-options-menu">
+        <dl>
+            {{~ it.list:pmenu}}
+            <dt class="{{= pmenu.class }}">
+                <a class="J-tag-target">
+                    {{=lang[pmenu.name]}}
+                </a>
+            </dt>
+            <dd class="hide">
+                <ul>
+                    {{~ pmenu.node :data}}
+                    {{ for ( var key in data ){ }}
+                    <li id="{{= data[key] }}Title" data-path="{{= pmenu.folder }}-{{= data[key] }}">
+                        <a>{{=lang[key]}}</a>
+                    </li>
+                    {{ } }}
+                    {{~}}
+                </ul>
+            </dd>
+            {{~}}
+        </dl>
+    </div>
+    <div class="options-main J-options-main"></div>
+</div>

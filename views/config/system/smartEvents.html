@@ -1,0 +1,721 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [
+    {name: lang.smartyDetect, hide: !getConf("isSmartDetectEn"), id: "smartDetect"},
+    {name: lang.smtFaceCmp, hide: !isHideFaceComparison(), id: "faceComparison"},
+    {name: lang.smtFaceManage, hide: !isHideFaceManage(), id: "smartFaceManage"}
+    ])}}
+    <!-- 智能侦测 -->
+    <div class="tag-block hide" id="smartDetect">
+        <div class="">
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.channel}}</label>
+                </span>
+                <span>
+                    <select id="selSmtDetect" class="medium-select"></select>
+                </span>
+            </div>
+            <div class="form-item xvrSmtEnable hide">
+                <span class="width200">
+                    <label>{{=lang.smartSwitch}}</label>
+                </span>
+                <span>
+                    <select id="getsmartchnen" class="medium-select" matchval="getsmartchnen">
+                        <option value="0">{{=lang.comDisable}}</option>
+                        <option value="1">{{=lang.enable}}</option>
+                    </select>
+                </span>
+            </div>
+            <div class="form-item xvrSensitivity hide">
+                <span class="width200">
+                    <label>{{=lang.sensitivity}}</label>
+                </span>
+                <span>
+                    <div id="slideOut" class="slide config-slide"></div>
+                </span>
+                <span>
+                    <div class="padding-left20">
+                        <input class="mini-input" maxlength="3" name="ucOutputVolume" matchval="getsmartchnsen" id="ucOutputVolume" type="text"
+                            value="0" />
+                    </div>
+                </span>
+            </div>
+        </div>
+
+        <div>
+            <!-- tab栏&tab内容区域 -->
+            <div>
+                <div id="divTabs" class="hide smtEventTab">
+                    <ul>
+                        <li class="xvrHuman"><a href="#divHuman" live-type="7">{{=lang.smtHumDet}}</a></li>
+                        <li><a href="#divFace" live-type="10">{{=lang.faceHumanDetection}}</a></li>
+                        <li><a href="#divCross" live-type="6">{{=lang.smartEveCrossBor}}</a></li>
+                        <li><a href="#divBlock" live-type="7">{{=lang.areaDetect}}</a></li>
+                        <li><a href="#divHover" live-type="7">{{=lang.hoverDetect}}</a></li>
+                        <li><a href="#divGather" live-type="7">{{=lang.gatherDetect}}</a></li>
+                    </ul>
+                    <!-- 人形侦测 -->
+                    <div id="divHuman">
+                        <div class="form-item">
+                            <span><input type="checkbox" id="gethumandeten" matchval="humanDetect.base.enable." str="1"></span>
+                            <span id="faceDetHuman">{{=lang.remoteenable}}</span>
+                        </div>
+                        <div class="form-item" id="divHumanAccord">
+                            <span class="width100">{{=lang.handleMode}}:</span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="humanDetect.trigger.enableBuzzer." id="gethumandetbeepen" str="1">
+                                <label>{{=lang.buzzeralarm}}</label>
+                            </span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="humanDetect.trigger.enableEmail." id="gethumandetsmtpen" str="1">
+                                <label>{{=lang.sendemail1}}</label>
+                            </span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="humanDetect.trigger.enableRecord." id="gethumandetrecorden" str="1">
+                                <label>{{=lang.recchannel}}</label>
+                            </span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="humanDetect.trigger.enableFullScreen." id="gethumandetFullScreenen" str="1">
+                                <label>{{=lang.fullScreenMonitoring}}</label>
+                            </span>
+                            
+                            <!-- 四个报警输出占位 -->
+                            <span class="J-human-detect-alarm-output hide">
+                                <label>{{=lang.enAlarmOutput}}</label>
+                                <span class="alarmout hide"></span>
+                                <span class="alarmout"></span>
+                                <span class="alarmout"></span>
+                                <span class="alarmout"></span>
+                            </span>
+                        </div>
+                        <div class="form-item">
+                            <select id="selHumanRule" class="small-select selRule hide">
+                            </select>
+                            <span class="width100">{{=lang.roleConfig}}:</span>
+                            <span>
+                                <label>{{=lang.sensitivity}}</label>
+                                <input type="text" class="small-input" id="iptHumandetSens" min="0" max="100">
+                            </span>
+                        </div>
+                        <!-- 划四边形 -->
+                        <div class="form-item">
+                            <!-- 画全屏 -->
+                            <button data-type='5' class="margin-right-10px" onclick="onDrawFullScreenRectClk.call(this);">
+                                {{=lang.fullscreen}}
+                            </button>
+                            <button data-type='5' class="btnDrawRect ivms-draw-text J-draw-click margin-right-10px" onclick="onDrawRectClk.call(this);">
+                                <span class="ui-icon ui-icon-pencil"></span>{{=lang.drawRect}}
+                            </button>
+                            <button class="margin-right-10px" onclick="onClearRectClk.call(this)">
+                                <span class="ui-icon ui-icon-arrowrefresh-1-w"></span>{{=lang.clearall}}
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 人脸 -->
+                    <div id="divFace">
+                        <div class="form-item">
+                            <span class="width100" id="faceDet">{{=lang.detectionMode}}</span>
+                            <span>
+                                {{= dotRender("formSelectModel", {
+                                    "list": [lang.dnrModel0, lang.smartEveFace],
+                                    "attr": {class: "small-select J-face-mode", matchval: "faceDetect.base.detectionMode."}
+                                }) }}
+                            </span>
+                            <span class="wififace hide">
+                                <span class="width100" id="humandet">{{=lang.remoteenable}}</span>
+                                <span><input type="checkbox" id="gethumandeten" matchval="wififaceDetect.base.enable." str="1"></span>
+                            </span>
+                            <span class="hide"><input type="text" class="hide" matchval="faceDetect.channel."></span>
+                        </div>
+                        <div class="form-item J-is-humandet">
+                            <div class="form-item" id="divFaceAccord">
+                                <span class="width100">{{=lang.handleMode}}:</span>
+                                <span class="margin-right-10px">
+                                    <input type="checkbox" matchval="faceDetect.trigger.enableBuzzer." str="1" id="getfacedetbeepen">
+                                    <label>{{=lang.buzzeralarm}}</label>
+                                </span>
+                                <span class="margin-right-10px">
+                                    <input type="checkbox" matchval="faceDetect.trigger.enableEmail." str="1" id="getfacedetsmtpen">
+                                    <label>{{=lang.sendemail1}}</label>
+                                </span>
+                                <span class="margin-right-10px hide">
+                                    <input type="checkbox" matchval="getfacedetftpen" str="1" id="getfacedetftpen">
+                                    <label>{{=lang.up2FTP}}</label>
+                                </span>
+                                <span class="margin-right-10px">
+                                    <input type="checkbox" matchval="faceDetect.trigger.enableRecord." str="1" id="getfacedetrecorden">
+                                    <label>{{=lang.recchannel}}</label>
+                                </span>
+                                <span class="margin-right-10px fullScreenMonitoring">
+                                    <input type="checkbox" matchval="faceDetect.trigger.enableFullScreen." str="1" id="getfacedetfullscreenen">
+                                    <label>{{=lang.fullScreenMonitoring}}</label>
+                                </span>
+                                
+                                <!-- 四个报警输出占位 -->
+                                <span>
+                                    <label>{{=lang.enAlarmOutput}}</label>
+                                    <span class="alarmout hide"></span>
+                                    <span class="alarmout"></span>
+                                    <span class="alarmout"></span>
+                                    <span class="alarmout"></span>
+                                </span>
+                            </div>
+
+                            <div class="form-item">
+                                <span class="width100">{{=lang.roleConfig}}:</span>
+                                <span class="margin-right-10px">
+                                    <label>{{=lang.sensitivity}}</label>
+                                    {{= dotRender("formSelectModel", {
+                                        "list": [lang.low, lang.middle, lang.high, lang.highest],
+                                        "attr": {class: "small-select", matchval: "faceDetect.base.sensitivity."}
+                                        }) }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 越界 -->
+                    <div id="divCross">
+                        <div class="form-item">
+                            <span>
+                                <input type="checkbox" id="getcrossborderen" matchval="lineCrossing.base.enable." str="1">
+                            </span>
+                            <span>{{=lang.remoteenable}}</span>
+                            <span class="hide"><input type="text" class="hide" matchval="lineCrossing.channel."></span>
+                        </div>
+
+                        <div class="form-item" id="divCrossAccord">
+                            <span class="width100">{{=lang.handleMode}}:</span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="lineCrossing.trigger.enableBuzzer." str="1" id="getcrossborderbeepen">
+                                <label>{{=lang.buzzeralarm}}</label>
+                            </span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="lineCrossing.trigger.enableEmail." str="1" id="getcrossbordersmtpen">
+                                <label>{{=lang.sendemail1}}</label>
+                            </span>
+                            <span class="margin-right-10px hide">
+                                <input type="checkbox" matchval="getcrossborderftpen" id="getcrossborderftpen">
+                                <label>{{=lang.up2FTP}}</label>
+                            </span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="lineCrossing.trigger.enableRecord." str="1" id="getcrossborderrecorden">
+                                <label>{{=lang.recchannel}}</label>
+                            </span>
+                            <span class="margin-right-10px fullScreenMonitoring">
+                                <input type="checkbox" matchval="lineCrossing.trigger.enableFullScreen." str="1" id="getcrossborderfullscreenen">
+                                <label>{{=lang.fullScreenMonitoring}}</label>
+                            </span>
+                            
+                            <!-- 四个报警输出占位 -->
+                            <span>
+                                <label>{{=lang.enAlarmOutput}}</label>
+                                <span class="alarmout hide"></span>
+                                <span class="alarmout"></span>
+                                <span class="alarmout"></span>
+                                <span class="alarmout"></span>
+                            </span>
+                        </div>
+
+                        <div class="form-item">
+                            <span class="width100">{{=lang.roleConfig}}:</span>
+                            <span>
+                                <label>{{=lang.rule}}</label>
+                                <select id="selCrsRule" class="small-select selRule J-rule-type">
+                                    <option value="0">1</option>
+                                    <option value="1">2</option>
+                                    <option value="2">3</option>
+                                    <option value="3">4</option>
+                                </select>
+                            </span>
+                            <span>
+                                <label>{{=lang.sensitivity}}</label>
+                                <input type="text" class="small-input" id="iptCrossSens" min="0" max="100">
+                            </span>
+                            <span>
+                                <label>{{=lang.direction}}</label>
+                                <select id="selCrossDirect" class="small-select J-rule-direction">
+                                    <option value="0">A&lt;-&gt;B</option>
+                                    <option value="1">A-&gt;B</option>
+                                    <option value="2">A&lt;-B</option>
+                                </select>
+                            </span>
+                            <span>
+                                <input type="text" matchval="getcrossborderrule" class="hide">
+                            </span>
+                        </div>
+                        <!-- 划直线 -->
+                        <div class="form-item">
+                            <button class="ivms-draw-text margin-right-10px" id="btnDrawLine" onclick="onDrawLineClk.call(this);">
+                                <span class="ui-icon ui-icon-pencil"></span>
+                                {{=lang.drawLine}}
+                            </button>
+                            <button class="margin-right-10px" id="btnClearLine" onclick="onClearLineClk();">
+                                <span class="ui-icon ui-icon-arrowrefresh-1-w"></span>
+                                {{=lang.clearall}}
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 区域入侵 -->
+                    <div id="divBlock">
+                        <div class="form-item">
+                            <span><input type="checkbox" id="getregionalinvasionen" matchval="regionalIntrusion.base.enable." str="1"></span>
+                            <span>{{=lang.remoteenable}}</span>
+                            <span class="hide"><input type="text" matchval="regionalIntrusion.channel." class="hide"></span>
+                        </div>
+
+                        <div class="form-item" id="divBlockAccord">
+                            <span class="width100">{{=lang.handleMode}}:</span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="regionalIntrusion.trigger.enableBuzzer." str="1" id="getregionalinvasionbeepen">
+                                <label>{{=lang.buzzeralarm}}</label>
+                            </span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="regionalIntrusion.trigger.enableEmail." str="1" id="getregionalinvasionsmtpen">
+                                <label>{{=lang.sendemail1}}</label>
+                            </span>
+                            <span class="margin-right-10px hide">
+                                <input type="checkbox" matchval="getregionalinvasionftpen" id="getregionalinvasionftpen">
+                                <label>{{=lang.up2FTP}}</label>
+                            </span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="regionalIntrusion.trigger.enableRecord." str="1" id="getregionalinvasionrecorden">
+                                <label>{{=lang.recchannel}}</label>
+                            </span>
+                            <span class="margin-right-10px fullScreenMonitoring">
+                                <input type="checkbox" matchval="regionalIntrusion.trigger.enableFullScreen." str="1" id="getregionalinvasionfullscreenen">
+                                <label>{{=lang.fullScreenMonitoring}}</label>
+                            </span>
+                            
+                            <!-- 四个报警输出占位 -->
+                            <span>
+                                <label>{{=lang.enAlarmOutput}}</label>
+                                <span class="alarmout hide"></span>
+                                <span class="alarmout"></span>
+                                <span class="alarmout"></span>
+                                <span class="alarmout"></span>
+                            </span>
+                        </div>
+
+                        <div class="form-item">
+                            <span class="width100">{{=lang.roleConfig}}:</span>
+                            <span class="margin-right-10px">
+                                <label>{{=lang.rule}}</label>
+                                <select id="selBlkRule" class="small-select selRule">
+                                    <option value="0">1</option>
+                                    <option value="1">2</option>
+                                    <option value="2">3</option>
+                                    <option value="3">4</option>
+                                </select>
+                            </span>
+                            <span class="margin-right-10px">
+                                <label>{{=lang.sensitivity}}</label>
+                                <input type="text" class="small-input" id="iptBlockSens" min="0" max="100">
+                            </span>
+                            <span class="margin-right-10px">
+                                <label>{{=lang.timeThresholdS}}</label>
+                                <select id="selBlockTime" class="small-select J-rule-time">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </span>
+                            <span class="margin-right-10px">
+                                <input type="text" matchval="getregionalinvasionrule" class="hide">
+                            </span>
+                        </div>
+
+
+                        <!-- 划四边形 -->
+                        <div class="form-item">
+                            <button data-type='2' class="btnDrawRect ivms-draw-text J-draw-click" onclick="onDrawRectClk.call(this);">
+                                <span class="ui-icon ui-icon-pencil"></span>{{=lang.drawRect}}
+                            </button>
+                            <button onclick="onClearRectClk.call(this)">
+                                <span class="ui-icon ui-icon-arrowrefresh-1-w"></span>{{=lang.clearall}}
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 徘徊侦测 -->
+                    <div id="divHover">
+                        <div class="form-item">
+                            <span><input type="checkbox" matchval="loitering.base.enable." str="1"></span>
+                            <span>{{=lang.remoteenable}}</span>
+                            <span class="hide"><input type="text" matchval="loitering.channel." class="hide"></span>
+                            <span class="hide"><input type="text" matchval="getpeoplestayalarmoutmask" class="hide"></span>
+                            <span class="hide"><input type="text" matchval="getpeoplestaycaptureen" class="hide"></span>
+                        </div>
+
+                        <div class="form-item" id="divHoverAccord">
+                            <span class="width100">{{=lang.handleMode}}:</span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="loitering.trigger.enableBuzzer." str="1">
+                                <label>{{=lang.buzzeralarm}}</label>
+                            </span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="loitering.trigger.enableEmail." str="1">
+                                <label>{{=lang.sendemail1}}</label>
+                            </span>
+                            <span class="margin-right-10px hide">
+                                <input type="checkbox" matchval="getpeoplestayftpen">
+                                <label>{{=lang.up2FTP}}</label>
+                            </span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="loitering.trigger.enableRecord." str="1">
+                                <label>{{=lang.recchannel}}</label>
+                            </span>
+                            <span class="margin-right-10px fullScreenMonitoring">
+                                <input type="checkbox" matchval="loitering.trigger.enableFullScreen." str="1" id="getpeoplestayfullscreenen">
+                                <label>{{=lang.fullScreenMonitoring}}</label>
+                            </span>
+                            
+                            <!-- 四个报警输出占位 -->
+                            <span>
+                                <label>{{=lang.enAlarmOutput}}</label>
+                                <span class="alarmout hide"></span>
+                                <span class="alarmout"></span>
+                                <span class="alarmout"></span>
+                                <span class="alarmout"></span>
+                            </span>
+                        </div>
+
+                        <div class="form-item">
+                            <span class="width100">{{=lang.roleConfig}}:</span>
+                            <span class="margin-right-10px">
+                                <label>{{=lang.rule}}</label>
+                                <select id="selHoverRule" class="small-select selRule">
+                                    <option value="0">1</option>
+                                    <option value="1">2</option>
+                                    <option value="2">3</option>
+                                    <option value="3">4</option>
+                                </select>
+                            </span>
+                            <span class="margin-right-10px">
+                                <label>{{=lang.sensitivity}}</label>
+                                <input type="text" class="small-input" id="iptHoverSens" min="0" max="100">
+                            </span>
+                            <span class="margin-right-10px">
+                                <label>{{=lang.timeThresholdM}}</label>
+                                <select id="selHoverTime" class="small-select J-rule-time">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </span>
+                            <span class="margin-right-10px">
+                                <input type="text" matchval="getpeoplestayrule" class="hide">
+                            </span>
+                        </div>
+                        <!-- 划四边形 -->
+                        <div class="form-item">
+                            <button data-type='3' class="btnDrawRect ivms-draw-text J-draw-click" onclick="onDrawRectClk.call(this);">
+                                <span class="ui-icon ui-icon-pencil"></span>{{=lang.drawRect}}
+                            </button>
+                            <button onclick="onClearRectClk.call(this)">
+                                <span class="ui-icon ui-icon-arrowrefresh-1-w"></span>{{=lang.clearall}}
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 人员聚集 -->
+                    <div id="divGather">
+                        <div class="form-item">
+                            <span><input type="checkbox" matchval="peopleGather.base.enable." str="1"></span>
+                            <span>{{=lang.remoteenable}}</span>
+                            <span class="hide"><input type="text" matchval="peopleGather.channel." class="hide"></span>
+                            <span class="hide"><input type="text" matchval="getpeoplegatheringcaptureen" class="hide"></span>
+                            <span class="hide"><input type="text" matchval="getpeoplegatheringalarmoutmask" class="hide"></span>
+                        </div>
+
+                        <div class="form-item" id="divGatherAccord">
+                            <span class="width100">{{=lang.handleMode}}:</span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="peopleGather.trigger.enableBuzzer." str="1">
+                                <label>{{=lang.buzzeralarm}}</label>
+                            </span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="peopleGather.trigger.enableEmail." str="1">
+                                <label>{{=lang.sendemail1}}</label>
+                            </span>
+                            <span class="margin-right-10px hide">
+                                <input type="checkbox" matchval="getpeoplegatheringftpen">
+                                <label>{{=lang.up2FTP}}</label>
+                            </span>
+                            <span class="margin-right-10px">
+                                <input type="checkbox" matchval="peopleGather.trigger.enableRecord." str="1">
+                                <label>{{=lang.recchannel}}</label>
+                            </span>
+                            <span class="margin-right-10px fullScreenMonitoring">
+                                <input type="checkbox" matchval="peopleGather.trigger.enableFullScreen." str="1" id="getpeoplegatheringfullscreenen">
+                                <label>{{=lang.fullScreenMonitoring}}</label>
+                            </span>
+                            
+                            <!-- 四个报警输出占位 -->
+                            <span>
+                                <label>{{=lang.enAlarmOutput}}</label>
+                                <span class="alarmout hide"></span>
+                                <span class="alarmout"></span>
+                                <span class="alarmout"></span>
+                                <span class="alarmout"></span>
+                            </span>
+                        </div>
+
+                        <div class="form-item">
+                            <span class="width100">{{=lang.roleConfig}}:</span>
+                            <span class="margin-right-10px">
+                                <label>{{=lang.rule}}</label>
+                                <select id="selGatherRule" class="small-select selRule">
+                                    <option value="0">1</option>
+                                    <option value="1">2</option>
+                                    <option value="2">3</option>
+                                    <option value="3">4</option>
+                                </select>
+                            </span>
+                            <span class="margin-right-10px">
+                                <label>{{=lang.ratio}}</label>
+                                <div class="ls-slide"></div>
+                                <input id="iptGahterRadio" type="text" class="ipt-slide" min="1" max="100">
+                            </span>
+                            <span class="margin-right-10px">
+                                <input type="text" matchval="getpeoplegatheringrule" class="hide">
+                            </span>
+                        </div>
+
+                        <!-- 划四边形 -->
+                        <div class="form-item">
+                            <button data-type='4' class="btnDrawRect ivms-draw-text J-draw-click" onclick="onDrawRectClk.call(this);">
+                                <span class="ui-icon ui-icon-pencil"></span>{{=lang.drawRect}}
+                            </button>
+                            <button onclick="onClearRectClk.call(this)">
+                                <span class="ui-icon ui-icon-arrowrefresh-1-w"></span>{{=lang.clearall}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 视频&时间段选择区域 -->
+            <div class="video-timeSel-block">
+                <div>
+                    <div id="videoBlock" class="video-block"></div>
+                    <!-- 保存按钮 -->
+                    <div class="div-save">
+                        <input type="button" id="save" class="btn web-btn" value="{{=lang.save}}" onclick="onSaveClk();" />
+                    </div>
+                </div>
+                <div class="form-item" id="divTimeSel"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 人脸比对 -->
+    <div class="tag-block hide" id="faceComparison">
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.channel}}</label>
+            </span>
+            <span>
+                <select id="selFaceCh" class="medium-select" matchval="faceCompasion.nowChannel."></select>
+            </span>
+        </div>
+        <div class="form-item">
+            <label class="lsChk"><input type="checkbox" matchval="faceCompasion.base.enable." str="1">{{=lang.remoteenable}}</label>
+        </div>
+        <!-- 处理方式 -->
+        <div class="form-item">
+            <span class="width200">{{=lang.handleMode}}</span>
+            <button id="btnHandle" class="ui-button ui-widget ui-corner-all ui-button-icon-only">
+                <span class="ui-icon ui-icon-gear"></span>1
+            </button>
+        </div>
+        <div class="form-item simple-table table-block">
+            <table width="90%" class="row-border J-face-com-table">
+                <thead>
+                    <tr>
+                        <td><label class="lsChk"><input type="checkbox" id="chkAll">{{=lang.remoteenable}}</label></td>
+                        <td><label>{{=lang.libName}}</label></td>
+                        <td><label>{{=lang.selectMode}}</label></td>
+                        <td><label>{{=lang.similarityEdt}}</label>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="form-item hide" id="tempSelMode">
+            {{= dotRender("formSelectModel", {"list": [lang.blackList, lang.whiteList], "attr": {class: "small-input"} }) }}
+        </div>
+        <div class="form-item hide" id="tempSlide">
+            <div class="ls-slide"></div>
+            <input type="text" min="0" max="100" def="0" class="ipt-slide">
+        </div>
+        <div class="form-item"></div>
+        <!-- 保存按钮 -->
+        <div class="form-item">
+            <input type="button" id="save" class="btn web-btn" value="{{=lang.save}}" onclick="faceCompSave();" />
+        </div>
+        <!-- 弹出框 -->
+        <div id="dlgHandle" title="" class="hide">
+            <div class="form-item">
+                <span class="width200">{{=lang.buzzeralarm}}</span><input type="checkbox" matchval="faceCompasion.trigger.enableBuzzer." str="1">
+            </div>
+            <div class="form-item">
+                <span class="width200">{{=lang.sendemail1}}</span><input type="checkbox" matchval="faceCompasion.trigger.enableEmail." str="1">
+            </div>
+            <div class="form-item hide">
+                <span class="width200">{{=lang.fullScreenMonitoring}}</span><input type="checkbox" matchval="faceCompasion.trigger.enableFullScreen."
+                    str="1">
+            </div>
+            <!-- <div class="form-item hide">
+                <span class="width200">{{=lang.up2FTP}}</span><input type="checkbox" matchval="getfacecompareftpen">
+            </div> -->
+            <div class="form-item hide">
+                <span class="width200">{{=lang.recchannel}}</span><input type="checkbox" matchval="faceCompasion.trigger.enableRecord." str="1">
+            </div>
+            <div class="form-item hide blkAlarm">
+                <span class="width200">{{=lang.enAlarmOutput}}</span>
+                <!-- <input type="checkbox" matchval="getfacecomparealarmouten"> -->
+            </div>
+            <!-- <div class="form-item hide xvrBlkAlarm">
+                   <span class="width200" lang="enAlarmOutput"></span>
+               </div> -->
+            <input type="hidden" matchval="getfacecomparecaptureen">
+            <input type="hidden" matchval="getfacecomparealarmoutmask">
+        </div>
+    </div>
+    <!-- 人脸库管理 -->
+    <div class="tag-block hide" id="smartFaceManage">
+        <div class="options-block">
+            <div class="">
+                <div class="form-item simple-table" id="stcm">
+                    <table id="tabFaceLib">
+                        <thead>
+                            <tr>
+                                <td>{{=lang.faceLibName}}</td>
+                                <td>{{=lang.nums}}</td>
+                                <td>{{=lang.logDetail}}</td>
+                                <td>{{=lang.del}}</td>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="form-item subitemW">
+                    <button class="btn browser-btn" id="btnAddLib" onclick="onAddLibClk();">{{=lang.addto}}</button>
+                    <div class="capacity hide">
+                        <span>{{=lang.disktotal}}&nbsp;/&nbsp;</span><span>{{=lang.diskfree}}</span> ：
+                        <input type="text" value="">
+                    </div>
+                </div>
+                <div class="form-item"><span>{{=lang.faceLibDetail}}</span></div>
+                <div class="form-item">
+                    <div class="simple-table" id="stcl">
+                        <table id="tabDetail">
+                            <thead>
+                                <tr>
+                                    <td class="logNum">{{=lang.logNum}}</td>
+                                    <!-- <td lang="ptzname" class="hide nvrFaceName"></td> -->
+                                    <td class="pdname"></td>
+                                    <td>{{=lang.del}}</td>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div id="blkFace">
+                        <div>{{=lang.faceModule}}</div>
+                        <div id="blkImgSelFace">
+                            <img id="imgSelFace" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-item">
+                    <button class="btn browser-btn" id="btnAddDetail" onclick="onAddDetialClk();" disabled="disabled">{{=lang.addto}}</button>
+                </div>
+                <div id="dlgAddLid" class="hide">
+                    <span class="width100" lang="ptzname">{{=lang.ptzname}}</span>
+                    <input type="text" class="medium-input" id="iptLibName" maxlength="27">
+                </div>
+                <div id="dlgAddDetail" class="hide">
+                    <div class="form-item">
+                        <div class="blkLeft">
+                            <div>
+                                <span class="width100">{{=lang.addWay}}</span>
+                                <span><input type="radio" name="addType" mode="modeLocal">{{=lang.localPic}}</span>
+                                <span><input type="radio" name="addType" mode="modePreview">{{=lang.shootPic}}</span>
+                            </div>
+                            <div class="addFaceName hide">
+                                <span class="width100">{{=lang.addFaceName}}</span>
+                                <span><input type="text" class="medium-input" id="addFaceName" name="addFaceName" maxlength="31"></span>
+                            </div>
+                            <div class="blkLocal">
+                                <div>
+                                    <input type="text" id="iptImgPath" class="medium-input" readonly="readonly">
+                                    <button id="btnBrowser" onclick="onBroweLocalImgClk();" class="btn browser-btn">{{=lang.inputImg}}</button>
+                                </div>
+                            </div>
+
+                            <div class="blkPreview">
+                                <div>
+                                    <span class="width100">{{=lang.usercamera}}</span>
+                                    <select id="selCh" class="medium-select"></select>
+                                </div>
+                            </div>
+                            <div class="addXvrFaceName hide">
+                                <span class="width100">{{=lang.ptzname}}</span>
+                                <span><input type="text" class="medium-input" id="addXvrFaceName" name="addXvrFaceName" maxlength="31"></span>
+                            </div>
+                            <div class="hide funcLibNum">
+                                <span class="width100">{{=lang.selectNum}}</span>
+                                <select id="selNum" class="medium-select"></select>
+                            </div>
+                            <div>
+                                <button id="btnCapPic" onclick="onBtnCapClk();" class="btn browser-btn">{{=lang.shoot}}</button>
+                                <button id="btnCancelCap" onclick="onBtnCancelCapClk();" class="btn browser-btn">{{=lang.cancel}}</button>
+                            </div>
+                            <canvas id="cav1" width="350" height="220"></canvas>
+                        </div>
+                        <div class="blkRight">
+                            <div>
+                                <span>{{=lang.faceModule}}</span>
+                            </div>
+                            <div id="blkImg">
+                                <canvas id="cav2" width="160" height="200"></canvas>
+                                <canvas id="cavData" class="hide"></canvas>
+                            </div>
+                            <div>
+                                <button id="btnFetchFaceModule" class="btn browser-btn">{{=lang.getFaceModel}}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-item blkBtns">
+                        <button id="btnConfirmAddDetail" onclick="onAddFaceConfirmClk();" class="btn browser-btn">{{=lang.confirm}}</button>
+                        <button id="btnCancelAddDetail" onclick="onAddFaceCancelClk();" class="btn browser-btn">{{=lang.cancel}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tempDetailBtn" class="hide">
+            <button class="ui-button ui-corner-all ui-widget ui-button-icon-only btnLibDetail">
+                <span class="ui-button-icon ui-icon ui-icon-gear"></span>
+                1
+            </button>
+        </div>
+        <div id="tempDelFaceBtn" class="hide">
+            <button class="ui-button ui-corner-all ui-widget ui-button-icon-only btnFaceDel ui-state-error-text">
+                <span class="ui-button-icon ui-icon ui-icon-closethick"></span>
+                1
+            </button>
+        </div>
+    </div>
+</div>

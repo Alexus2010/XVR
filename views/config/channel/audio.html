@@ -1,0 +1,63 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [{name: lang.optAudio, attr: "class='current'"}]) }}
+    <div class="tag-block ">
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.channel}}</label>
+            </span>
+            <span>
+                <select id="listCh" class="medium-select" matchval=""></select>
+            </span>
+        </div>
+    </div>
+    <div class="tag-block ">
+        <div class="form-item J-audio-enable">
+            <label>{{=lang.saEnableAudio}}
+                <input type="checkbox" id="chkEnAudio" matchval="audio.enable." str="1" />
+            </label>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.aAudioIpt}}</label>
+            </span>
+            <span>
+                <select class="medium-select J-input-mode" matchval="audio.inputMode.">
+                </select>
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.aAudioEncode}}</label>
+            </span>
+            <span>
+                <select class="medium-select J-encode-type" matchval="audio.encodeType." str="1">
+                </select>
+            </span>
+        </div>
+    </div>
+    <div class="tag-block J-volume" id="divVolume">
+        <div class="form-item form-title">
+            <label>{{=lang.volumeset}}</label>
+        </div>
+        <div class="form-item flex J-audio-input">
+            <span class="width200">{{=lang.audioVolumeIpt}}</span>
+            <div id="slideInVol" class="slide config-slide inline-block"></div>
+            <span class="padding-left20">
+                <input class="mini-input" maxlength="3" id="iptInVol" matchval="audio.inputVolume." type="text" value="0" min="0" max="100" def="0" />
+            </span>
+        </div>
+        <div class="form-item flex">
+            <span class="width200">{{=lang.saOutVol}}</span>
+            <div id="slideOutVol" class="slide config-slide inline-block"></div>
+            <span class="padding-left20">
+                <input class="mini-input" maxlength="3" id="iptOutVol" matchval="audio.outputVolume." type="text" value="0" min="0" max="100"
+                    def="0" />
+            </span>
+        </div>
+    </div>
+    <div class="tag-block ">
+        <div class="form-item">
+            <input type="button" id="btnSave" value="{{=lang.save}}" class="btn web-btn">
+        </div>
+    </div>
+</div>

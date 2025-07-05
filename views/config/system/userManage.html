@@ -1,0 +1,107 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [{name: lang.userlog, attr: "class='current'"}]) }}
+    <div class="tag-block">
+        <div class="user-message">
+            <div class="grid grid-height">
+                <div class="table width830">
+                    <div class="table-header">
+                        <span class="tablece width70"><label>{{=lang.sdindex}}</label></span>
+                        <span class="tablece width155"><label>{{=lang.userName}}</label></span>
+                        <span class="tablece width155"><label>{{=lang.security}}</label></span>
+                        <span class="tablece width110"><label>{{=lang.userlevel}}</label></span>
+                        <span class="tablece width110"><label>{{=lang.right}}</label></span>
+                        <span class="tablece width110"><label>{{=lang.modify}}</label></span>
+                        <span class="tablece width90">
+                            <label">{{=lang.del}}</label>
+                        </span>
+                    </div>
+                    <div id="userList" class="tablebody height370"></div>
+                </div>
+            </div>
+            <div class="form-item">
+                <span><input type="button" class="btn browser-btn" id="addUser" onclick="add_user()" value="{{=lang.logadduer}}" /></span>
+            </div>
+        </div>
+        <div class="options-block hide" id="tabUser">
+            <div class="row">
+                <span class="row-title">{{=lang.userName}}</span>
+                <input class="row-input J-userName" type="text" disabled="disabled"/>
+            </div>
+            <div class="row">
+                <span class="row-title">{{=lang.types}}</span>
+                <select class="row-select" disabled="disabled">
+                    <option selected="selected">{{=lang.Manager}}</option>
+                </select>
+            </div>
+            <div class="row"></div>
+
+            <div class="row">
+                <span class="row-title">{{=lang.oldpwd}}</span>
+                <input class="row-input" type="password" maxlength="31" id="oldPwd" />
+                <label class="hide web-color">{{=lang.usertip13}}&nbsp;&nbsp;</label>
+            </div>
+            <div class="row">
+                <input type="checkbox" id="modifyPwd" />
+                <span>{{=lang.Modifyuser}}</span>
+            </div>
+
+            <div class="row">
+                <span class="row-title">{{=lang.pwd}}</span>
+                <input class="row-input J-require" id="newPwd" type="password" maxlength="31" />
+            </div>
+            <div class="row">
+                <span class="row-title">{{=lang.confirmPwd}}</span>
+                <input class="row-input J-require" id="confirmPwd" type="password" maxlength="31" />
+            </div>
+            <div class="row"></div>
+
+            <div class="row J-security-answer">
+                <input type="checkbox" id="resetIssue" />
+                <span>{{=lang.resetSecureQust}}</span>
+            </div>
+            <div class="row J-security-answer">
+                <span class="row-title">{{=lang.safeQuestion}}1</span>
+                {{= dotRender("formSelectModel", {
+                    "list": ['',lang.sq0, lang.sq1, lang.sq2, lang.sq3],
+                    "attr": {"id": "selQ1t", class: "J-require row-select"}
+                }) }}
+            </div>
+            <div class="row J-security-answer">
+                <span class="row-title">{{=lang.safeAnswer}}1</span>
+                <input class="row-input J-require" id="iptAns1" type="text" maxlength="31" />
+            </div>
+            <div class="row J-security-answer">
+                <span class="row-title">{{=lang.safeQuestion}}2</span>
+                {{= dotRender("formSelectModel", {
+                    "list": ['',lang.sq4, lang.sq5,lang.sq6, lang.sq7],
+                    "attr": {"id": "selQ2t", class: "J-require row-select"}
+                }) }}
+            </div>
+            <div class="row J-security-answer">
+                <span class="row-title">{{=lang.safeAnswer}}2</span>
+                <input class="row-input J-require" id="iptAns2" type="text" maxlength="31" />
+            </div>
+            <div class="row J-security-answer">
+                <span class="row-title">{{=lang.safeQuestion}}3</span>
+                {{= dotRender("formSelectModel", {
+                    "list": ['',lang.sq8, lang.sq9,lang.sq10, lang.sq11],
+                    "attr": {"id": "selQ3t", class: "J-require row-select"}
+                }) }}
+            </div>
+            <div class="row J-security-answer">
+                <span class="row-title">{{=lang.safeAnswer}}3</span>
+                <input class="row-input J-require" id="iptAns3" type="text" maxlength="31" />
+            </div>
+            <div class="row"></div>
+
+            <div class="row">
+                <input type="button" class="btn" id="btnExportKey" value="{{=lang.exportKey}}">
+            </div>
+            <div class="row"></div>
+            <div class="subitem row">
+                <input type="button" class="btn web-btn" id="btnOk" value="{{=lang.confirm}}">
+            </div>
+            <span id="tipErr" class="web-color">{{=lang.require}}&nbsp;&nbsp;</span>
+        </div>
+    </div>
+</div>

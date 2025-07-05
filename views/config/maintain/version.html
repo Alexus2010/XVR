@@ -1,0 +1,53 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [{name: lang.optionDev, attr: "class='current'"}]) }}
+    <div class="tag-block ">
+        <div class="form-item">
+            <span class="width200">{{=lang.deviceName}}:</span>
+            <span>
+                <input type="text" class="medium-input text-width device-serial" matchval="systemInfo.serialNo." />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">{{=lang.getdevicetype}}:</span>
+            <span>
+                <input type="text" class="medium-input text-width device-type" matchval="systemInfo.deviceType." />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">{{=lang.getsoftwareversion}}:</span>
+            <span>
+                <input type="text" class="medium-input text-width J-software-version" matchval="systemInfo.softwareVersion." />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">{{=lang.getp2pversion}}:</span>
+            <span>
+                <input type="text" class="medium-input text-width p2p-version" matchval="systemInfo.p2pSdkVersion." />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">{{=lang.getsoftwaredate}}:</span>
+            <span>
+                <input type="text" class="medium-input text-width software-date" matchval="systemInfo.softwareDate." />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">{{=lang.WebVersion}}:</span>
+            <span><input type="text" class="medium-input text-width J-web-version" /></span>
+        </div>
+        {{? !isMacOS()}}
+        <div class="form-item">
+            <span class="width200">{{=lang.pluginversion}}:</span>
+            <span><input type="text" class="medium-input text-width J-plugin-version" /></span>
+        </div>
+        {{?}}
+        <div class="form-item">
+            <span class="width200">{{=lang.allchannelnum}}:</span>
+            <span><input type="text" class="medium-input text-width J-channel-num" /></span>
+        </div>
+        <div id="poenum" class="form-item hide">
+            <span class="width200">{{=lang.poenum}}:</span>
+            <span><input type="text" class="medium-input text-width J-poe-num" /></span>
+        </div>
+    </div>
+</div>

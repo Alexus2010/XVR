@@ -1,0 +1,100 @@
+<div class="dot-template J-dot-template inner-container J-inner-container">
+    <div class="content-left left-float">
+        <div class="left-top-icon"><label id="deviceType"></label></div>
+        <div class="channel-block J-channel-block">
+            <ul class="channel-list J-channel-list">
+                {{= dotRender("channelMenuModel", [getPlaybackChannelList(), true]) }}
+            </ul>
+        </div>
+    </div>
+    <div class="middle left-float">
+        <div class="top-tip">
+            <span>
+                <label>{{=lang.pb11}}:</label>
+                <label id="nowStatues"></label>
+            </span>
+        </div>
+        <!-- 视频区域 -->
+        <div id="videoBlock"></div>
+        <!--按键选择区域-->
+        <div class="middle-btn-block J-middle-btn-block">
+            <ul class="operate-block-left left-float">
+                <li>
+                    <div class="window-select J-window-select hide">
+                        <a id="splitScreen" class="tool-icons window-icon-btn" title="{{=lang.lvwndlayout}}"></a>
+                        <a class="tool-icons window-icon" title="{{=lang.lvwndlayout}}"></a>
+                        <div class="select-block hide">
+                            <p>
+                                <a class="tool-icons c1" title="{{=lang.lvSplitScreen1}}" data-num="1"></a>
+                                <a class="tool-icons c2" id="winodw4" title="{{=lang.lvSplitScreen4}}" data-num="4"></a>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li><button id="play" class="playback-btn play-btn" data-func="setPlayBack"></button></li>
+                <li><button id="stop" class="playback-btn stop-btn" data-func="setStopPlayBack(true)" title="{{=lang.stop}}"></button></li>
+                <li><button id="slow" class="playback-btn slow-btn" data-func="setSpeed"></button></li>
+                <li><button id="fast" class="playback-btn fast-btn" data-func="setSpeed(true)"></button></li>
+            </ul>
+            <div class="operate-block-right J-operate-block-right">
+                <span>
+                    <button id="capture" class="operate-btn capture-btn" title="{{=lang.setPic}}" data-func="setCapture"></button>
+                </span>
+                <span>
+                    <button id="records" class="playback-btn records-btn" title="{{=lang.clip}}" data-func="setRecord"></button>
+                </span>
+                <span>
+                    <button id="zoom" class="operate-btn zoom-btn-disable" title="{{=lang.startzoom}}" data-func="setZoom"></button>
+                </span>
+                {{? !isSafari()}}
+                <span>
+                    <button id="sound" class="operate-btn sound-btn-disable" title="{{=lang.closesound}}" data-func="setSound"></button>
+                </span>
+                {{?}}
+                <span>
+                    <button id="down" class="playback-btn down-btn" title="{{=lang.dl4}}" data-func="setDownload"></button>
+                </span>
+                <span>
+                    <button id="fullscreen" class="operate-btn fullscreen-btn" title="{{=lang.fullscreen}}" data-func="setFullscreen"></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="right-content right-float">
+        <div id="calendar" class="calendar-block"></div>
+        <div class="clear-fix">
+            <span class="left-float"><label>{{=lang.pb4}}</label></span>
+            <span class="right-float">
+                <select id="searchTypeList" class="search-type">
+                    <option value="0" num="5">{{=lang.recordTime}}</option>
+                    <option class="J-nvr-smart" value="1" num="2">{{=lang.recordAlarm}}</option>
+                    <option class="J-smart" value="2" num="46">{{=lang.recordAlarm}}</option>
+                    <option class="J-smart" value="3" num="51">{{=lang.backPalyMA}}</option>
+                    <option class="J-smart" value="4" num="47">{{=lang.faceDetect}}</option>
+                    <option class="J-smart" value="5" num="48">{{=lang.areaDetect}}</option>
+                    <option class="J-smart" value="6" num="49">{{=lang.crossDetect}}</option>
+                    <option class="J-smart" value="7" num="58">{{=lang.hoverDetect}}</option>
+                    <option class="J-smart" value="8" num="59">{{=lang.gatherDetect}}</option>
+                    <option class="J-smart" value="9" num="5">{{=lang.smtFaceCmp}}</option>
+                    <option class="J-smart" value="10" num="96">{{=lang.smtHumDet}}</option>
+                </select>
+            </span>
+        </div>
+        <div class="search-time J-search-time"><span></span></div>
+    </div>
+
+    <!-- 时间轴 -->
+    <div class="timeline-block">
+        <div id="playbackBar" class="timeline">
+            <canvas id='timeline'></canvas>
+        </div>
+        <div class="timeline-type">
+            <span>{{=lang.pb5}}</span>
+            <span>{{=lang.pb6}}</span>
+        </div>
+        <div class="timeline-btn-block">
+            <span class="narrow J-narrow"></span>
+            <span class="expand J-expand"></span>
+        </div>
+    </div>
+</div>

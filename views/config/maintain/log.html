@@ -1,0 +1,60 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [{name: lang.optionloginfo, attr: "class='current'"}]) }}
+    <div class="tag-block ">
+        <div class="form-item">
+            <span class="width200">{{=lang.logtype}}</span>
+            <span>
+                {{= dotRender("formSelectModel", {
+                    "list": [lang.logall, lang.systemlog, lang.userlog, lang.logparamconfig, lang.fileoperlog, lang.statusproplog,lang.alarmEventlog],
+                    "attr": {"id": "selectType", class: "time-select"}
+                }) }}
+            </span>
+        </div>
+        <div class="clear-height10"></div>
+        <div class="form-item">
+            <span class="width200">
+                {{=lang.beginTime}}
+            </span>
+            <span>
+                <input type="text" id="log_start_time" readonly="readonly" class="time" />
+            </span>
+        </div>
+        <div class="clear-height10"></div>
+        <div class="form-item">
+            <span class="width200">
+                {{=lang.endTime}}
+            </span>
+            <span>
+                <input type="text" id="log_end_time" readonly="readonly" class="time" />
+            </span>
+        </div>
+        <div class="form-item hide">
+            <span><input type="text" id="logOffset" value="0"/></span>
+            <span><input type="text" id="logGetNum" value="1024" /></span>
+        </div>
+        <div class="form-item margin-top24">
+            <span><input id="log_search" class="btn browser-btn" type="button" value="{{=lang.search}}"/></span>
+            <span><input id="log_delete" class="btn browser-btn" type="button" value="{{=lang.setEmpty}}" /></span>
+            <span><input id="log_export" class="btn browser-btn hide" type="button" value="{{=lang.drdc3}}" onclick="onBtnExpClk();" /></span>
+            <span><input id="log_export_all" class="btn browser-btn hide" type="button" value="{{=lang.exportAll}}" onclick="onBtnExpAllClk();" /></span>
+        </div>
+        <div class="grid grid-height">
+            <div class="table">
+                <div class="table-header">
+                    <span class="tablece width55">{{=lang.sdindex}}</span>
+                    <span class="tablece width145">{{=lang.logTime}}</span>
+                    <span class="tablece width365">{{=lang.event}}</span>
+                    <span class="tablece width105">{{=lang.userName}}</span>
+                </div>
+                <div id="logTab" class="tablebody height370">
+                    <div class="tablebottom">
+                        <span class="tablece width55 height369"></span>
+                        <span class="tablece width145 height369"></span>
+                        <span class="tablece width365 height369"></span>
+                        <span class="tablece width105 height369"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

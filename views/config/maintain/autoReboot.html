@@ -1,0 +1,56 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [{name: lang.setTimeRestart, attr: "class='current'"}]) }}
+    <div class="tag-block cf-show">
+        <div class="form-item form-title">{{=lang.setTimeRestart}}</div>
+        <div class="form-item">
+            <span>
+                {{= dotRender("formSelectModel", {
+                    "list": [lang.notSet, lang.weekDay7, lang.weekDay8, lang.weekDay9],
+                    "attr": {"id": "getautomaintaintype", class: "small-select hide", matchval: "maintain.type."}
+                }) }}
+                {{= dotRender("formSelectModel", {
+                    "list": [lang.stweek7, lang.stweek1, lang.stweek2, lang.stweek3, lang.stweek4, lang.stweek5, lang.stweek6],
+                    "attr": {"id": "getautomaintainweek", class: "small-select hide", matchval: "maintain.week."}
+                }) }}
+                <select class="small-select hide" name="getautomaintainday" id="getautomaintainday" matchval="maintain.day."></select>
+                <span id="weekDay10" class="hide">{{=lang.weekDay10}}</span>
+                <select class="small-select hide" id="getautomaintainhour" name="getautomaintainhour" matchval="maintain.hour."></select>
+                <span id="weekDay11" class="hide">{{=lang.weekDay11}}</span>
+                <select class="small-select hide" name="getautomaintainmin" id="getautomaintainmin" matchval="maintain.minute."></select>
+                <span id="weekDay12" class="hide">{{=lang.weekDay12}}</span>
+            </span>
+        </div>
+
+        <!-- 重启时自动重启ipc -->
+        <div class="form-item J-is-wifi-nvr">
+            <span class="width200">{{=lang.resSystemAndIpc}}</span>
+            <span><input type="checkbox" id="resSystemAndIpc" matchval="maintain.enableIpcReboot." /></span>
+        </div>
+
+        <!-- 通道维护 -->
+        <div class="form-item form-title J-is-wifi-nvr">{{=lang.optChMt}}</div>
+
+        <div class="form-item J-is-wifi-nvr">
+            <label><input type="checkbox" id="chkAllCh"></label>
+        </div>
+        <div class="form-item J-is-wifi-nvr">
+            <div id="listCh"></div>
+        </div>
+        <div id="blkTwo" class="J-is-wifi-nvr">
+            <div class="form-item">
+                <span class="width200">{{=lang.chMtRsCh}}</span>
+                <span><input type="checkbox" id="chkAutoRsCh"/></span>
+            </div>
+
+            <div class="form-item">
+                <span class="width200">{{=lang.chMtRcCh}}</span>
+                <span><input type="checkbox" id="chkRcCh" /></span>
+            </div>
+        </div>
+        <div class="form-item">
+            <span class="margin-top24">
+                <input id="btnSave" class="btn web-btn" type="button" value="{{=lang.save}}" />
+            </span>
+        </div>
+    </div>
+</div>

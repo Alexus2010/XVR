@@ -1,0 +1,17 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [{name: lang.defaultChannel, attr: "class='current'"}]) }}
+    <div class="tag-block">
+        <div class="J-channel-name channel-name">
+            {{~ getListArray(getNum):value:index}}
+            <div class="form-item">
+                <span class="width200"><label>{{=lang.channel}}</label>{{=index+1}}</span>
+                <span class="width200"><input id="HD{{=index+1}}" class="J-channel-text" type="search" name="channeltext" maxlength="31"></span>
+            </div>
+            {{~}}
+        </div>
+        <div class="margin-top24">
+            <input class="btn web-btn J-save" type="button" value="{{=lang.save}}" />
+            <input class="btn web-btn J-option-default" type="button" value="{{=lang.optiondefault}}" />
+        </div>
+    </div>
+</div>

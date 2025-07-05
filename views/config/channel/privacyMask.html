@@ -1,0 +1,38 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [{name: lang.privacymask, attr: "class='current'"}]) }}
+    <div class="tag-block ">
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.channel}}</label>
+            </span>
+            <span>
+                {{= dotRender("formSelectModel", { "attr": { class: "medium-select J-pri-mask-channel", matchVal: "priMask.channel."} }) }}
+            </span>
+        </div>
+        <div id="videoBlock" class="video-block"></div>
+        <div class="form-item margin-top18">
+            <span class="width200">
+                <input type="checkbox" name="zoom" matchval="priMask.area1.enable." str="1" />
+                <label>{{=lang.areaprivace1}}</label>
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <input type="checkbox" name="zoom" matchval="priMask.area2.enable." str="1" />
+                <label>{{=lang.areaprivace2}}</label>
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <input type="checkbox" name="zoom" matchval="priMask.area3.enable." str="1" />
+                <label>{{=lang.areaprivace3}}</label>
+            </span>
+        </div>
+
+        <div class="form-item">
+            <span class="margin-top24">
+                <input class="btn web-btn J-mask-save" type="button" value="{{=lang.save}}" />
+            </span>
+        </div>
+    </div>
+</div>

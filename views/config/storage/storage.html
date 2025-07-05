@@ -1,0 +1,150 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [
+    {name: lang.optiondiskmanage, hide: false, id: "disk"},
+    {name: lang.optioncloud, hide: false, id: "cloud"}
+    ])}}
+    <!-- 磁盘管理 -->
+    <div class="tag-block hide" id="disk">
+        <div class="grid grid-height clear-fix">
+            <div class="table">
+                <div class="table-header">
+                    <span class="tablece width55">
+                        <label>{{=lang.diskno}}</label>
+                    </span>
+                    <span class="tablece width145">
+                        <label>{{=lang.diskstatus}}</label>
+                    </span>
+                    <span class="tablece width180">
+                        <label>{{=lang.disktotal}}</label>
+                    </span>
+                    <span class="tablece width180">
+                        <label>{{=lang.diskfree}}</label>
+                    </span>
+                    <span class="tablece width110">
+                        <label>{{=lang.disktyep}}</label>
+                    </span>
+                </div>
+                <div class="table-body height370 J-disk-list"></div>
+            </div>
+        </div>
+        <div class="form-item margin-top20">
+            <span>
+                <input class="btn browser-btn J-disk-format format-btn" type="button" value="" />
+            </span>
+            <span>
+                <label>{{=lang.disktip}}</label>
+            </span>
+        </div>
+    </div>
+    <!-- 云存储 -->
+    <div class="tag-block hide" id="cloud">
+        <div class="form-item form-title">{{=lang.optioncloud}}</div>
+        <div class="form-item">
+            <span class="width200">
+                <input type="checkbox" class="J-storagr-enable" matchval="cloudSetting.enable." str="1" />
+                <label>{{=lang.exceptionenable}}</label>
+            </span>
+        </div>
+        <!-- dropbox -->
+        <div class="form-item hide">
+            <span class="width200">
+                <input type="checkbox J-dropbox-enable" matchval="dropboxenable" />
+                <label>Dropbox</label>
+            </span>
+            <span>
+                <input type="button" class="btn browser-btn J-dropbox-bind" value="{{=lang.binding}}" />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <input type="checkbox" id="googleEnable" matchval="googleenable" />
+                <label>{{=lang.google}}</label>
+            </span>
+            <span>
+                <input type="button" id="googleBind" class="btn browser-btn" value="{{=lang.binding}}" />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.web}}</label>
+            </span>
+            <span>
+                <input class="medium-input" id="getCloudStorageUrl" str="1" matchval="cloudSetting.cloudUrl." type="text" />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.authcode}}</label>
+            </span>
+            <span>
+                <input class="medium-input" id="getCloudStorageUserCode" str="1" matchval="cloudSetting.deviceCode." type="text" />
+            </span>
+        </div>
+        <div class="form-item">
+            <span>
+                <input type="button" id="cloudTest" class="btn browser-btn" value="{{=lang.sttest}}" />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.Uploaddirectory}}</label>
+            </span>
+            <span>
+                <input class="medium-input" id="getCloudStorageStorageDir" disabled matchval="cloudSetting.storageDir." readonly="readonly"
+                    type="text" />
+            </span>
+        </div>
+        <div class="upnp-main height60 clear-fix">
+            <div class="tab-head">
+                <ul>
+                    <li class="cloud-li1">
+                        <span><label>{{=lang.userName}}</label></span>
+                        <div class="resize-btn"></div>
+                    </li>
+                    <li class="cloud-li2">
+                        <span><label>{{=lang.totalcapacity}}</label></span>
+                        <div class="resize-btn"></div>
+                    </li>
+                    <li class="cloud-li3">
+                        <span><label>{{=lang.usedcapacity}}</label></span>
+                        <div class="resize-btn"></div>
+                    </li>
+                </ul>
+            </div>
+            <table class="J-upnp-list" cellspacing="1px">
+            </table>
+        </div>
+        <!-- ipeye -->
+        {{? settingConf.storage.storageDevice.cloudStorage.ipeye.enable}}
+        <div class="xvr-ip-eye J-ip-eye">
+            <div class="form-item form-title">IPEYE</div>
+            <div class="form-item">
+                <span class="width200">{{=lang.remoteenable}}</span><input type="checkbox" class="J-ipeye-enable">
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.channel}}</label>
+                </span>
+                <span>
+                    {{= dotRender("formSelectModel", {
+                    "attr": {class: "medium-select J-ipeye-channel"}
+                    }) }}
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.ipeyeCust}}</label>
+                </span>
+                <input type="text" class="path-input J-ipeye-url" readonly="readonly">
+            </div>
+            <div class="form-item"><span class="web-color">{{=lang.tipIPeye}}</span></div>
+        </div>
+        {{? }}
+        <div class="fix-save-float clear-fix hide"></div>
+        <div class="form-item">
+            <ul class="margin-top24">
+                <input class="btn web-btn J-cloud-save" type="button" value="{{=lang.save}}" />
+            </ul>
+        </div>
+    </div>
+</div>

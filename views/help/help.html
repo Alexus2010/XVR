@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11, chrome=1" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+    <meta http-equiv="expires" content="Sat Jan 30 2021 11:25:46 GMT" />
+    <script>
+        document.write('<link rel="stylesheet" type="text/css" href="help.css?v=' + new Date().getTime() + '">');
+        document.write('<script src="/statics/lib/jquery-1.11.1.min.js?v=' + new Date().getTime() + '"><\/script>');
+        document.write('<script src="/statics/lib/LAB.min.js?v=' + new Date().getTime() + '"><\/script>');
+        document.write('<script src="/lightCustomizeConf.js?v=' + new Date().getTime() + '"><\/script>');
+    </script>
+</head>
+
+<body>
+    <div id="top">
+        <h2>
+            <a class="help" href="/views/help/help.html" target="_self">Help</a>
+        </h2>
+        <div class="jg"></div>
+        <div id="topTags">
+            <ul></ul>
+        </div>
+    </div>
+    <div id="main">
+        <div id="leftMenu">
+            <ul>
+                <li>User manual</li>
+                <li>Plug-in installation</li>
+                <!--<li>Preview</li>
+                    <li>Recorder</li>
+                    <li>Capture</li>
+                    <li>Motion</li>
+                    <li>Cloud drive</li>-->
+            </ul>
+        </div>
+        <div class="jg">
+        </div>
+        <div class="content" id="welcome">
+            <div class="center">
+                <strong>User manual<br /></strong>
+                <div class="center">Please download the web Plugin controls and install It when you login the device at the first time! And
+                    then,Restart the
+                    browser!</div>
+            </div>
+        </div>
+        <div class="content" id="c0">
+            <div class="center">
+                <strong>User manual<br /></strong>
+                <div class="center">Please download the web Plugin controls and install It when you login the the device at the first time! And
+                    then,Restart the
+                    browser!</div>
+            </div>
+        </div>
+        <div class="content" id="c1">
+            <strong>
+                <p class="color-red">For google chrome browser does not support npapi default widget solution (google announced its version is no
+                    longer
+                    supported after 45 npapi plugin)</p>
+            </strong>
+            <p>1: Enter chrome://flags page, find the "Enable NPAPI Windows" start it, and then restart the browser</p>
+            <p>2: Left-click on the upper right corner of the browser "Customize and control google chrome", select the drop-down list in the
+                "Settings" to
+                enter the settings page, click on the bottom of the "Advanced Settings", the first "pre-fetching resources to more quickly load the
+                page
+                "checkbox removed, and then click on the" content Settings "to enter the content settings interface, find the" widget ", select"
+                manage all
+                plug-ins ", click enter, find "LsNvrNetClient", check the "always allowed to run"</p>
+            <p>3: Again restart the browser, you can</p>
+            <p>For Firefox browser,Left-click on the upper right corner of the browser "Open Menu" and select "add-ons" to find "LsNvrNetClient",
+                select the
+                "Always active"</p>
+        </div>
+        <div class="content" id="c2">3</div>
+        <div class="content" id="c3">4</div>
+        <div class="content" id="c4">5</div>
+        <div class="content" id="c5">6</div>
+        <div class="content" id="c6">7</div>
+    </div>
+    <div id="footer">Copyright @ Herospeed Technology Limited. All Rights Reserved.</div>
+    <script>
+        var rand = new Date().getTime();
+        $LAB.script([
+            '/statics/js/public.js?v=' + rand,
+            '/statics/js/version.js?v=' + rand
+        ]).wait(function () {
+            $LAB.script('help.js?v=' + rand);
+        });
+    </script>
+</body>
+
+</html>

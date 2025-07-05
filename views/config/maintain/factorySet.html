@@ -1,0 +1,42 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [{name: lang.optiondefault, attr: "class='current'"}]) }}
+    <div class="tag-block ">
+        <div class="form-item form-title">{{=lang.optiondefault}}</div>
+        <div class="form-item">
+            <span class="width200">{{=lang.optionrecset}}</span>
+            <span>
+                <input id="default_record" class="btn web-btn" type="button" value="{{=lang.optionrecset}}" onclick="default_record()" />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">{{=lang.optionecamera}}</span>
+            <span>
+                <input id="default_channel" class="btn web-btn" type="button" value="{{=lang.optionecamera}}" onclick="default_channel()" />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">{{=lang.system}}</span>
+            <span>
+                <input id="default_system" class="btn web-btn" type="button" value="{{=lang.system}}" onclick="default_system()" />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">{{=lang.sysmaintain}}</span>
+            <span>
+                <input id="default_syemaintain" class="btn web-btn" type="button" value="{{=lang.sysmaintain}}" onclick="default_syemaintain()" />
+            </span>
+        </div>
+        <div class="form-item form-title">{{=lang.default_factory}}</div>
+        <div class="form-item">
+            <span class="width200">
+                <input type="checkbox" id="chdefault_factory" onclick="checkboxfuntion()" />
+                <label>{{=lang.default_factory}}</label>
+            </span>
+        </div>
+        <div class="form-item">
+            <ul class="margin-top24">
+                <input id="default_save" class="btn web-btn" type="button" value="{{=lang.save}}" onclick="default_save()" />
+            </ul>
+        </div>
+    </div>
+</div>

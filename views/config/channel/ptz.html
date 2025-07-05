@@ -1,0 +1,51 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [{name: "PTZ", attr: "class='current'"}]) }}
+    <div class="tag-block">
+        <div class="form-item">
+            <span class="width200">{{=lang.channel}}</span>
+            <span>
+                <select class="medium-select J-channel" matchVal="ptz.channel."></select>
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">{{=lang.remoteprotol}}</span>
+            <span>
+                {{= dotRender("formSelectModel", {"attr": { id:"protocolList", class: "medium-select", matchVal: "ptz.protocol."
+                , default: isNVR() ? DEFAULT_NVR_PROTOCOL_LIST : DEFAULT_XVR_PROTOCOL_LIST} }) }}
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">{{=lang.ptzserialnaddr}}</span>
+            <span>
+                <input type="text" class="medium-input J-addr disabled" max="255" min="0" def="0" matchVal="serial.addr." />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">{{=lang.ptzserialnbaudrate}}</span>
+            <span>
+                {{= dotRender("formSelectModel", {"attr": { id:"baudrateList", class: "medium-select disabled", matchVal: "serial.baudrate."} }) }}
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">{{=lang.ptzserialndatabit}}</span>
+            <span>
+                {{= dotRender("formSelectModel", {"attr": { id:"databitList", class: "medium-select disabled", matchVal: "serial.databit."} }) }}
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">{{=lang.ptzserialnstopbit}}</span>
+            <span>
+                {{= dotRender("formSelectModel", {"attr": { id:"stopbitList", class: "medium-select disabled", matchVal: "serial.stopbit."} }) }}
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">{{=lang.ptzserialnchecktype}}</span>
+            <span>
+                {{= dotRender("formSelectModel", {"attr": { id:"checkbitList", class: "medium-select disabled", matchVal: "serial.checkbit.", default: DEFAULT_CHECKBIT_LIST} }) }}
+            </span>
+        </div>
+        <div class="form-item form-btn">
+            <input class="btn web-btn J-ptz-save" type="button" value="{{=lang.save}}">
+        </div>
+    </div>
+</div>

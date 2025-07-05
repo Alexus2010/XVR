@@ -1,0 +1,60 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [{name: lang.osdOpt, attr: "class='current'"}]) }}
+    <div class="tag-block">
+        <div class="form-item">
+            <span class="form-label">{{=lang.channel}}</span>
+            <span class="form-content">
+                <select class="medium-select J-osd-channel"></select>
+            </span>
+        </div>
+        <div class="form-video">
+            <div id="videoBlock" class="video-block"></div>
+            <div class="video-options">
+                <div class="form-item">
+                    <span class="form-label">{{=lang.showTime}}</span>
+                    <span class="form-content"><input type="checkbox" class="J-enable-time" matchval="osd.enableTime." str="1" /></span>
+                </div>
+                <div class="form-item">
+                    <span class="form-label">{{=lang.showText}}</span>
+                    <span class="form-content"><input type="checkbox" class="J-enable-name" matchval="osd.enableName." str="1" /></span>
+                </div>
+                <div class="form-item">
+                    <span class="form-label">{{=lang.dateFormat}}</span>
+                    <span class="form-content">
+                        {{= dotRender("formSelectModel", {
+                            "list": [lang.ntpdate0, lang.ntpdate1, lang.ntpdate2],
+                            "attr": {class: "small-select J-time", matchval: "osd.timeFormat."}
+                        }) }}
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="form-label">{{=lang.osdPosition}}</span>
+                    <span class="form-content">
+                        {{= dotRender("formSelectModel", {
+                            "list": [lang.pos0, lang.pos1],
+                            "attr": {class: "small-select", matchval: "osd.postion."}
+                        }) }}
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="form-label">{{=lang.osdText}}</span>
+                    <span class="form-content">
+                        <input class="small-input J-osd-text" maxlength="31" type="text" matchval="osd.channelName." str="1" />
+                    </span>
+                </div>
+                <div class="form-item J-nvr-mirror">
+                    <span class="form-label">{{=lang.mirror}}</span>
+                    <span class="form-content">
+                        {{= dotRender("formSelectModel", {
+                            "list": [lang.dnrModel0, lang.mirror2, lang.mirror1, lang.mirror3],
+                            "attr": {class: "small-select", matchval: "osd.mirror."}
+                        }) }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-item form-btn">
+            <input class="btn web-btn J-osd-save" type="button" value="{{=lang.save}}" />
+        </div>
+    </div>
+</div>

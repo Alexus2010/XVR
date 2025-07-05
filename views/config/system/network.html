@@ -1,0 +1,954 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [
+        {name: "TCP/IP", hide: false, id: "tcp"},
+        {name: "DDNS", hide: false, id: "ddns"},
+        {name: "E-mail", hide: false, id: "email"},
+        {name: "P2P", hide: false, id: "p2p"},
+        {name: "FTP", hide: false, id: "ftp"},
+        {name: "UPNP", hide: !isShowUpnp(), id: "upnp"},
+        {name: "PPPOE", hide: !getDevConf('supportPppoe'), id: "pppoe"},
+        {name: "WIFI", hide: !isWifi() && !isWifiNvr(), id: "wifi"}, 
+        {name: lang.ipFilter, hide: true, id: "ipFilter"}, 
+        {name: lang.localNetbwList, hide: !isShowNetfilter(), id: "netfilter"}
+    ])}}
+    <!-- TCP\IP -->
+    <div class="tag-block hide" id="tcp">
+        <div class="tags">
+            <div class="form-item form-title">{{=lang.networkSet}}</div>
+            <div id="ipSetting" class="form-item hide">
+                <span class="width200">
+                    {{= dotRender("formSelectModel", {
+                        "list": [lang.netWorkCardMode1, lang.netWorkCardMode2],
+                        "attr": {"id": "netmode", class: "medium-select width110", matchVal: "tcp.networkWorkMode."}
+                    }) }}
+                </span>
+                <span class="width200">
+                    {{= dotRender("formSelectModel", {
+                        "attr": {"id": "lanType", class: "medium-select", disabled: "disabled", matchVal: "netno"}
+                    }) }}
+                </span>
+            </div>
+            <div id="lan2">
+                <div id="NETDHCP" class="form-item">
+                    <span class="width200"> <label></label></span>
+                    <span>
+                        <input type="checkbox" id="dhcpAble" matchVal="dhcpenable" name="EnDHCP" />
+                        <label>{{=lang.enableDHCP}}</label>
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.IPAddress}}</label></span>
+                    <span>
+                        <input class="medium-input" id="ipaddrInput" name="IP" type="text1" matchVal="netip" />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.st4Mask}}</label></span>
+                    <span>
+                        <input class="medium-input J-tcp-mask" matchVal="netmask" name="SubNetMask" type="text1" />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.st4Gateway}}</label></span>
+                    <span>
+                        <input class="medium-input" id="gateInput" matchVal="tcp.gateway." name="Gateway" type="text1" />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.TCPport}}</label></span>
+                    <span>
+                        <input class="medium-input" id="tcpInput" matchVal="tcp.tcpPort." name="port" type="text1" min="1" max="65535" />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.RTSPport}}</label></span>
+                    <span>
+                        <input class="medium-input" id="dataInput" matchVal="tcp.rtspPort." name="port" type="text1" min="1" max="65535" />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.HTTPport}}</label></span>
+                    <span>
+                        <input class="medium-input" id="httpInput" matchVal="tcp.httpPort." name="port" type="text1" min="1" max="65535" />
+                    </span>
+                </div>
+                <div class="form-item hide" id="blkPrivatePort">
+                    <span class="width200"><label>{{=lang.privatePort}}</label></span>
+                    <span>
+                        <input class="medium-input" id="privateInput" matchVal="tcp.privatePort." name="port" type="text1" min="1025" max="65535" />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.stMac}}</label></span>
+                    <span>
+                        <input class="medium-input" id="macInput" readonly="readonly" matchVal="mac" name="stMac" type="text1" />
+                    </span>
+                </div>
+            </div>
+            <div id="lan1" class="hide clear-fix lan1">
+                <div id="NETDHCP1" class="form-item">
+                    <span class="width200"><label></label></span>
+                    <span>
+                        <input type="checkbox" id="dhcpAble1" matchVal="dhcpenable2" name="EnDHCP" />
+                        <label value="">{{=lang.enableDHCP}}</label>
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.IPAddress}}</label></span>
+                    <span>
+                        <input class="medium-input" id="ipaddrInput1" name="IP" type="text1" matchVal="lan1.ip." str="1" />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.st4Mask}}</label></span>
+                    <span>
+                        <input class="medium-input" id="maskInput1" matchVal="lan1.netMask." str="1" name="SubNetMask" type="text1" />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.st4Gateway}}</label></span>
+                    <span>
+                        <input class="medium-input" id="gateInput1" matchVal="tcp.gateway." name="Gateway" type="text1" />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.TCPport}}</label></span>
+                    <span>
+                        <input class="medium-input" id="tcpInput1" disabled="disabled" matchVal="tcpport" name="stMac" type="text1" min="1"
+                            max="65535" def="5000" />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.RTSPport}}</label></span>
+                    <span>
+                        <input class="medium-input" id="dataInput1" disabled="disabled" matchVal="rtspserverport" name="stMac" type="text1" min="1"
+                            max="65535" def="554" />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.HTTPport}}</label></span>
+                    <span>
+                        <input class="medium-input" id="httpInput1" disabled="disabled" matchVal="httpport" name="stMac" type="text1" min="1"
+                            max="65535" def="80" />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.stMac}}</label></span>
+                    <span>
+                        <input class="medium-input" id="macInput1" readonly="readonly" matchVal="lan1.mac." str="1" name="stMac" type="text1" />
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200"><label>{{=lang.stboradcast}}</label></span>
+                    <span>
+                        <input class="medium-input" id="broadcastInput1" matchVal="multicast" name="stboradcast" type="text1" />
+                    </span>
+                </div>
+            </div>
+            <div class="form-item form-title">{{=lang.DNSServerOpt}}</div>
+            <div class="form-item">
+                <span class="width200"><label>{{=lang.defaultDNS}}</label></span>
+                <span>
+                    <input class="medium-input" id="dns1Input" matchVal="tcp.dns1." name="DNS1Ip" type="text1" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200"><label>{{=lang.defaultDNS2}}</label></span>
+                <span>
+                    <input class="medium-input" id="dns2Input" matchVal="tcp.dns2." name="DNS2Ip" type="text1" />
+                </span>
+            </div>
+            <div class="form-item form-title func-poe hide">{{=lang.internalIP}}</div>
+            <div class="form-item func-poe hide">
+                <span class="width200"><span>{{=lang.internalIP}}</span></span>
+                <span><input type="text" id="edtInternalIP" class="medium-input" matchVal="netip2"></span>
+            </div>
+            <div class="form-item form-title hide func-rtsp-enc">{{=lang.rtspEnc}}</div>
+            <div class="form-item hide func-rtsp-enc">
+                <span class="width200"><span>{{=lang.rtspEncEn}}</span></span>
+                <span><input type="checkbox" id="chkRtspEnc" matchVal="rtsp.rtspEncrypt." str="1"></span>
+            </div>
+            <div class="form-item">
+                <ul class="margin-top24">
+                    <input class="btn web-btn J-tcp-save" type="button" value="{{=lang.save}}" />
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- DDNS -->
+    <div class="tag-block hide" id="ddns">
+        <div class="tags">
+            <div class="form-item form-title">{{=lang.default_ddns}}</div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.ddnsenable}}</label>
+                </span>
+                <span>
+                    <label><input type="checkbox" matchVal="DDNS.enable." str="1" name="EnDHCP" /></label>
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.ddnsType}}</label>
+                </span>
+                <span>
+                    <select class="medium-select J-ddns-type" matchVal="getddnstype">
+                        <option value="0">ORAY</option>
+                        <option value="1">NO-IP</option>
+                        <option value="2">DYN</option>
+                        <option value="3">CHANGEIP</option>
+                        <option value="4">A-PRESS</option>
+                        <option value="5">MYQSEE</option>
+                        <option value="6">SKDDNS</option>
+                        <option value="7">SMART-EYES</option>
+                        <option value="8" class="ls-spec-zebeye">ZEBEYE</option>
+                        <option value="9" class="ls-spec-hdpro">HDPROVN</option>
+                        <option value="10" class="nvr-type">DYNAMIC_PLANET</option>
+                        <option value="11" class="nvr-type">EASY_PLANET</option>
+                    </select>
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.refreshtime}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getDdnsIntertime" matchVal="DDNS.interval." name="stMac" type="text" min="1" max="600" def="60" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.ddnsUser}}</label>
+                </span>
+                <span>
+                    <input class="medium-input J-ddns-username" matchVal="DDNS.username." str="1" name="stboradcast" maxlength="63" type="text" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.ddnsPwd}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getDdnsUserPwd" maxlength="32" matchVal="DDNS.password." str="1" name="DNS1Ip" type="password" />
+                </span>
+            </div>
+            <div class="form-item hide">
+                <span>
+                    <input class="medium-input" maxlength="128" matchVal="DDNS.serverPort." type="text" />
+                    <input class="medium-input" maxlength="128" matchVal="DDNS.serverIp." str="1" type="text" />
+                    <input class="medium-input" maxlength="128" matchVal="DDNS.clientIp." str="1" type="text" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.domain}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getDdnsDomainName" maxlength="128" matchVal="DDNS.domain." str="1" type="text" />
+                </span>
+            </div>
+            <div class="form-item">
+                <ul class="margin-top24">
+                    <input class="btn web-btn J-ddns-save" type="button" value="" />
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- E-mail -->
+    <div class="tag-block hide" id="email">
+        <div class="tags">
+            <div class="form-item form-title hide clear-fix nvr-tip" name="nvrtip">{{=lang.sendUser}}</div>
+            <div class="form-item">
+                <span>
+                    <input matchVal="email.enable." str="1" type="checkbox" class="checkbox" />
+                    <label>{{=lang.emailenable}}</label>
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.sendAddr}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" matchVal="email.sender." str="1" name="sentAddress" maxlength="31" type="text" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.smtpServer}}</label>
+                </span>
+                {{= dotRender("formSelectModel", {"list": [
+                { 'val': "Smtp.mail.yahoo.com.cn", 'name': "Smtp.mail.yahoo.com.cn" },
+                { 'val': "Smtp.live.com", 'name': "Smtp.live.com" },
+                { 'val': "Smtp.gmail.com", 'name': "Smtp.gmail.com" },
+                { 'val': "custom", 'name': lang.custom },
+                ], "attr": { class: "medium-select", matchVal: "getsmtpserver", id: "getSmtpServer"} }) }}
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.custom}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="customServer" maxlength="127" type="text" matchVal="" str="1" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.smtpPort}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getSmtpPort" matchVal="email.port." name="smtpPort" type="text" min="1" max="65535" def="25" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span>
+                    <label>
+                        <input type="checkbox" name="smtpCheck" matchVal="email.enableFile." str="1" />
+                        <label>{{=lang.smtpfileen}}</label>
+                    </label>
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.smtptheme}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getSmtpTheme" matchVal="email.theme." str="1" maxlength="31" type="text" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.smtpinterval}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getSmtpInterval" matchVal="email.interval." name="smtpPort" type="text" min="0" max="600"
+                        def="0" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.smtpenctype}}</label>
+                </span>
+                {{= dotRender("formSelectModel", {
+                "list": ["NONE", "SSL", "TLS" ],
+                "attr": {"id": "getsmtpenctype", class: "medium-select", matchVal: "email.encryptionType."}
+                }) }}
+
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.userName}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" matchVal="email.username." name="smtpUsername" str="1" maxlength="31" type="text" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.pwd}}</label>
+                </span>
+                <span>
+                    <input class="medium-input J-password" maxlength="31" type="password" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.confirmPwd}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getSmtpPasswd2" matchVal="email.password." str="1" maxlength="31" type="password" />
+                </span>
+            </div>
+            <div class="form-item form-title hide" name="nvrtip">{{=lang.reviewUser}}</div>
+            <div class="form-item">
+                <span class="width200" id="addr1">
+                    <label>{{=lang.reviewAddr1}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" matchVal="email.receiver1." str="1" name="receiptAaddr" maxlength="31" type="text" />
+                </span>
+                <span>
+                    <input type="button" id="checkSmtp1" name="CheckSmtp" class="btn browser-btn" value="{{=lang.emailTest}}" />
+                </span>
+            </div>
+            <div class="form-item hide" id="smtpReceiver1">
+                <span class="width200">
+                    <label>{{=lang.reviewAddr2}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" matchVal="email.receiver2." str="1" name="receiptAaddr" maxlength="31" type="text" />
+                </span>
+                <!--<span><input type="button" id="CheckSmtp2" name="CheckSmtp" class="btn browser-btn" value="" onclick="SetCheckSmtp1();" /></span>-->
+            </div>
+            <div class="form-item hide" id="smtpReceiver2">
+                <span class="width200">
+                    <label>{{=lang.reviewAddr3}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" matchVal="email.receiver3." str="1" name="receiptAaddr" maxlength="31" type="text" />
+                </span>
+                <!--<span><input type="button" id="CheckSmtp3" name="CheckSmtp" class="btn browser-btn" value="" onclick="SetCheckSmtp2();" /></span>-->
+            </div>
+            <div class="form-item form-title hide" name="nvrtip">{{=lang.recschedule}}</div>
+            <div class="form-item height25 hide">
+                <span class="width200">
+                    <label>{{=lang.recweek}}</label>
+                </span>
+                <span>
+                    {{= dotRender("formSelectModel", {
+                    "list": [lang.stweek7, lang.stweek1, lang.stweek2, lang.stweek3, lang.stweek4, lang.stweek5,
+                    lang.stweek6, lang.ftpallweek],
+                    "attr": {"id": "getSmtpSchedDate", class: "medium-select", matchVal: "getsmtpscheddate"}
+                    }) }}
+                </span>
+            </div>
+            <div class="J-schedule">
+                <div id="recSchedule1" class="form-item hide">
+                    <span class="width200">
+                        <label>{{=lang.recschedule1}}</label>
+                    </span>
+                    <span class="width50">
+                        <input class="time-input J-time-range" id="getsmtpschedstarthour1" matchVal="startHour1" size="2" maxlength="3" type="text"
+                            min="0" max="24" def="0" />
+                    </span>
+                    <span><label>：</label></span>
+                    <span class="width50">
+                        <input class="time-input J-time-range" id="getsmtpschedstartmin1" matchVal="startMin1" size="2" maxlength="3" type="text"
+                            min="0" max="59" def="0" />
+                    </span>
+                    <span class="width20">
+                        <label class="margin-left3"> ~ </label>
+                    </span>
+                    <span class="width50">
+                        <input class="time-input J-time-range" id="getsmtpschedstophour1" matchVal="endHour1" size="2" maxlength="3" type="text"
+                            min="0" max="24" def="0" />
+                    </span>
+                    <span><label>：</label></span>
+                    <span class="width50">
+                        <input class="time-input J-time-range" id="getsmtpschedstopmin1" matchVal="endMin1" size="2" maxlength="3" type="text" min="0"
+                            max="59" def="0" />
+                    </span>
+                </div>
+                <div id="recSchedule2" class="form-item hide">
+                    <span class="width200">
+                        <label>{{=lang.recschedule2}}</label>
+                    </span>
+                    <span class="width50">
+                        <input class="time-input J-time-range" id="getsmtpschedstarthour2" matchVal="startHour2" size="2" maxlength="3" type="text"
+                            min="0" max="24" def="0" />
+                    </span>
+                    <span><label>：</label></span>
+                    <span class="width50">
+                        <input class="time-input J-time-range" id="getsmtpschedstartmin2" matchVal="startMin2" size="2" maxlength="3" type="text"
+                            min="0" max="59" def="0" />
+                    </span>
+                    <span class="width20">
+                        <label class="margin-left3"> ~ </label>
+                    </span>
+                    <span class="width50">
+                        <input class="time-input J-time-range" id="getsmtpschedstophour2" matchVal="endHour2" size="2" maxlength="3" type="text"
+                            min="0" max="24" def="0" />
+                    </span>
+                    <span><label>：</label></span>
+                    <span class="width50">
+                        <input class="time-input J-time-range" id="getsmtpschedstopmin2" matchVal="endMin2" size="2" maxlength="3" type="text" min="0"
+                            max="59" def="0" />
+                    </span>
+                </div>
+            </div>
+            <div class="form-item hide" id="smtpEableAutoSend">
+                <span>
+                    <label>
+                        <input type="checkbox" name="smtpCheck" id="getSmtpEableAutoSend" matchVal="email.enableAutoSend." str="1" />
+                        <label>{{=lang.enableautoemail}}</label>
+                    </label>
+                </span>
+            </div>
+
+            <div class="form-item hide" id="smtpAutoSendInterval">
+                <span class="width200">
+                    <label>{{=lang.autosendinterval}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getSmtpAutoSendInterval" matchVal="email.autoSendInterval." name="smtpPort" type="text" min="1"
+                        max="1440" def="1" />
+                </span>
+            </div>
+            <div class="form-item">
+                <ul class="margin-top24">
+                    <input class="btn web-btn J-smtp-save" type="button" value="{{=lang.save}}" />
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- P2P -->
+    <div class="tag-block hide" id="p2p" class="p2p">
+        <div class="tags">
+            <table width="40%" cellspacing="0" class="margin-left20">
+                <tbody>
+                    <tr>
+                        <td colspan="3" class="show-logo">
+                            <label class="blkOl">
+                                <input class="enable-p2p J-p2p-enable" name="enableP2p" type="checkbox">
+                                <span class="free-ip">FREEIP</span>
+                                <!-- BD版本显示文字 -->
+                                <span class="bit-dog bd" style="display: none;">{{=settingConf.system.network.p2p.bdText}}</span>
+                                <span id="al">iVMS 350</span>
+                                <!-- AL版本显示文字 -->
+                                <span class="bit-dog al" style="display: none;">{{=settingConf.system.network.p2p.alText}}</span>
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+                <table border="1" cellspacing="1" cellpadding="1" class="p2p-table">
+                    <tr>
+                        <td height="120" align="center" width="120">
+                            <div id="code1" class="code1"></div>
+                        </td>
+                        <td width="120" align="center" class="code">
+                            <div id="code2" class="code2"></div>
+                        </td>
+                    </tr>
+                    <tr height="20" width="160">
+                        <td height="30" align="center">
+                            <label id="snLabel"></label>
+                        </td>
+                        <td align="center">
+                            <div class="al-sn hide"></div>
+                            <label class="andIos">Android & IOS</label>
+                        </td>
+                    </tr>
+                </table>
+            </table>
+            <div class="form-item">
+                <span class="width200"><label>{{=lang.p2pState}}</label></span>
+                <span><input type="text1" id="p2pState" class="medium-input" disabled="disabled"></span>
+            </div>
+            <div class="form-item hide">
+                <span class="width200"><label>{{=lang.smtpenctype}}</label></span>
+                <span>
+                    {{= dotRender("formSelectModel", {
+                    "list": ["NONE", "SSL"],
+                    "attr": {"id": "selEncType", class: "medium-select"}
+                    }) }}
+                </span>
+            </div>
+            <div class="form-item hide">
+                <span class="width200"><label>{{=lang.dtcPushPic}}</label></span>
+                <span><input type="checkbox" id="chkPushImg"></span>
+            </div>
+            <div class="form-item hide">
+                <span class="width200"><label>{{=lang.pushInterval}}</label></span>
+                <span>
+                    {{= dotRender("formSelectModel", {"list": [
+                    { 'val': "0", 'name': lang.closePush },
+                    { 'val': "2", 'name': 2 },
+                    { 'val': "5", 'name': 5 },
+                    { 'val': "10", 'name': 10 },
+                    ], "attr": { class: "medium-select", id: "selInterval"} }) }}
+                </span>
+            </div>
+            <div class="form-item">
+                <ul class="margin-top24">
+                    <input class="btn web-btn J-p2p-save" type="button" value="{{=lang.save}}" />
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- FTP -->
+    <div class="tag-block hide" id="ftp">
+        <div class="tags">
+            <div class="form-item form-title">{{=lang.nameFTP}}</div>
+            <div class="clear"></div>
+            <div class="form-item">
+                <span>
+                    <input id="getFtpEnable" matchVal="ftp.enable." type="checkbox" class="checkbox" str="1" />
+                    <label>{{=lang.ftpenable}}</label>
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.ftpServer}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getFtpServieRip" matchVal="ftp.server." name="FTPserver" maxlength="199" type="text" str="1" />
+                </span>
+                <span>
+                    <input type="button" id="checkFtp" class="btn browser-btn" value="{{=lang.sttest}}" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.ftpPort}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getFtpPort" matchVal="ftp.port." name="ftpPort" type="text" min="1" max="65535" def="21" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.userName}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getFtpUserName" matchVal="ftp.username." name="userName" maxlength="31" type="text" str="1" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.pwd}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getFtpPassword" matchVal="ftp.password." name="pwd" maxlength="31" type="password" str="1" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.confirmPwd}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getFtpPassword2" matchVal="ftp.password." name="pwd2" maxlength="31" type="password" str="1" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.savePath}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getFtpFolderName" matchVal="ftp.path." name="FTPPath" maxlength="199" type="text" str="1" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.channel}}</label>
+                </span>
+                <span>
+                    <select id="getFtpSchedChn" class="medium-select" matchVal="getftpschedchn"></select>
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200"><label>{{=lang.recweek}}</label> </span>
+                <span>
+                    {{= dotRender("formSelectModel", {
+                    "list": [lang.stweek7, lang.stweek1, lang.stweek2, lang.stweek3, lang.stweek4, lang.stweek5,
+                    lang.stweek6, lang.ftpallweek],
+                    "attr": {"id": "getFtpSchedDate", class: "medium-select"}
+                    }) }}
+                </span>
+            </div>
+            <div class="J-ftp-schedule">
+                <div id="ftpSchedule" class="form-item border-text-title-envent">
+                    <span class="width200">
+                        <label>
+                            {{=lang.recschedule1}}
+                            <input id="getFtpSchedType1" matchVal="getftpschedtype1" type="checkbox" />
+                        </label>
+                    </span>
+                    <span class="width50">
+                        <input id="getFtpSchedIsStartHour1" class="time-check" value="0" matchVal="getftpschedisstarthour1" size="2" maxlength="2"
+                            type="text" />
+                    </span>
+                    <span><label>：</label></span>
+                    <span class="width50">
+                        <input id="getFtpSchedIsStartMin1" class="time-check" value="0" matchVal="getftpschedisstartmin1" size="2" maxlength="2"
+                            type="text" />
+                    </span>
+                    <span class="width20">
+                        <label class="margin-left3"> ~ </label>
+                    </span>
+                    <span class="width50">
+                        <input id="getFtpSchedIsStopHour1" class="time-check" value="0" matchVal="getftpschedisstophour1" size="2" maxlength="2"
+                            type="text" />
+                    </span>
+                    <span><label>：</label></span>
+                    <span class="width50">
+                        <input id="getFtpSchedIsStoptMin1" class="time-check" value="0" matchVal="getftpschedisstoptmin1" size="2" maxlength="2"
+                            type="text" />
+                    </span>
+                </div>
+                <div id="ftpSchedule" class="form-item border-text-title-envent">
+                    <span class="width200">
+                        <label>
+                            {{=lang.recschedule2}}
+                            <input id="getFtpSchedType2" matchVal="getftpschedtype2" type="checkbox" />
+                        </label>
+                    </span>
+                    <span class="width50">
+                        <input id="getFtpSchedIsStartHour2" value="0" matchVal="getftpschedisstarthour2" size="2" maxlength="2" type="text" />
+                    </span>
+                    <span><label>：</label></span>
+                    <span class="width50">
+                        <input id="getFtpSchedIsStartMin2" value="0" matchVal="getftpschedisstartmin2" size="2" maxlength="2" type="text" />
+                    </span>
+                    <span class="width20">
+                        <label class="margin-left3"> ~ </label>
+                    </span>
+                    <span class="width50">
+                        <input id="getFtpSchedIsStopHour2" value="0" matchVal="getftpschedisstophour2" size="2" maxlength="2" type="text" />
+                    </span>
+                    <span><label>：</label></span>
+                    <span class="width50">
+                        <input id="getFtpSchedIsStoptMin2" value="0" matchVal="getftpschedisstoptmin2" size="2" maxlength="2" type="text" />
+                    </span>
+                </div>
+            </div>
+            <div class="form-item">
+                <ul class="margin-top24">
+                    <input id="ftpSave" class="btn web-btn" type="button" value="{{=lang.save}}" />
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- UPNP -->
+    <div class="tag-block hide" id="upnp">
+        <div class="form-item">
+            <span>
+                <input type="checkbox" id="getupnpen" matchVal="UPNP.enable." str="1" />
+            </span>
+            <span>
+                <label>{{=lang.exceptionenable}}</label>
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.diskstatus}}</label>
+            </span>
+            <span class="width200"><label id="upnptip"></label></span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.upnpinputip}}</label>
+            </span>
+            <span>
+                <input type="text" id="getupnpdevinip" class="medium-input" readonly="readonly" matchVal="UPNP.routeInteriorIp." />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label>{{=lang.upnpoutputip}}</label>
+            </span>
+            <span>
+                <input type="text" id="getupnpdevextip" class="medium-input" readonly="readonly" matchVal="UPNP.routeExternalIp." />
+            </span>
+        </div>
+        <div class="form-item margin-top5">
+            <span class="width200">
+                <label>{{=lang.upnpportmap}}</label>
+            </span>
+        </div>
+        <div class="grid grid-height clear-fix">
+            <div class="table">
+                <div class="table-header">
+                    <span class="tablece width20">
+                        <input type="checkbox" class="checkbox" id="upnpAllCheck" value="1000" />
+                    </span>
+                    <span class="tablece width90">
+                        <label>{{=lang.sdindex}}</label>
+                    </span>
+                    <span class="tablece width195">
+                        <label>{{=lang.upnpservername}}</label>
+                    </span>
+                    <span class="tablece width120">
+                        <label>{{=lang.pc1}}</label>
+                    </span>
+                    <span class="tablece width120">
+                        <label>{{=lang.upnpinput}}</label>
+                    </span>
+                    <span class="tablece width120">
+                        <label>{{=lang.upnpoutput}}</label>
+                    </span>
+                </div>
+                <div id="upnpTab" class="table-body height310"></div>
+            </div>
+        </div>
+        <div class="form-item margin-top4">
+            <span><input id="upnpAdd" class="btn browser-btn" type="button" value="{{=lang.addto}}" /></span>
+            <span><input id="upnpDel" class="btn browser-btn" type="button" value="{{=lang.del}}" /></span>
+        </div>
+        <div class="form-item">
+            <ul class="margin-top4">
+                <input id="upnpSave" class="btn web-btn" type="button" value="{{=lang.save}}" />
+            </ul>
+        </div>
+    </div>
+    <!-- PPPOE -->
+    <div class="tag-block hide" id="pppoe">
+        <div class="tags">
+            <div class="form-item">
+                <span>
+                    <input type="checkbox" id="getPppoeEnable" matchVal="getpppoeenable" />
+                </span>
+                <span>
+                    <label>{{=lang.exceptionenable}}</label>
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.userName}}</label>
+                </span>
+                <span>
+                    <input type="text" id="getPppoeUser" class="medium-input" matchVal="getpppoeuser" maxlength="31" autocomplete="off" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>{{=lang.pwd}}</label>
+                </span>
+                <span>
+                    <input type="password" id="getPppoePass" class="medium-input" matchVal="getpppoepass" maxlength="31" autocomplete="off" />
+                </span>
+            </div>
+            <div class="form-item J-xvr-network">
+                <span class="width200">
+                    <label>{{=lang.stDeIPV4}}</label>
+                </span>
+                <span>
+                    <input type="text" id="getPppoeIp" class="medium-input" matchVal="getpppoeip" disabled />
+                </span>
+            </div>
+            <div class="form-item J-xvr-network">
+                <span class="width200">
+                    <label>{{=lang.st4Mask}}</label>
+                </span>
+                <span>
+                    <input type="text" id="getPppoeMask" class="medium-input" matchVal="getpppoemask" disabled />
+                </span>
+            </div>
+            <div class="form-item">
+                <ul class="margin-top24">
+                    <input id="pppoeSave" class="btn web-btn" type="button" value="" />
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- WIFI -->
+    <div class="tag-block hide" id="wifi">
+        <div class="tags">
+            <div class="form-item">
+                <span class="width200">
+                    <label>BSSID</label>
+                </span>
+                <span>
+                    <label matchVal="network.bssid."></label>
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>ESSID</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getwifissid" matchVal="network.essid." name="SubNetMask" type="text1" keyval="HSNVR"
+                        onkeyup="checkSsid(this);" onblur="checkSsid(this);" maxlength="31" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">{{=lang.pwd}}</span>
+                <span>
+                    <input class="medium-input" id="getwifipwd" matchVal="network.password." name="password" type="text1" />
+                </span>
+                <span>
+                    <label>
+                        <input type="checkbox" id="getwifipwddisplay" matchVal="getwifipwddisplay" name="EnDHCP" onclick="checkpsw()" />
+                        {{=lang.displaypsw}}
+                    </label>
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>Wlan IP</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getwifiwlanip" readonly="readonly" matchVal="network.wlanIp." name="stMac" type="readOnly" />
+                </span>
+            </div>
+            <div class="form-item">
+                <span class="width200">
+                    <label>Wlan</label>
+                    <label>{{=lang.cameraMask}}</label>
+                </span>
+                <span>
+                    <input class="medium-input" id="getwifiwlanmask" matchVal="network.wlanMask." name="stboradcast" type="readOnly" />
+                </span>
+            </div>
+            <div class="form-item margin-top5">
+                <span>
+                    <input id="device_del" class="btn browser-btn" type="button" value="{{=lang.Advancewifi}}" onclick="editAdvanceWifi();" />
+                </span>
+                <span>
+                    <input id="device_reboot" class="btn browser-btn" type="button" value="{{=lang.deviceRestart}}" onclick="editrebootWifi();" />
+                </span>
+            </div>
+            <div class="loading hide"></div>
+            <div class="form-item">
+                <ul class="margin-top24">
+                    <input class="btn web-btn" type="button" value="{{=lang.save}}" onclick="postwifiEdit()" />
+                </ul>
+            </div>
+            <div id="dlgCfmSycn" title="" class="hide">
+                <p>{{=lang.tipWifiSync}}</p>
+            </div>
+            <div id="dlgExpCfm" title="" class="hide">
+                <p>{{=lang.tipSyncErr}}<span class="ui-icon ui-icon-alert" style="margin:12px 12px 20px 0;"></span></p>
+                <p id="tipErr" style="text-align: center;"></p>
+            </div>
+        </div>
+    </div>
+    <!-- 网络黑白名单 -->
+    <div class="tag-block hide" id="netfilter">
+        <div class="tag-block">
+            <div class="tags">
+                <div class="form-item">
+                    <span>
+                        <input id="getIpFilterEnable" matchVal="ipFilter.enable." type="checkbox" class="checkbox" />
+                        <label>{{=lang.deladdedeable}}</label>
+                    </span>
+                </div>
+                <div class="form-item">
+                    <span class="width200">
+                        <label>{{=lang.ipfilterType}}</label>
+                    </span>
+                    <span>
+                        {{= dotRender("formSelectModel", {
+                        "list": [lang.blackList, lang.whiteList],
+                        "attr": {"id": "getIpFilterType", class: "medium-select", matchVal: "ipFilter.listType."}
+                        }) }}
+                    </span>
+                </div>
+                <div class="form-item">
+                    <button class="btn browser-btn" id="addto">{{=lang.addto}}</button>
+                    <button class="btn browser-btn" id="clrAll">{{=lang.stdelall}}</button>
+                </div>
+                <div class="form-item simple-table" id="stc">
+                    <table id="tabList" width="90%" class="row-border">
+                        <thead>
+                            <tr>
+                                <td><label class="lsChk">{{=lang.remoteenable}}</label></td>
+                                <td><label class="lsChk">IP/MAC{{=lang.ptzserialnaddr}}</label>
+                                </td>
+                                <td><label>{{=lang.eidt}}</label></td>
+                                <td><label>{{=lang.del}}</label></td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="form-item">
+                    <ul class="margin-top24">
+                        <input id="bwlistSave" class="btn web-btn" type="button" value="{{=lang.save}}" />
+                    </ul>
+                </div>
+                <div id="addBwList" class="hide J-dlog-modal">
+                    <div class="form-item">
+                        <span class="width100">{{=lang.deladdedeable}}<input type="checkbox" id="bwEnable"></span>
+                    </div>
+                    <div class="form-item">
+                        <span class="width100">{{=lang.stDeIPV4}}<input type="radio" value="0" name="listMode"></span>
+                        <span class="width100">{{=lang.stMac}}<input type="radio" value="2" name="listMode"></span>
+                    </div>
+                    <div class="form-item">
+                        <span class="width100">{{=lang.ptzserialnaddr}}</span>
+                        <input id="ipAddr" type="text" class="medium-input">
+                        <input id="macAddr" type="text" class="medium-input hide">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

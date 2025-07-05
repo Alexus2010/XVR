@@ -1,0 +1,46 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [{name: lang.optionupgrade, attr: "class='current'"}]) }}
+    <div class="tag-block ">
+        <div class="form-item form-title">{{=lang.Devicereboot}}</div>
+        <div class="form-item">
+            <span>
+                <input type="button" id="deviceReboot" class="btn browser-btn" value="{{=lang.deviceRestart}}" />
+            </span>
+        </div>
+        <div class="form-item form-title" lang="upgrade">{{=lang.upgrade}}</div>
+        <div class="form-item">
+            <span class="width200">
+                {{=lang.upgradeFile}}<label lang="upgradeFile"></label>
+            </span>
+            <span>
+                <input class="path-input" id="updateFile" name="updateFile" readonly="readonly" type="text" />
+            </span>
+            <span>
+                <input id="ll" class="btn browser-btn" type="button" value="{{=lang.browse}}" />
+            </span>
+            <span>
+                <input id="upgrade" class="btn browser-btn" type="button" value="{{=lang.upgrade}}" />
+                <form id="fmUpgrade" class="hide" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" id="iptUpgradFile" accept=".bin">
+                </form>
+            </span>
+        </div>
+        <div class="form-item ">
+            <span class="width200">
+                {{=lang.upgradeProgress}}
+            </span>
+            <span>
+                <div id="progressOuter">
+                    <div id="progressInner"></div>
+                    <div id="progressText" class="width362"></div>
+                </div>
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="width200">
+                <label><b lang="explain">{{=lang.explain}}</b></label>
+            </span>
+            {{=lang.explainTips}}<span lang="explainTips"></span>
+        </div>
+    </div>
+</div>

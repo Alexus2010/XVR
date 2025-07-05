@@ -1,0 +1,328 @@
+<div class="options-block dot-template J-dot-template">
+    {{= dotRender("tagHeadModel", [
+    {name: lang.optionremote, hide: false, id: "deviceManage"},
+    {name: lang.poetitle1, hide: !isPoeEnable(), id:"powerSet"},
+    {name: lang.poetitle2, hide: !isPoeEnable(), id: "poeBonding"}
+    ])}}
+    <!-- 设备管理 -->
+    <div class="tag-block hide" id="deviceManage">
+        <div id="divTop" class="top-frame">
+            <!-- 通道编辑框 -->
+            <div id="edit">
+                <div class="edit-header clear-fix">{{=lang.channelset}}</div>
+                <div class="edit-content form-item">
+                    <div class="clear-fix">
+                        <span class="width200"><label>{{=lang.channel}}</label></span>
+                        {{= dotRender("formSelectModel", {
+                        "attr": {"id": "editaddedchannel", class: "small-select", matchval: "getchannelnum"}
+                        }) }}
+                    </div>
+                    <div class="clear-fix">
+                        <span><input id="getchanenable" matchval="channelEdit.enable." type="checkbox" str="1" /></span>
+                        <span><label>{{=lang.remoteenable}}</label></span>
+                    </div>
+                    <div class="J-func-poe clear-fix hide">
+                        <span class="width200"><label>{{=lang.addWay}}</label></span>
+                        <span>
+                            {{= dotRender("formSelectModel", {
+                            "list": [lang.remoteManualadd, lang.PAndP],
+                            "attr": {"id": "selAddWay", class: "small-select", matchval: "channelEdit.channelType."}
+                            }) }}
+                        </span>
+                    </div>
+                    <div class="clear-fix">
+                        <span class="width200"><label>{{=lang.remoteprotol}}</label></span>
+                        <span>
+                            {{= dotRender("formSelectModel", {
+                            "attr": {"id": "editaddedprotol", class: "small-select", matchval: "channelEdit.protocolType."}
+                            }) }}
+                        </span>
+                    </div>
+                    <div class="clear-fix hide">
+                        <span class="width200"><label>{{=lang.liveviewstream}}</label></span>
+                        <span>
+                            {{= dotRender("formSelectModel", {
+                            "list": [lang.mainStream, lang.childStream],
+                            "attr": {"id": "editaddedstream", class: "small-select", matchval: "getchanstream"},
+                            }) }}
+                        </span>
+                    </div>
+                    <div class="clear-fix">
+                        <span class="width200"><label>{{=lang.userName}}</label></span>
+                        <span><input maxlength="31" class="small-input" id="addedName" type="text" matchval="channelEdit.username." str="1" /></span>
+                    </div>
+                    <div class="clear-fix">
+                        <span class="width200"><label>{{=lang.pwd}}</label></span>
+                        <span><input maxlength="31" class="small-input" id="addedpwd" name="addedpwd" type="password" matchval="channelEdit.password."
+                                str="1" /></span>
+                    </div>
+                    <div id="tdinputip" class="clear-fix">
+                        <span class="width200"><label>{{=lang.cameraIP}}</label></span>
+                        <span><input maxlength="31" class="small-input" id="addedip" name="addedip" type="text" matchval="channelEdit.ip."
+                                str="1" /></span>
+                        <span><input name="addedIpcheck" type="checkbox" class="J-addedip-check" /></span>
+                    </div>
+                    <div id="tdinputdomain" class="clear-fix">
+                        <span class="width200"><label>{{=lang.domain}}</label></span>
+                        <span><input maxlength="63" class="small-input" id="addeddomain" name="addeddomain" type="text" matchval="channelEdit.domain."
+                                str="1" /></span>
+                        <span><input name="addeddomaincheck" type="checkbox" class="J-added-domain" matchval="channelEdit.enableDomain."
+                                str="1" /></span>
+                    </div>
+                    <div class="clear-fix J-td-inputport">
+                        <span class="width200"><label>{{=lang.port}}</label></span>
+                        <span>
+                            <input maxlength="31" class="small-input" id="addedport" name="addedport" type="text" matchval="channelEdit.port." min="1"
+                                max="65535" />
+                        </span>
+                    </div>
+                    <div id="tdinputmainstream" class="hide clear-fix">
+                        <span class="width200"><label>{{=lang.mainStream}}</label></span>
+                        <span><input maxlength="127" class="small-input" id="addedmainstream" name="addedmainstream" type="text"
+                                matchval="channelEdit.rtspMainStreamUrl." str="1" /></span>
+                    </div>
+                    <div id="tdinputsubstream" class="hide clear-fix">
+                        <span class="width200"><label>{{=lang.childStream}}</label></span>
+                        <span><input maxlength="127" class="small-input" id="addedsubstream" name="addedsubstream" type="text"
+                                matchval="channelEdit.rtspSubStreamUrl." str="1" /></span>
+                    </div>
+                    <div class="form-item btns">
+                        <input type="button" class="btn browser-btn J-edit-ok" id="usereditOK" value="{{=lang.save}}" />
+                        <input type="button" class="btn browser-btn" id="editCancel" value="{{=lang.cancel}}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divAddDev" class="div-main">
+            <div id="all" class="add-dev">
+                <div id="edit" class="remote-set">
+                    <div class="edit-header">
+                        <label>{{=lang.optionremote}}</label>
+                    </div>
+                    <div class="form-item">
+                        <span class="width200 margin-top10">
+                            <label>{{=lang.shuaixuan}}</label>
+                        </span>
+                        <span>
+                            <select id="getprotocl" class="medium-select" matchval="getprotocl">
+                                <option value="2" name="onvif">{{=lang.onvif}}</option>
+                                <option value="6" name="mutilNetSeg">{{=lang.MultiNS}}</option>
+                                <option value="4" name="private">{{=lang.private}}</option>
+                                <option value="5" name="onvifAndPrivte">{{=lang.onvifAprivate}}</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="search-tab margin-top10">
+                        <div id="divLogTab" class="J-logtab-div">
+                            <div class="tab-header J-search-header" id="tabSearchHeader">
+                                <div class="tab-td"><input type="checkbox" class="J-search-check" id="searchcheck" />
+                                </div>
+                                <div class="tab-td" id="searchindex">{{=lang.logNum}}</div>
+                                <div class="tab-td">{{=lang.eidt}}</div>
+                                <div class="poi-tter tab-td" sortby="ip">{{=lang.IPAddr}}</div>
+                                <div class="tab-td">{{=lang.diskstatus}}</div>
+                                <div class="tab-td">{{=lang.port}}</div>
+                                <div class="tab-td">{{=lang.remoteprotol}}</div>
+                            </div>
+                            <div class="div-body">
+                                <table id="logTab" cellspacing="0" cellpadding="4">
+                                    <tbody>
+                                        <tr id="cpSearchRow" class="hide">
+                                            <td><input type="checkbox" class="J-search-checkbox">
+                                            </td>
+                                            <td></td>
+                                            <td><a class="web-color">{{=lang.eidt}}</a></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-item margin-top10 margin-left50 J-logtab-buttons">
+                        <span>
+                            <input class="btn browser-btn ellipsis J-search-btn" type="button" value="{{=lang.remotesearch}}" />
+                        </span>
+                        <span>
+                            <input class="btn browser-btn ellipsis J-add-btn margin-left10" type="button" value="{{=lang.addto}}" />
+                        </span>
+                        <span>
+                            <input class="btn browser-btn ellipsis J-cancel-btn margin-left10" type="button" value="{{=lang.cancel}}" />
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-item margin-top15 J-editing-area clear-fix margin-bottom5">
+                <span>
+                    <input class="btn browser-btn J-add-device margin0" type="button" value="{{=lang.addto}}" />
+                </span>
+                <span>
+                    <input id="device_manul" class="btn browser-btn J-manual-add" type="button" value="{{=lang.remoteManualadd}}" />
+                </span>
+                <span>
+                    <input id="device_del" class="btn browser-btn J-delete-device" type="button" value="{{=lang.del}}" />
+                </span>
+            </div>
+            <div id="updatefile" class="form-item margin-top15 margin-left10 hide">
+                <span>
+                    <input id="ipc_updateFile" class="path-input update-file-text" type="text" readonly="readonly" />
+                </span>
+                <span>
+                    <input id="device_update" class="btn browser-btn J-update-btn" type="button" value="{{=lang.upgradenow}}" />
+                    <form id="fmUpgrade" class="hide" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" id="iptUpgradFile" accept=".bin">
+                    </form>
+                </span>
+            </div>
+            <div id="updateprogress" class="form-item hide">
+                <span>
+                    <div id="progressOuter" class="ipc-progress">
+                        <div id="progressInner"></div>
+                        <div id="progressText" class="width450"></div>
+                    </div>
+                </span>
+            </div>
+            <div id="divChannelList" class="J-chlist-div">
+                <div class="tab-header" id="tabChHeader">
+                    <div class="tab-td"><input class="checkbox J-chlist-checkbox" id="searchCheckAdded" type="checkbox">
+                    </div>
+                    <div class="tab-td" id="tipAdded">{{=lang.channel}}</div>
+                    <div class="tab-td">{{=lang.eidt}}</div>
+                    <div class="tab-td">{{=lang.remotedel}}</div>
+                    <div class="tab-td remotecfg">{{=lang.remotecfg}}</div>
+                    <div class="tab-td">{{=lang.IPAddr}}</div>
+                    <div class="tab-td hide">{{=lang.diskstatus}}</div>
+                    <div class="tab-td">{{=lang.port}}</div>
+                    <div class="tab-td">{{=lang.remoteprotol}}</div>
+                </div>
+                <div class="div-body">
+                    <table id="tabChannelList" cellspacing="0" cellpadding="4">
+                        <tbody>
+                            <!-- 行模板 -->
+                            <tr id="channelRow" class="hide">
+                                <td class="tablece"><input type="checkbox" class="checkbox"></td>
+                                <td class="tablece">00</td>
+                                <td class="tablece"><a class="web-color">{{=lang.eidt}}</a></td>
+                                <td class="tablece"><a class="web-color" href="javascript:void(0);">{{=lang.remotedel}}</a></td>
+                                <td class="tablece remotecfg"><a target="iframeOptions" class="web-color">{{=lang.remotecfg}}</a></td>
+                                <td class="tablece">255.255.255.255</td>
+                                <td class="tablece hide"></td>
+                                <td class="tablece">65536</td>
+                                <td class="tablece">Multi net segment</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PoE 绑定设定 -->
+    <div class="tag-block J-power-set" id="poeBonding">
+        <div class="poe-set-block">
+            <!-- Poe 绑定设定表格 -->
+            <div>
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            <td>
+                                <div>
+                                    <input type="checkbox" class="checkEnable J-check-change">
+                                    <label>{{=lang.remoteenable}}</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div>{{=lang.defaultChannel}}</div>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody class="J-poe-list">
+                        <tr>
+                            <td>
+                                <div><input type="checkbox"></div>
+                            </td>
+                            <td>
+                                <div>IPCamera 1</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="div-save">
+            <input type="button" class="btn web-btn J-save-binding" value="{{=lang.save}}">
+        </div>
+    </div>
+    <!-- PoE 电源设定 -->
+    <div class="tag-block J-poe-bonding" id="powerSet">
+        <div class="div-poe">
+            <div class="div-poe-list div-poe-block">
+                <!-- PoE 电源设定表格 -->
+                <div>
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <div>{{=lang.channel}}</div>
+                                </td>
+                                <td>
+                                    <div><input type="checkbox" class="J-long-change"><label>{{=lang.longdistance}}</label></div>
+                                </td>
+                                <td>
+                                    <div><input type="checkbox" class="J-short-change"><label>{{=lang.shortdistance}}</label></div>
+                                </td>
+                                <td>
+                                    <div>{{=lang.channelstatus}}</div>
+                                </td>
+                                <td>
+                                    <div>{{=lang.realpower}}</div>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody class="J-poe-power-list">
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <div><input type="checkbox" class="longEnable"></div>
+                                </td>
+                                <td>
+                                    <div><input type="checkbox" class="shortEnable"></div>
+                                </td>
+                                <td>
+                                    <div class="J-poe-status">{{=lang.connection}}</div>
+                                </td>
+                                <td>0.0w</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="div-poe-prg div-poe-block">
+                <div class="poe-prg main-prg J-poe-prg">
+                    <div class="poe-prg sub-prg J-sub-prg"></div>
+                </div>
+                <div>
+                    <div class="div-poe-sta">
+                        <div class="sub-prg"></div>
+                        <span lang="poeUsedPower" class="J-lang-prm">{{=lang.poeUsedPower}}</span>
+                    </div>
+                    <div class="div-poe-sta">
+                        <div class="main-prg"></div>
+                        <span lang="poeRemainPower" class="J-lang-prm">{{=lang.poeRemainPower}}</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p>{{=lang.note}}:</p>
+                <p>1.<label class="J-lang-prm" lang="poeNote1">{{=lang.poeNote1}}</label></p>
+                <p>2.<label class="J-lang-prm" lang="poeNote2">{{=lang.poeNote2}}</label></p>
+            </div>
+            <div class="div-save">
+                <input type="button" id="save" class="btn web-btn J-save-setting" value="{{=lang.save}}">
+            </div>
+        </div>
+    </div>
+</div>
