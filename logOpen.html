@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+    <meta http-equiv="expires" content="Sat Jan 30 2021 11:25:46 GMT" />
+    <meta name="New-Web-Login" />
+    <script>
+        document.write('<link rel="stylesheet" type="text/css" href="/statics/css/common.css?v=' + new Date().getTime() + '">');
+        document.write('<link rel="stylesheet" type="text/css" href="/login.css?v=' + new Date().getTime() + '">');
+        document.write('<link rel="stylesheet" type="text/css" href="/statics/css/theme.css?v=' + new Date().getTime() + '">');
+        document.write('<script src="/statics/lib/jquery-1.11.1.min.js?v=' + new Date().getTime() + '"><\/script>');
+        document.write('<script src="/statics/lib/LAB.min.js?v=' + new Date().getTime() + '"><\/script>');
+        document.write('<script src="/statics/js/public.js?v=' + new Date().getTime() + '"><\/script>');
+        document.write('<script src="/statics/js/api.js?v=' + new Date().getTime() + '"><\/script>');
+        document.write('<script src="/statics/js/variable.js?v=' + new Date().getTime() + '"><\/script>');
+        document.write('<script src="/logOpen.js?v=' + new Date().getTime() + '"><\/script>');
+    </script>
+</head>
+
+<body class="login-body">
+    <div class="dot-template J-dot-template">
+        <div class="password-tip J-password-tip">
+            <div class="tip-block">
+                <div class="tip-header">
+                    <label>{{=lang.tips}}</label>
+                </div>
+                <div class="tip-content">
+                    <label>{{=lang.pwdTips10}}</label>
+                </div>
+                <div>
+                    <input type="button" class="tip-btn web-btn J-edit-ok" value="{{=lang.pwdTips11}}" />
+                    <input type="button" class="tip-btn cancel-btn J-edit-cancel" value="{{=lang.pwdTips13}}" />
+                </div>
+            </div>
+        </div>
+        <div class="logining">
+            <div class="form-label">
+                <div class="language">
+                    {{= dotRender("formSelectModel", {"list": LANG_LIST, "attr": { "id": "lang", class: "lang-select"} }) }}
+                </div>
+            </div>
+            <div class="login-block">
+                <div class="main">
+                    <div class="login-frame J-login-frame">
+                        <div class="logining-subitem1">
+                            <input type="text" class="web-border logining-input J-input" id="userName" maxlength="31" placeholder="{{=lang.userName}}"
+                                value="admin" />
+                            <i class="username"></i>
+                        </div>
+                        <div class="logining-subitem2">
+                            <input type="password" class="web-border logining-input J-input" id="pwd" maxlength="31" placeholder="{{=lang.pwd}}" />
+                            <i class="password"></i>
+                            <div class="forget-password">
+                                <a href="{{=URL_PSW}}">{{=lang.forgetPwd}}</a>
+                            </div>
+                        </div>
+                        <div class="logining-subitem2">
+                            <button type="button" class="web-btn logining-btn J-login-btn">
+                                <label>{{=lang.loginBtn}}</label>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">{{=lang.companyInfo}}</div>
+        </div>
+    </div>
+</body>
+
+</html>

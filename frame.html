@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11, chrome=1" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+    <meta http-equiv="expires" content="Sat Jan 30 2021 11:25:46 GMT" />
+    <meta name="New-Web-Frame" />
+    <script>
+        document.write('<link rel="stylesheet" type="text/css" href="/statics/css/common.css?v=' + new Date().getTime() + '">');
+        document.write('<link rel="stylesheet" type="text/css" href="/frame.css?v=' + new Date().getTime() + '">');
+        document.write('<script src="/statics/lib/jquery-1.11.1.min.js?v=' + new Date().getTime() + '"><\/script>');
+        document.write('<script src="/statics/lib/LAB.min.js?v=' + new Date().getTime() + '"><\/script>');
+    </script>
+    <style class="J-main-page-css"></style>
+    <style class="J-config-page-css"></style>
+</head>
+
+<body>
+    <div class="dot-template J-dot-template">
+        <div class="main">
+            <div class="header hide J-main-header">
+                <div class="container">
+                    <div id="deviceLogo"></div>
+                    <div class="main-list J-main-list">
+                        <li>
+                            <a class="default" href="javascript:void(0);" data-path="realtime/realtime">{{=lang.realTime}}</a>
+                        </li>
+                        <!-- MAC不支持回放 -->
+                        {{? !isMacOS()}}
+                        <li id="playback">
+                            <a href="javascript:void(0);" data-path="playback/playback">{{=lang.playback}}</a>
+                        </li>
+                        {{?}}
+                        <li id="picture" class="hide">
+                            <a id="optPicture" href="javascript:void(0);" data-path="picture/picture">{{=lang.image}}</a>
+                        </li>
+                        <li>
+                            <a id="options" href="javascript:void(0);" data-path="config/config">{{=lang.options}}</a>
+                        </li>
+                    </div>
+                    <div class="main-list-right">
+                        <div class="user-info J-user-info">
+                            <a class="icon-logout J-logout">{{=lang.exit}}</a>
+                            {{? settingConf.help.enable}}
+                            <a class="icon-help" href="{{=URL_HELP}}" target="_blank">{{=lang.tipHelp}}</a>
+                            {{?}}
+                            <a class="icon-user" id="userName"></a>
+                            {{? !isMacOS()}}
+                            <a href="{{=getPluginPath()}}">{{=lang.downloadControl}}</a>
+                            {{?}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-container J-main-container"></div>
+    </div>
+    <script>
+        var rand = new Date().getTime();
+        $LAB.script([
+            '/statics/js/public.js?v=' + rand
+        ]).wait(function () {
+            $LAB.script('./frame.js?v=' + rand);
+        });;
+    </script>
+</body>
+
+</html>
